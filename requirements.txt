@@ -1,0 +1,4 @@
+https://github.com/django/django/archive/refs/tags/4.1.tar.gz
+psycopg2
+python-dotenv==0.21.0
+whitenoise==6.2.0

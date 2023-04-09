@@ -1,0 +1,32 @@
+version: '3.1'
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: grupo3
+      POSTGRES_PASSWORD: passgrupo3
+      POSTGRES_DB: tindstore
+      POSTGRES_HOST_AUTH_METHOD: trust
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./src/data/postgres:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@tindstore.cl
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    volumes:
+      - ./src/data/pgadmin:/var/lib/pgadmin
+    networks:
+      - mynetwork
+    ports:
+      - "8080:8080"

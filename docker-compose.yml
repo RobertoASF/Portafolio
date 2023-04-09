@@ -1,0 +1,43 @@
+version: "3.1"
+
+services:
+
+  db:
+    image: postgres:15.1
+    container_name: tindplace-db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASS=portafolio
+      - POSTGRES_DB=tindplace
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+  django:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgre
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: tindplace-pga
+      depends_on:
+        - db
+      ports:
+        - "5051:80"
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@tindplace.cl
+        PGADMIN_DEFAULT_PASSWORD: portafolio
+      restart: always
+      
+
+volumes:
+  postgres_data: {}
