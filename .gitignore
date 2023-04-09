@@ -1,0 +1,70 @@
+# Ignorar archivos generados automáticamente
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyi
+*.pyinstaller/
+dist/
+build/
+*.egg-info/
+*.egg
+*.whl
+*.manifest
+*.spec
+*.log
+
+# Ignorar archivos de configuración
+.env
+local_settings.py
+
+# Ignorar archivos de respaldo y caché de editor
+*~
+.*.swp
+*.bak
+*.swp
+*.swo
+*.cache
+
+# Ignorar archivos de sistema y caché
+*.DS_Store
+Thumbs.db
+
+# Ignorar archivos de migraciones de Django
+*/migrations/*.py
+*/migrations/*.pyc
+*/migrations/__pycache__/
+
+# Ignorar archivos de bases de datos y backups
+*.sqlite3
+*.db
+*.bak
+*.backup
+
+# Ignorar archivos de credenciales
+*.key
+*.pem
+*.p12
+
+# Ignorar archivos de logs
+log/
+logs/
+*.log
+
+# Ignorar archivos de media
+media/
+uploads/
+static/
+
+# Ignorar archivos de metadatos de macOS
+.DS_Store
+*.DS_Store
+
+# Ignorar archivos de caché de Spotlight
+*.metadata_never_index
+*.spotlight*
+
+# Ignorar archivos de caché de Time Machine
+*.inProgress
