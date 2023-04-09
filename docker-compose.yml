@@ -12,6 +12,9 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - "5432:5432"
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+  
   django:
     build: .
     container_name: django
@@ -33,7 +36,7 @@ services:
         PGADMIN_DEFAULT_EMAIL: admin@tindplace.cl
         PGADMIN_DEFAULT_PASSWORD: portafolio
       restart: always
-      
+
 
 volumes:
-  postgres_data: {}
+  pg_data:
