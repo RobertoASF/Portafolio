@@ -1,3 +1,8 @@
+![Last commit](https://img.shields.io/github/last-commit/RobertoASF/Portafolio?logo=git&logoColor=green&label=Último%20Commit)
+![Lenguajes](https://img.shields.io/github/languages/count/RobertoASF/Portafolio?color=purple&label=Lenguajes)
+![Contribuidores](https://img.shields.io/github/contributors/RobertoASF/Portafolio?color=green&label=Contribuidores)
+![Top Lenguaje](https://img.shields.io/github/languages/top/RobertoASF/Portafolio?color=blue)
+
 # Instalacion de TindPlace, proyecto con Django y Postgres utilizado con Docker Compose
 
 Este archivo README.md tiene como objetivo proporcionar las instrucciones necesarias para clonar un repositorio de Github que contiene un proyecto Django y una base de datos Postgres que se utilizan con Docker Compose.
