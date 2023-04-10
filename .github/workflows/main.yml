@@ -1,0 +1,21 @@
+name: Despliegue de aplicación
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+
+      - name: Construir y desplegar
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./docker-compose.yml
+          push: true
+          tags: user/repo:latest
