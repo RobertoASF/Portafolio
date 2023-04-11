@@ -1,21 +1,25 @@
-name: Despliegue de aplicación
+name: Docker Compose Test
 
 on:
   pull_request:
-    branches:
-      - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v2
+  test:
+    runs-on: centos-8
 
-      - name: Construir y desplegar
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./docker-compose.yml
-          push: true
-          tags: user/repo:latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Compose
+      uses: docker/compose-cli-action@v1
+      with:
+        compose-version: '2.0.0'
+
+    - name: Construye y ejecuta contenedores
+      run: |
+        docker-compose build
+        docker-compose up -d
+
+    - name: Baja contenedores
+      run: docker-compose down
