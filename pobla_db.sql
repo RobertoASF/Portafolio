@@ -441,7 +441,7 @@ VALUES
 ('90123456-7', 'Diego', 'Andrés', 'Vega', 'González', 'diegovega@example.com', -33.448938, -70.589355, '2023-04-02', '2023-04-02', '2023-04-02', 40, 987654321, false, 5, 1, 'https://example.com/diegovega.jpg', 6, false, null, null),
 ('1232567-9', 'Pablo', 'Andrés', 'García', 'Castillo', 'pablogarcia@example.com', -33.442790, -70.626125, '2023-04-06', '2023-04-06', '2023-04-06', 45, 123456789, true, 1, 5, 'https://example.com/pablogarcia.jpg', 2, true, '2023-04-06', '2024-04-06'),
 ('23456789-0', 'Francisco', null, 'López', null, 'franciscolopez@example.com', -33.448212, -70.648741, '2023-04-05', '2023-04-05', '2023-04-05', 50, 987654321, false, 4, 2, 'https://example.com/franciscolopez.jpg', 5, false, null, null),
-('34567890-k', 'Javiera', null, 'Ramírez', 'Díaz', 'javieraramirez@example.com', -33.435052, -70.562920, '2023-04-04', '2023-04-04', '2023-04-04', 55, 123456789, true, 3, 4, 'https://example.com/javieraramirez.jpg', 3, true, '2023-04-04', '2024-04-04');
+('34567890-k', 'Javiera', null, 'Peralta', 'Díaz', 'javieraramirez@example.com', -33.435052, -70.562920, '2023-04-04', '2023-04-04', '2023-04-04', 55, 123456789, true, 3, 4, 'https://example.com/javieraramirez.jpg', 3, true, '2023-04-04', '2024-04-04');
 
 INSERT INTO "affinity" ("af_id", "af_name")
 VALUES
