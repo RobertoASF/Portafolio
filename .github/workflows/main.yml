@@ -18,7 +18,6 @@ jobs:
 
     - name: Construye y ejecuta contenedores
       run: |
-        #docker-compose build --platform=linux/amd64 -t myimage:latest .
         docker-compose up -d
 
     - name: Baja contenedores
