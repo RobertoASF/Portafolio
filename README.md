@@ -79,6 +79,10 @@ Este comando detendrá los contenedores de Docker y eliminará los contenedores,
 ```bash
 chmod +rx /ruta/al/archivo/manage.py
 ```
-
+ * En caso que al hacer docker-compose up` arroje error indiccando que hay otro proceso usando el puerto 5432 (u otro) hay que matar el proceso que esté usando el puerto con conficto, para eso primero hay que identificar el proceso con el siguiente comando:
+```bash
+sudo lsof -i :5432
+```
+Identificado el proceso se puede matar y con esto el puerto quedaría libre.
 
 
