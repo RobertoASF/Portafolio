@@ -27,4 +27,4 @@ echo "Ejecutando pobla_db.sql ..."
 psql -h $HOST -d $DBNAME -U $USER -W $PASSWORD -f pobla_db.sql
 
 # Ejecuta la creación de tablas en el Models.py
-python manage.py inspectdb >> /code/tindplace/models.py
+python manage.py inspectdb > /code/tindplace/models.py
