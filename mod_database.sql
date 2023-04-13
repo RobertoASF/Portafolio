@@ -16,6 +16,7 @@ CREATE TABLE "user"(
     "user_surname1" VARCHAR(255) NOT NULL,
     "user_surname2" VARCHAR(255) NULL,
     "user_email" VARCHAR(255) NOT NULL,
+    "user_password" VARCHAR(255) NOT NULL,
     "user_last_loc_lat" DOUBLE PRECISION NULL,
     "user_last_loc_long" DOUBLE PRECISION NULL,
     "user_date_lastloc" DATE NULL,

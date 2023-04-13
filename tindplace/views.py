@@ -1,25 +1,20 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import login, logout
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
 
-def login_view(request):
+def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            if user.user_active:
+                login(request, user)
+                return HttpResponseRedirect('/home/')
+            else:
+                return render(request, 'login.html', {'error_message': 'Tu cuenta esta desactivada.'})
+        else:
+            return render(request, 'login.html', {'error_message': 'Correo o contraseña incorrecta.'})
     else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+        return render(request, 'login.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
