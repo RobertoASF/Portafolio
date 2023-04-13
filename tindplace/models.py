@@ -293,6 +293,7 @@ class User(models.Model):
     user_surname1 = models.CharField(max_length=255)
     user_surname2 = models.CharField(max_length=255, blank=True, null=True)
     user_email = models.CharField(max_length=255)
+    user_password = models.CharField(max_length=255)
     user_last_loc_lat = models.FloatField(blank=True, null=True)
     user_last_loc_long = models.FloatField(blank=True, null=True)
     user_date_lastloc = models.DateField(blank=True, null=True)

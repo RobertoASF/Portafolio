@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS product_score, "user", affinity, region, comuna, user_score, historical, "match", provincia, admin, product, indictment, category, address, product_category;
 
 CREATE TABLE "product_score"(
     "score_id" INTEGER NOT NULL,
