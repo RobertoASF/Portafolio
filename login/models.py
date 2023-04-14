@@ -15,7 +15,7 @@ class Address(models.Model):
     cod_postal = models.CharField(max_length=255, blank=True, null=True)
     casa_o_dep = models.IntegerField()
     calle = models.CharField(max_length=255)
-    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
     numero = models.CharField(max_length=255)
     comentario = models.CharField(max_length=255, blank=True, null=True)
 
@@ -212,7 +212,7 @@ class Indictment(models.Model):
 
 
 class Match(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    prod_seller = models.OneToOneField('User', models.DO_NOTHING, db_column='prod_seller')
     match_date = models.DateField()
     user_liked = models.CharField(max_length=255)
 
@@ -230,7 +230,7 @@ class Product(models.Model):
     prod_date = models.DateField()
     prod_score = models.IntegerField(blank=True, null=True)
     prod_seller = models.ForeignKey('User', models.DO_NOTHING, db_column='prod_seller')
-    prod_reported = models.NullBooleanField()
+    prod_reported = models.BooleanField(null=True)
     prod_active = models.BooleanField()
     prod_description = models.CharField(max_length=255)
     prod_affinitie1 = models.IntegerField()
