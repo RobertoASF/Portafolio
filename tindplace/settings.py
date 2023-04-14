@@ -68,7 +68,6 @@ TEMPLATES = [
     },
 ]
 
-STATIC_URL = '/static/'
 
 WSGI_APPLICATION = "tindplace.wsgi.application"
 

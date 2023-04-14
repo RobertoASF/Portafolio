@@ -19,8 +19,8 @@ USER="admin"
 PASSWORD="portafolio"
 
 # Ejecuta creación de tablas
-echo "Ejecutando mod_database.sql ..."
-psql -h $HOST -d $DBNAME -U $USER -W $PASSWORD -f mod_database.sql
+#echo "Ejecutando mod_database.sql ..."
+#psql -h $HOST -d $DBNAME -U $USER -W $PASSWORD -f mod_database.sql
 
 # Ejecuta poblado de tablas
 echo "Ejecutando pobla_db.sql ..."
