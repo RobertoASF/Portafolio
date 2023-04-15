@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "login",
 ]
 
 MIDDLEWARE = [
@@ -51,10 +52,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "tindplace.urls"
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+TEMPLATES = [    {        'BACKEND': 'django.template.backends.django.DjangoTemplates',        
+                  'DIRS': [BASE_DIR / 'templates'], # Agrega la ruta a la carpeta "templates"
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,8 +66,8 @@ TEMPLATES = [
         },
     },
 ]
-
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 WSGI_APPLICATION = "tindplace.wsgi.application"
 

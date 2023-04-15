@@ -1,12 +1,3 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
-from __future__ import unicode_literals
-
 from django.db import models
 
 
@@ -15,13 +6,14 @@ class Address(models.Model):
     cod_postal = models.CharField(max_length=255, blank=True, null=True)
     casa_o_dep = models.IntegerField()
     calle = models.CharField(max_length=255)
-    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    user = models.OneToOneField('User', on_delete=models.CASCADE)
     numero = models.CharField(max_length=255)
     comentario = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'address'
+        app_label = 'login'
 
 
 class Admin(models.Model):
@@ -93,7 +85,7 @@ class Indictment(models.Model):
 
 
 class Match(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    user = models.OneToOneField('User', on_delete=models.CASCADE)
     match_date = models.DateField()
     user_liked = models.CharField(max_length=255)
 
@@ -103,15 +95,15 @@ class Match(models.Model):
 
 
 class Product(models.Model):
-    prod = models.ForeignKey(Indictment, models.DO_NOTHING, primary_key=True)
+    prod = models.ForeignKey('User', on_delete=models.CASCADE, related_name="products", null=True, blank=True)
     prod_name = models.CharField(max_length=255)
     prod_new = models.BooleanField()
     permuta = models.BooleanField()
     prod_price = models.IntegerField()
     prod_date = models.DateField()
     prod_score = models.IntegerField(blank=True, null=True)
-    prod_seller = models.ForeignKey('User', models.DO_NOTHING, db_column='prod_seller')
-    prod_reported = models.NullBooleanField()
+    prod_seller = models.ForeignKey('User', on_delete=models.CASCADE, related_name="products_selling", null=True, blank=True)
+    prod_reported = models.BooleanField(null=True)
     prod_active = models.BooleanField()
     prod_description = models.CharField(max_length=255)
     prod_affinitie1 = models.IntegerField()
