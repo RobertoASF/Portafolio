@@ -14,15 +14,25 @@
       rel="stylesheet"
     />
   </head>
-  <body
-    style="font-family: 'Open Sans', sans-serif;"
-    >
-    <div style="display: flex; align-items: center; flex-direction: column; margin-top: 40px;">
-      {% if user %}
-      <h1>Bienvenido, {{ user.user_name1 }}!</h1>
-      {% else %}
+  <body style="font-family: 'Open Sans', sans-serif">
+    <div
+    style="
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 40px;
+    "
+  >
+  {% if user %}
+  <h1>Bienvenido, {{ user.user_name1 }}</h1>
+  {% else %}
+    {% if not user %}
       <h1>Bienvenido!</h1>
-      {% endif %}
-    </div>
+      <p>No se pudo comprobar si hay un usuario registrado</p>
+    {% endif %}
+  {% endif %}
+  </div>
+  
+  
   </body>
 </html>

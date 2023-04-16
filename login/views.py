@@ -29,6 +29,7 @@ def home(request):
         context = {'user': user}
         return render(request, 'home.html', context)
     else:
-        # redirige al usuario a la página de inicio de sesión si no ha iniciado sesión
-        return redirect('login')  
+        message = "¿Aún no te registras?, prueba ahora TindPlace"
+    context = {'message': message}
+    return render(request, 'home.html', context)
 

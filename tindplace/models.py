@@ -68,6 +68,16 @@ class Comuna(models.Model):
         db_table = 'comuna'
 
 
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_session'
+
+
 class Historical(models.Model):
     hist_id = models.IntegerField(primary_key=True)
     date = models.DateField()

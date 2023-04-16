@@ -189,3 +189,13 @@ ALTER TABLE
     "match" ADD CONSTRAINT "match_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "user"("user_id");
 ALTER TABLE
     "product" ADD CONSTRAINT "product_prod_seller_foreign" FOREIGN KEY("prod_seller") REFERENCES "user"("user_id");
+
+-- Eliminamos 
+DROP TABLE IF EXISTS django_session;
+-- Creamos esta tabla para que deje iniciar a usuarios
+CREATE TABLE django_session (
+    session_key varchar(40) NOT NULL PRIMARY KEY,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
