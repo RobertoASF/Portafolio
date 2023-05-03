@@ -17,6 +17,7 @@ def create_product(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             product = form.save(commit=False)
+            product.prod_id = 1;
             product.prod_seller = user
             product.save()
             return redirect('home')
