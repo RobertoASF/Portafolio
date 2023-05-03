@@ -103,7 +103,7 @@ class Product(models.Model):
     prod_date = models.DateField()
     prod_score = models.IntegerField(blank=True, null=True)
     #prod_seller = models.ForeignKey('User', on_delete=models.CASCADE, related_name="products_selling", null=True, blank=True)
-    prod_seller = models.ForeignKey('User', on_delete=models.CASCADE, related_name="products_selling", to_field="user_id", null=True, blank=True)
+    prod_seller = models.ForeignKey('User', on_delete=models.CASCADE)
     prod_reported = models.BooleanField(null=True)
     prod_active = models.BooleanField()
     prod_description = models.CharField(max_length=255)

@@ -5,9 +5,6 @@ from login.models import User
 from .forms import ProductForm
 from login.models import Product
 
-from django.contrib.auth.decorators import login_required
-
-from django.contrib.auth.decorators import login_required
 
 def create_product(request):
     user_id = request.session.get('user_id')

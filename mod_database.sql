@@ -199,3 +199,14 @@ CREATE TABLE django_session (
     expire_date timestamp with time zone NOT NULL
 );
 
+/*
+
+Para revisar:
+
+ALTER TABLE "product"
+ADD CONSTRAINT "fk_product_user"
+FOREIGN KEY ("prod_seller")
+REFERENCES "user" ("user_id")
+ON DELETE CASCADE;
+
+*/
