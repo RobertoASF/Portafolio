@@ -456,9 +456,3 @@ VALUES
 (9, 'salud'),
 (10, 'arte');
 
-
-/*
-INSERT INTO indictment (id_prod, report_date, user_reported, user_accuser, report_description, report_action)
-VALUES (1, '2023-05-03', 'Laura', 'Juan', 'Producto defectuoso', 'Reemplazo'),
-       (2, '2023-05-02', 'Pedro', 'María', 'Venta fraudulenta', 'Bloquear cuenta'),
-       (3, '2023-05-01', 'Juan', 'Pedro', 'Falsa publicidad', 'Reembolso');*/
