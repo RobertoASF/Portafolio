@@ -455,4 +455,3 @@ VALUES
 (8, 'ropa'),
 (9, 'salud'),
 (10, 'arte');
-

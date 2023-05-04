@@ -72,7 +72,7 @@ class Historical(models.Model):
 
 
 class Indictment(models.Model):
-    id_prod = models.IntegerField(primary_key=True)
+    id_prod_indct = models.IntegerField(primary_key=True)
     report_date = models.DateField()
     user_reported = models.CharField(max_length=255)
     user_accuser = models.CharField(max_length=255)
@@ -97,6 +97,7 @@ class Match(models.Model):
 class Product(models.Model):
     prod_id = models.CharField(primary_key=True, max_length=255)
     prod_name = models.CharField(max_length=255)
+    id_prod_indct = models.IntegerField()
     prod_new = models.BooleanField()
     permuta = models.BooleanField()
     prod_price = models.IntegerField()
@@ -160,7 +161,7 @@ class Region(models.Model):
 
 
 class User(models.Model):
-    user_id = models.CharField(primary_key=True, max_length=255)
+    user_id = models.IntegerField(primary_key=True)
     user_name1 = models.CharField(max_length=255)
     user_name2 = models.CharField(max_length=255, blank=True, null=True)
     user_surname1 = models.CharField(max_length=255)

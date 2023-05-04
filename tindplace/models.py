@@ -50,7 +50,7 @@ class Affinity(models.Model):
 
 
 class Category(models.Model):
-    cat_id = models.IntegerField(primary_key=True)
+    cat_id = models.CharField(primary_key=True, max_length=255)
     cat_name = models.CharField(max_length=255)
 
     class Meta:
@@ -82,7 +82,7 @@ class Historical(models.Model):
     hist_id = models.IntegerField(primary_key=True)
     date = models.DateField()
     buyer_id = models.CharField(max_length=255)
-    prod_id = models.IntegerField()
+    prod = models.ForeignKey('Product', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -131,6 +131,7 @@ class Product(models.Model):
     prod_photo3 = models.CharField(max_length=255, blank=True, null=True)
     prod_photo4 = models.CharField(max_length=255, blank=True, null=True)
     prod_photo5 = models.CharField(max_length=255, blank=True, null=True)
+    id_prod_indct = models.ForeignKey(Indictment, models.DO_NOTHING, db_column='id_prod_indct', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -138,8 +139,8 @@ class Product(models.Model):
 
 
 class ProductCategory(models.Model):
-    product = models.ForeignKey(Category, models.DO_NOTHING, db_column='product')
-    category = models.IntegerField()
+    product = models.ForeignKey(Product, models.DO_NOTHING, db_column='product')
+    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category')
 
     class Meta:
         managed = False
@@ -149,7 +150,7 @@ class ProductCategory(models.Model):
 class ProductScore(models.Model):
     score_id = models.IntegerField(primary_key=True)
     user_reviewer = models.CharField(max_length=255)
-    product_reviewed = models.IntegerField()
+    product_reviewed = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_reviewed')
     score_date = models.DateField()
     score_value = models.IntegerField()
 
