@@ -132,7 +132,7 @@ ALTER TABLE
     "product" ADD PRIMARY KEY("prod_id");
 
 CREATE TABLE "indictment"(
-    "id_prod" INTEGER NOT NULL,
+    "id_prod_indct" INTEGER NOT NULL,
     "report_date" DATE NOT NULL,
     "user_reported" VARCHAR(255) NOT NULL,
     "user_accuser" VARCHAR(255) NOT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE "indictment"(
     "report_action" VARCHAR(255) NOT NULL
 );
 ALTER TABLE
-    "indictment" ADD PRIMARY KEY("id_prod");
+    "indictment" ADD PRIMARY KEY("id_prod_indct");
 
 CREATE TABLE "category"(
     "cat_id" INTEGER NOT NULL,
@@ -172,7 +172,7 @@ ALTER TABLE
 ALTER TABLE
     "address" ADD CONSTRAINT "address_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "user"("user_id");
 ALTER TABLE
-    "product" ADD CONSTRAINT "product_prod_id_foreign" FOREIGN KEY("prod_id") REFERENCES "indictment"("id_prod");
+    "product" ADD CONSTRAINT "product_prod_id_foreign" FOREIGN KEY("id_prod_indct") REFERENCES "indictment"("id_prod_indct");
 ALTER TABLE
     "comuna" ADD CONSTRAINT "comuna_provincia_id_foreign" FOREIGN KEY("provincia_id") REFERENCES "provincia"("provincia_id");
 ALTER TABLE
