@@ -161,7 +161,7 @@ class Region(models.Model):
 
 
 class User(models.Model):
-    user_id = models.IntegerField(primary_key=True)
+    user_id = models.CharField(primary_key=True, max_length=255)
     user_name1 = models.CharField(max_length=255)
     user_name2 = models.CharField(max_length=255, blank=True, null=True)
     user_surname1 = models.CharField(max_length=255)
