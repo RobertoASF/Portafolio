@@ -65,6 +65,28 @@
       <p>No se pudo comprobar si hay un usuario registrado</p>
       {% endif %}
     </div>
+    <div class="container">
+      {% for product in products %}
+    <div class="product-card">
+        <h3>{{ product.prod_name }}</h3>
+        <p>Precio: {{ product.prod_price }}</p>
+        <p>Descripción: {{ product.prod_description }}</p>
+        {% if product.prod_new %}
+            <p>Condición: Nuevo</p>
+        {% else %}
+            <p>Condición: Usado</p>
+        {% endif %}
+        {% if request.session.user_id %}
+        <a class="btn btn-primary btn-sm " href="#" role="button"> Comprar </a>
+        {% else %}
+        <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
+        {% endif %}
+
+    </div>
+{% endfor %}
+
+
+    </div>
     <!--Boostrap JS-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

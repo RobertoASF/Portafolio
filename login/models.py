@@ -95,7 +95,7 @@ class Match(models.Model):
 
 
 class Product(models.Model):
-    prod = models.ForeignKey(Indictment, models.DO_NOTHING, primary_key=True)
+    prod_id = models.CharField(primary_key=True, max_length=255)
     prod_name = models.CharField(max_length=255)
     prod_new = models.BooleanField()
     permuta = models.BooleanField()

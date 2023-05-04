@@ -109,7 +109,7 @@ ALTER TABLE
     "admin" ADD PRIMARY KEY("admin_id");
 
 CREATE TABLE "product"(
-    "prod_id" INTEGER NOT NULL,
+    "prod_id" VARCHAR(255) NOT NULL,
     "prod_name" VARCHAR(255) NOT NULL,
     "prod_new" BOOLEAN NOT NULL,
     "permuta" BOOLEAN NOT NULL,

@@ -3,7 +3,7 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User
+from .models import Product, User
 from .forms import LoginForm, RegistrationForm
 
 def login(request):
@@ -34,7 +34,11 @@ def home(request):
             context = {'message': 'No se pudo encontrar al usuario'}
     else:
         context = {'message': '¿Aún no te registras?, prueba ahora TindPlace'}
+
+    products = Product.objects.all()
+    context['products'] = products
     return render(request, 'home.html', context)
+
 
 
 def logout(request):

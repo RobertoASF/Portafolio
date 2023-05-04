@@ -1,9 +1,8 @@
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render
 from login.models import User
-
+import uuid
 from .forms import ProductForm
-from login.models import Product
 
 
 def create_product(request):
@@ -17,7 +16,7 @@ def create_product(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             product = form.save(commit=False)
-            product.prod_id = 1;
+            product.prod_id = uuid.uuid4().hex;
             product.prod_seller = user
             product.save()
             return redirect('home')

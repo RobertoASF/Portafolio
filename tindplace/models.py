@@ -82,7 +82,7 @@ class Historical(models.Model):
     hist_id = models.IntegerField(primary_key=True)
     date = models.DateField()
     buyer_id = models.CharField(max_length=255)
-    prod = models.ForeignKey('Product', models.DO_NOTHING)
+    prod_id = models.IntegerField()
 
     class Meta:
         managed = False
@@ -90,7 +90,7 @@ class Historical(models.Model):
 
 
 class Indictment(models.Model):
-    id_prod = models.IntegerField(primary_key=True)
+    id_prod_indct = models.IntegerField(primary_key=True)
     report_date = models.DateField()
     user_reported = models.CharField(max_length=255)
     user_accuser = models.CharField(max_length=255)
@@ -113,7 +113,7 @@ class Match(models.Model):
 
 
 class Product(models.Model):
-    prod = models.ForeignKey(Indictment, models.DO_NOTHING, primary_key=True)
+    prod_id = models.CharField(primary_key=True, max_length=255)
     prod_name = models.CharField(max_length=255)
     prod_new = models.BooleanField()
     permuta = models.BooleanField()
@@ -139,7 +139,7 @@ class Product(models.Model):
 
 class ProductCategory(models.Model):
     product = models.ForeignKey(Category, models.DO_NOTHING, db_column='product')
-    category = models.ForeignKey(Product, models.DO_NOTHING, db_column='category')
+    category = models.IntegerField()
 
     class Meta:
         managed = False
@@ -149,7 +149,7 @@ class ProductCategory(models.Model):
 class ProductScore(models.Model):
     score_id = models.IntegerField(primary_key=True)
     user_reviewer = models.CharField(max_length=255)
-    product_reviewed = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_reviewed')
+    product_reviewed = models.IntegerField()
     score_date = models.DateField()
     score_value = models.IntegerField()
 
