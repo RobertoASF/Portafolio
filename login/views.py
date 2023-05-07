@@ -69,16 +69,16 @@ def register(request):
         if form.is_valid():
             # Cree una instancia de User con los datos del formulario
             user = User(
-                user_id=uuid.uuid4().hex,
+                user_id= form.cleaned_data['user_id'],
                 user_name1=form.cleaned_data['user_name1'],
                 user_name2=form.cleaned_data['user_name2'],
                 user_surname1=form.cleaned_data['user_surname1'],
                 user_surname2=form.cleaned_data['user_surname2'],
                 user_email=form.cleaned_data['user_email'],
                 user_password=form.cleaned_data['user_password'],
-                user_last_loc_lat=form.cleaned_data['user_last_loc_lat'],
-                user_last_loc_long=form.cleaned_data['user_last_loc_long'],
-                user_date_lastloc=form.cleaned_data['user_date_lastloc'],
+                user_last_loc_lat= 1,
+                user_last_loc_long=1,
+                user_date_lastloc=  datetime.date.today(),
                 date_registred=datetime.date.today(),
                 date_last_login=datetime.date.today(),
                 user_score=0,
