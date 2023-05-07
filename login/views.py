@@ -3,8 +3,8 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Product, User
-from .forms import LoginForm, RegistrationForm
+from .models import Product, User ,Admin
+from .forms import AdminForm, LoginForm, RegistrationForm
 
 def login(request):
     if request.method == 'POST':
@@ -23,6 +23,23 @@ def login(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+def admin_login(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+        if form.is_valid():
+            admin_email = form.cleaned_data['admin_email']
+            admin_name1 = form.cleaned_data['admin_name1']
+            try:
+                admin = Admin.objects.get(admin_email=admin_email, admin_name1=admin_name1)
+                # Si el inicio de sesión es exitoso, redirige al usuario a la vista 'dashboard'
+                context = {'admin': admin}
+                return render(request, 'home.html', context)
+            except Admin.DoesNotExist:
+                messages.error(request, 'Las credenciales ingresadas son incorrectas.')
+    else:
+        form = AdminForm()
+    return render(request, 'admin_login.html', {'form': form})
 
 def home(request):
     user_id = request.session.get('user_id', None)
