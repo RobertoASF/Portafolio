@@ -50,7 +50,7 @@ class Affinity(models.Model):
 
 
 class Category(models.Model):
-    cat_id = models.IntegerField(primary_key=True)
+    cat_id = models.CharField(primary_key=True, max_length=255)
     cat_name = models.CharField(max_length=255)
 
     class Meta:
@@ -90,7 +90,7 @@ class Historical(models.Model):
 
 
 class Indictment(models.Model):
-    id_prod = models.IntegerField(primary_key=True)
+    id_prod_indct = models.IntegerField(primary_key=True)
     report_date = models.DateField()
     user_reported = models.CharField(max_length=255)
     user_accuser = models.CharField(max_length=255)
@@ -113,7 +113,7 @@ class Match(models.Model):
 
 
 class Product(models.Model):
-    prod = models.ForeignKey(Indictment, models.DO_NOTHING, primary_key=True)
+    prod_id = models.CharField(primary_key=True, max_length=255)
     prod_name = models.CharField(max_length=255)
     prod_new = models.BooleanField()
     permuta = models.BooleanField()
@@ -131,6 +131,7 @@ class Product(models.Model):
     prod_photo3 = models.CharField(max_length=255, blank=True, null=True)
     prod_photo4 = models.CharField(max_length=255, blank=True, null=True)
     prod_photo5 = models.CharField(max_length=255, blank=True, null=True)
+    id_prod_indct = models.ForeignKey(Indictment, models.DO_NOTHING, db_column='id_prod_indct', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -138,8 +139,8 @@ class Product(models.Model):
 
 
 class ProductCategory(models.Model):
-    product = models.ForeignKey(Category, models.DO_NOTHING, db_column='product')
-    category = models.ForeignKey(Product, models.DO_NOTHING, db_column='category')
+    product = models.ForeignKey(Product, models.DO_NOTHING, db_column='product')
+    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category')
 
     class Meta:
         managed = False

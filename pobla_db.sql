@@ -456,8 +456,6 @@ VALUES
 (9, 'salud'),
 (10, 'arte');
 
--- admins
-
 INSERT INTO "admin" ("admin_id", "admin_name1", "admin_name2", "admin_surname1", "admin_surname2", "admin_email", "admin_date_hire", "admin_status", "is_super_admin") 
 VALUES 
 ('1', 'John', 'W.', 'Doe', NULL, 'john.doe@example.com', '2020-01-01', TRUE, TRUE),

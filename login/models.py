@@ -72,7 +72,7 @@ class Historical(models.Model):
 
 
 class Indictment(models.Model):
-    id_prod = models.IntegerField(primary_key=True)
+    id_prod_indct = models.IntegerField(primary_key=True)
     report_date = models.DateField()
     user_reported = models.CharField(max_length=255)
     user_accuser = models.CharField(max_length=255)
@@ -95,14 +95,15 @@ class Match(models.Model):
 
 
 class Product(models.Model):
-    prod = models.ForeignKey('User', on_delete=models.CASCADE, related_name="products", null=True, blank=True)
+    prod_id = models.CharField(primary_key=True, max_length=255)
     prod_name = models.CharField(max_length=255)
+    id_prod_indct = models.IntegerField()
     prod_new = models.BooleanField()
     permuta = models.BooleanField()
     prod_price = models.IntegerField()
     prod_date = models.DateField()
     prod_score = models.IntegerField(blank=True, null=True)
-    prod_seller = models.ForeignKey('User', on_delete=models.CASCADE, related_name="products_selling", null=True, blank=True)
+    prod_seller = models.ForeignKey('User', models.DO_NOTHING, db_column='prod_seller')
     prod_reported = models.BooleanField(null=True)
     prod_active = models.BooleanField()
     prod_description = models.CharField(max_length=255)
