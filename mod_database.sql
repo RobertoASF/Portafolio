@@ -10,6 +10,21 @@ CREATE TABLE "product_score"(
 ALTER TABLE
     "product_score" ADD PRIMARY KEY("score_id");
 
+--Se crea tabla "app_score" para que reciba los valores de las encuestas
+
+CREATE TABLE "app_score"(
+	"app_score_id" 	VARCHAR(255) 	NOT NULL,
+	"user_id"		VARCHAR(255)	NOT NULL,
+	"as_date"		DATE			NOT NULL,
+	"as_q1" 		INTEGER 		NOT NULL,
+	"as_q2" 		INTEGER 		NOT NULL,
+	"as_q3" 		INTEGER 		NOT NULL,
+	"as_q4" 		INTEGER 		NOT NULL,
+	"as_q5"			INTEGER 		NOT NULL
+);
+ALTER TABLE "app_score" ADD PRIMARY KEY("app_score_id");
+
+
 CREATE TABLE "user"(
     "user_id" VARCHAR(255) NOT NULL,
     "user_name1" VARCHAR(255) NOT NULL,
@@ -167,6 +182,9 @@ CREATE TABLE "product_category"(
 );
 ALTER TABLE
     "product_score" ADD CONSTRAINT "product_score_product_reviewed_foreign" FOREIGN KEY("product_reviewed") REFERENCES "product"("prod_id");
+
+ALTER TABLE "app_score" ADD CONSTRAINT "app_score_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");
+
 ALTER TABLE
     "historical" ADD CONSTRAINT "historical_prod_id_foreign" FOREIGN KEY("prod_id") REFERENCES "product"("prod_id");
 ALTER TABLE
@@ -198,4 +216,3 @@ CREATE TABLE django_session (
     session_data text NOT NULL,
     expire_date timestamp with time zone NOT NULL
 );
-
