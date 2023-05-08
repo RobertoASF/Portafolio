@@ -53,7 +53,9 @@ def home(request):
         context = {'message': '¿Aún no te registras?, prueba ahora TindPlace'}
 
     products = Product.objects.all()
+    user = User.objects.all()
     context['products'] = products
+    context['user'] = user
     return render(request, 'home.html', context)
 
 
