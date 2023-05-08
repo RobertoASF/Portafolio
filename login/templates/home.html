@@ -65,25 +65,35 @@
       <p>No se pudo comprobar si hay un usuario registrado</p>
       {% endif %}
     </div>
-    <div class="container">
-      {% for product in products %}
-    <div class="product-card">
-        <h3>{{ product.prod_name }}</h3>
-        <p>Precio: {{ product.prod_price }}</p>
-        <p>Descripción: {{ product.prod_description }}</p>
-        {% if product.prod_new %}
-            <p>Condición: Nuevo</p>
-        {% else %}
-            <p>Condición: Usado</p>
-        {% endif %}
-        {% if request.session.user_id %}
-        <a class="btn btn-primary btn-sm " href="#" role="button"> Comprar </a>
-        {% else %}
-        <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
-        {% endif %}
+    <div class="container my-4">
+      
 
-    </div>
-{% endfor %}
+      <div class="row">
+        {% for product in products %}
+        <div class="col-4">
+          <div class="card">
+            <img class="card-img-top" src="https://placehold.co/300x300/png" alt="Card image cap">
+            <div class="card-body">
+              <h3 class="card-title">{{ product.prod_name }}</h3>
+              <p>Precio: $ {{ product.prod_price }}</p>
+              <p>Descripción: {{ product.prod_description }}</p>
+              {% if product.prod_new %}
+                  <p>Condición: Nuevo</p>
+              {% else %}
+                  <p>Condición: Usado</p>
+              {% endif %}
+              {% if request.session.user_id %}
+              <a class="btn btn-primary btn-sm " href="#" role="button"> Comprar </a>
+              {% else %}
+              <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+
 
 
     </div>
