@@ -195,6 +195,7 @@ CREATE TABLE
         "product" VARCHAR(255) NOT NULL,
         "category" VARCHAR(255) NOT NULL
     );
+ALTER TABLE "app_score" ADD CONSTRAINT "app_score_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
 
 ALTER TABLE "product_score" ADD CONSTRAINT "product_score_product_reviewed_foreign" FOREIGN KEY ("product_reviewed") REFERENCES "product"("prod_id");
 
