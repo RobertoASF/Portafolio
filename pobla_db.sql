@@ -461,3 +461,23 @@ VALUES
 ('1', 'John', 'W.', 'Doe', NULL, 'john.doe@example.com', '2020-01-01', TRUE, TRUE),
 ('2', 'Jane', NULL, 'Doe', NULL, 'jane.doe@example.com', '2020-02-01', FALSE, FALSE),
 ('3', 'Bob', 'A.', 'Smith', NULL, 'bob.smith@example.com', '2020-03-01', TRUE, FALSE);
+
+
+--Productos
+
+INSERT INTO public."product" 
+(prod_id, prod_name, prod_new, permuta, prod_price, prod_date, prod_score, prod_seller, prod_reported, prod_active, prod_description, prod_affinitie1, prod_affinitie2, prod_photo1, prod_photo2, prod_photo3, prod_photo4, prod_photo5, id_prod_indct)
+VALUES
+('prod001', 'Smartphone Galaxy S21', true, false, 800000, '2023-05-01', null, '12345678-9', false, true, 'Último modelo de Samsung con pantalla OLED', 1, 2, 'https://example.com/smartphone-galaxy-s21-1.jpg', 'https://example.com/smartphone-galaxy-s21-2.jpg', 'https://example.com/smartphone-galaxy-s21-3.jpg', null, null, null),
+('prod002', 'Laptop Macbook Pro 2021', true, true, 1800000, '2023-05-02', null, '15678901-2', false, true, 'La mejor laptop de Apple con procesador M1', 1, null, 'https://example.com/laptop-macbook-pro-1.jpg', 'https://example.com/laptop-macbook-pro-2.jpg', null, null, null, null),
+('prod003', 'Smart TV 55 pulgadas', false, true, 1000000, '2023-05-03', null, '34567890-1', true, true, 'TV con resolución 4K y compatibilidad con streaming', 2, 3, 'https://example.com/smart-tv-55-1.jpg', 'https://example.com/smart-tv-55-2.jpg', 'https://example.com/smart-tv-55-3.jpg', null, null, null),
+('prod004', 'Zapatos deportivos Nike', false, false, 70000, '2023-05-04', null, '78901234-5', false, true, 'Zapatos deportivos de la marca Nike en talla 42', 3, null, 'https://example.com/zapatos-nike-1.jpg', 'https://example.com/zapatos-nike-2.jpg', 'https://example.com/zapatos-nike-3.jpg', null, null, null),
+('prod005', 'Cámara fotográfica Canon', false, false, 500000, '2023-05-05', null, '34567890-k', true, true, 'Cámara con lente intercambiable y grabación en Full HD', 4, 5, 'https://example.com/camara-canon-1.jpg', 'https://example.com/camara-canon-2.jpg', null, null, null, null),
+('prod006', 'Guitarra acústica', true, false, 150000, '2023-05-06', null, '16789012-3', false, true, 'Guitarra acústica con cuerdas de acero y cuerpo de madera', 5, null, 'https://example.com/guitarra-acustica-1.jpg', 'https://example.com/guitarra-acustica-2.jpg', 'https://example.com/guitarra-acustica-3.jpg', null, null, null),
+('prod007','Audífonos inalámbricos Sony', false, true, 120000, '2023-05-07', null, '1232567-9', false, true, 'Audífonos inalámbricos con cancelación de ruido', 2, 4, 'https://example.com/audifonos-sony-1.jpg', 'https://example.com/audifonos-sony-2.jpg', 'https://example.com/audifonos-sony-3.jpg', null, null, null),
+('prod008', 'Consola de videojuegos PS5', true, true, 700000, '2023-05-08', null, '90123456-7', false, true, 'Consola de nueva generación con capacidad de reproducción en 4K', 1, null, 'https://example.com/ps5-1.jpg', 'https://example.com/ps5-2.jpg', 'https://example.com/ps5-3.jpg', null, null, null),
+('prod009', 'Parlante inteligente Amazon Echo', false, true, 80000, '2023-05-09', null, '19191919-1', true, true, 'Parlante inteligente con Alexa y compatible con Spotify', 2, 5, 'https://example.com/amazon-echo-1.jpg', 'https://example.com/amazon-echo-2.jpg', 'https://example.com/amazon-echo-3.jpg', null, null, null),
+('prod010', 'Reloj inteligente Apple Watch', false, false, 450000, '2023-05-10', null, '15012345-6', false, true, 'Reloj inteligente de Apple con monitor de frecuencia cardíaca', 3, 4, 'https://example.com/apple-watch-1.jpg', 'https://example.com/apple-watch-2.jpg', 'https://example.com/apple-watch-3.jpg', null, null, null),
+('prod011', 'Silla de oficina ergonómica', true, false, 250000, '2023-05-11', null, '16789012-3', false, true, 'Silla de oficina con respaldo ajustable y soporte lumbar', 4, null, 'https://example.com/silla-oficina-1.jpg', 'https://example.com/silla-oficina-2.jpg', null, null, null, null),
+('prod012', 'Maleta de viaje Samsonite', false, false, 300000, '2023-05-12', null, '34567890-k', true, true, 'Maleta rígida con cuatro ruedas giratorias y cerradura TSA', 5, 1, 'https://example.com/maleta-samsonite-1.jpg', 'https://example.com/maleta-samsonite-2.jpg', null, null, null, null),
+('prod013', 'Mesa de comedor de madera', true, false, 400000, '2023-05-13', null, '78901234-5', false, true, 'Mesa de comedor con capacidad para seis personas', 2, null, 'https://example.com/mesa-comedor-1.jpg', 'https://example.com/mesa-comedor-2.jpg', null, null, null, null);
