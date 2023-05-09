@@ -25,6 +25,19 @@ CREATE TABLE
 
 ALTER TABLE "product_score" ADD PRIMARY KEY ("score_id");
 
+CREATE TABLE "app_score"(
+	"app_score_id" 	VARCHAR(255) 	NOT NULL,
+	"user_id"		VARCHAR(255)	NOT NULL,
+	"as_date"		DATE			NOT NULL,
+	"as_q1" 		INTEGER 		NOT NULL,
+	"as_q2" 		INTEGER 		NOT NULL,
+	"as_q3" 		INTEGER 		NOT NULL,
+	"as_q4" 		INTEGER 		NOT NULL,
+	"as_q5"			INTEGER 		NOT NULL
+);
+
+ALTER TABLE "app_score" ADD PRIMARY KEY("app_score_id");
+
 CREATE TABLE
     "user" (
         "user_id" VARCHAR(255) NOT NULL,
@@ -195,30 +208,31 @@ CREATE TABLE
         "product" VARCHAR(255) NOT NULL,
         "category" VARCHAR(255) NOT NULL
     );
+ALTER TABLE "app_score" ADD CONSTRAINT "app_score_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
 
-ALTER TABLE "product_score" ADD CONSTRAINT "product_score_product_reviewed_foreign" FOREIGN KEY ("product_reviewed") REFERENCES "product" ("prod_id");
+ALTER TABLE "product_score" ADD CONSTRAINT "product_score_product_reviewed_foreign" FOREIGN KEY ("product_reviewed") REFERENCES "product"("prod_id");
 
-ALTER TABLE "historical" ADD CONSTRAINT "historical_prod_id_foreign" FOREIGN KEY ("prod_id") REFERENCES "product" ("prod_id");
+ALTER TABLE "historical" ADD CONSTRAINT "historical_prod_id_foreign" FOREIGN KEY ("prod_id") REFERENCES "product"("prod_id");
 
-ALTER TABLE "address" ADD CONSTRAINT "address_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");
+ALTER TABLE "address" ADD CONSTRAINT "address_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
 
-ALTER TABLE "product" ADD CONSTRAINT "product_prod_id_foreign" FOREIGN KEY ("id_prod_indct") REFERENCES "indictment" ("id_prod_indct");
+ALTER TABLE "product" ADD CONSTRAINT "product_prod_id_foreign" FOREIGN KEY ("id_prod_indct") REFERENCES "indictment"("id_prod_indct");
 
-ALTER TABLE "comuna" ADD CONSTRAINT "comuna_provincia_id_foreign" FOREIGN KEY ("provincia_id") REFERENCES "provincia" ("provincia_id");
+ALTER TABLE "comuna" ADD CONSTRAINT "comuna_provincia_id_foreign" FOREIGN KEY ("provincia_id") REFERENCES "provincia"("provincia_id");
 
-ALTER TABLE "provincia" ADD CONSTRAINT "provincia_region_id_foreign" FOREIGN KEY ("region_id") REFERENCES "region" ("region_id");
+ALTER TABLE "provincia" ADD CONSTRAINT "provincia_region_id_foreign" FOREIGN KEY ("region_id") REFERENCES "region"("region_id");
 
-ALTER TABLE "product_category" ADD CONSTRAINT "product_category_product_foreign" FOREIGN KEY ("product") REFERENCES "product" ("prod_id");
+ALTER TABLE "product_category" ADD CONSTRAINT "product_category_product_foreign" FOREIGN KEY ("product") REFERENCES "product"("prod_id");
 
-ALTER TABLE "product_category" ADD CONSTRAINT "product_cat_category_foreign" FOREIGN KEY ("category") REFERENCES "category" ("cat_id");
+ALTER TABLE "product_category" ADD CONSTRAINT "product_cat_category_foreign" FOREIGN KEY ("category") REFERENCES "category"("cat_id");
 
-ALTER TABLE "address" ADD CONSTRAINT "address_comuna_id_foreign" FOREIGN KEY ("comuna_id") REFERENCES "comuna" ("comuna_id");
+ALTER TABLE "address" ADD CONSTRAINT "address_comuna_id_foreign" FOREIGN KEY ("comuna_id") REFERENCES "comuna"("comuna_id");
 
-ALTER TABLE "user_score" ADD CONSTRAINT "user_score_user_reviwer_foreign" FOREIGN KEY ("user_reviwer") REFERENCES "user" ("user_id");
+ALTER TABLE "user_score" ADD CONSTRAINT "user_score_user_reviwer_foreign" FOREIGN KEY ("user_reviwer") REFERENCES "user"("user_id");
 
-ALTER TABLE "match" ADD CONSTRAINT "match_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");
+ALTER TABLE "match" ADD CONSTRAINT "match_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
 
-ALTER TABLE "product" ADD CONSTRAINT "product_prod_seller_foreign" FOREIGN KEY ("prod_seller") REFERENCES "user" ("user_id");
+ALTER TABLE "product" ADD CONSTRAINT "product_prod_seller_foreign" FOREIGN KEY ("prod_seller") REFERENCES "user"("user_id");
 
 -- Eliminamos 
 DROP TABLE IF EXISTS django_session;

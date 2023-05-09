@@ -49,6 +49,21 @@ class Affinity(models.Model):
         db_table = 'affinity'
 
 
+class AppScore(models.Model):
+    app_score_id = models.CharField(primary_key=True, max_length=255)
+    user_id = models.CharField(max_length=255)
+    as_date = models.DateField()
+    as_q1 = models.IntegerField()
+    as_q2 = models.IntegerField()
+    as_q3 = models.IntegerField()
+    as_q4 = models.IntegerField()
+    as_q5 = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'app_score'
+
+
 class Category(models.Model):
     cat_id = models.CharField(primary_key=True, max_length=255)
     cat_name = models.CharField(max_length=255)
