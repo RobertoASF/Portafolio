@@ -443,6 +443,12 @@ VALUES
 ('23456789-0', 'Francisco', null, 'López', null, 'franciscolopez@example.com','12345', -33.448212, -70.648741, '2023-04-05', '2023-04-05', '2023-04-05', 50, 987654321, false, 4, 2, 'https://example.com/franciscolopez.jpg', 5, false, null, null),
 ('34567890-k', 'Javiera', null, 'Ramírez', 'Díaz', 'javieraramirez@example.com','12345', -33.435052, -70.562920, '2023-04-04', '2023-04-04', '2023-04-04', 55, 123456789, true, 3, 4, 'https://example.com/javieraramirez.jpg', 3, true, '2023-04-04', '2024-04-04');
 
+INSERT INTO public."product"
+(prod_id, prod_name, prod_new, permuta, prod_price, prod_date, prod_score, prod_seller, prod_reported, prod_active, prod_description, prod_affinitie1, prod_affinitie2, prod_photo1, prod_photo2, prod_photo3, prod_photo4, prod_photo5, id_prod_indct)
+VALUES('153de3a3e3fb4fe5ba1ece71607a403d', 'de prueba', true, false, 10000, '2023-05-08', NULL, '12345678-9', NULL, true, 'sadas', 1, 3, 'asdASD', 'ASD', 'ASD', 'FAS', 'ASD', NULL);
+
+
+
 INSERT INTO "affinity" ("af_id", "af_name")
 VALUES
 (1, 'libros'),

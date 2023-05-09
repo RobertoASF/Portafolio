@@ -18,6 +18,7 @@ DBNAME="tindplace"
 USER="admin"
 PASSWORD="portafolio"
 
+
 # Ejecuta creación de tablas
 echo "Ejecutando mod_database.sql ..."
 psql -h $HOST -d $DBNAME -U $USER -W $PASSWORD -f mod_database.sql

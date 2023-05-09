@@ -1,10 +1,16 @@
 from audioop import reverse
 import datetime
 import uuid
+import os
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Product, User ,Admin
 from .forms import AdminForm, LoginForm, RegistrationForm
+from django.template.loader import render_to_string
+import sendgrid
+from sendgrid.helpers.mail import Mail
+from django.conf import settings
+
 
 def login(request):
     if request.method == 'POST':
@@ -97,3 +103,28 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'register.html', {'form': form})
+
+
+def enviar_correo(request):
+    if request.method == 'POST':
+        subject = 'Asunto de Prueba'
+        mail_html_path = os.path.join('login','templates', 'mail.html')
+        with open(mail_html_path, 'r') as f:
+            mail_html_content = f.read()
+        message = render_to_string('mail.html', {'content': mail_html_content})
+        # Sustituir la variable "{{ mensaje }}" en el contenido del correo
+        mensaje = request.POST.get('message1', '')
+        mail_html_content = mail_html_content.replace("{{ mensaje }}", mensaje)
+        sender_email = 'rob.sanchez@duocuc.cl'
+        recipient_list = ['rob.sanchez@duocuc.cl', 'roberto.asf@gmail.com']
+        
+        sg = sendgrid.SendGridAPIClient(api_key=settings.EMAIL_HOST_PASSWORD)
+        mail = Mail(
+            from_email=sender_email,
+            to_emails=recipient_list,
+            subject=subject,
+            html_content=message)
+        response = sg.send(mail)
+        print(response.status_code)
+    return render(request, 'home.html') 
+

@@ -77,13 +77,21 @@
             <p>Condición: Usado</p>
         {% endif %}
         {% if request.session.user_id %}
-        <a class="btn btn-primary btn-sm " href="#" role="button"> Comprar </a>
         {% else %}
         <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
         {% endif %}
-
+        <form method="post" action="{% url 'enviar_correo' %}">
+          {% csrf_token %}
+         <!--  <label for="subject">Asunto:</label> -->
+        <!--   <input type="text" id="subject" name="subject"><br> -->
+          <label for="message1">Mensaje:</label>
+          <textarea id="message1" name="  "></textarea><br>
+          <button type="submit">Enviar correo</button>
+        </form>
     </div>
 {% endfor %}
+
+
 
 
     </div>
