@@ -25,6 +25,19 @@ CREATE TABLE
 
 ALTER TABLE "product_score" ADD PRIMARY KEY ("score_id");
 
+CREATE TABLE "app_score"(
+	"app_score_id" 	VARCHAR(255) 	NOT NULL,
+	"user_id"		VARCHAR(255)	NOT NULL,
+	"as_date"		DATE			NOT NULL,
+	"as_q1" 		INTEGER 		NOT NULL,
+	"as_q2" 		INTEGER 		NOT NULL,
+	"as_q3" 		INTEGER 		NOT NULL,
+	"as_q4" 		INTEGER 		NOT NULL,
+	"as_q5"			INTEGER 		NOT NULL
+);
+
+ALTER TABLE "app_score" ADD PRIMARY KEY("app_score_id");
+
 CREATE TABLE
     "user" (
         "user_id" VARCHAR(255) NOT NULL,
