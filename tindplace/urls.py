@@ -11,3 +11,5 @@ urlpatterns = [
     path('eval/', include('evaluacion.urls')),
     path("", include('publicaciones.urls')),
 ]
+
+
