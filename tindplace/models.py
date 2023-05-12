@@ -51,7 +51,7 @@ class Affinity(models.Model):
 
 class AppScore(models.Model):
     app_score_id = models.CharField(primary_key=True, max_length=255)
-    user_id = models.CharField(max_length=255)
+    user = models.ForeignKey('User', models.DO_NOTHING)
     as_date = models.DateField()
     as_q1 = models.IntegerField()
     as_q2 = models.IntegerField()
