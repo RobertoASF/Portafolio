@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import home, weather, error_404_view
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -7,4 +8,7 @@ urlpatterns = [
     path('admin-login/', views.admin_login, name='admin_login'),
     path('logout/', views.logout, name='logout'),
     path('register/', views.register, name='register'),
+    path('enviar_correo/', views.enviar_correo, name='enviar_correo'),
+    path('weather/', views.weather, name='weather'),
 ]
+handler404 = error_404_view

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import base64
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-(^5ycufja7wu^3@eyvl5h8cuo$=#&!s#c$kjf00yzojuw4jnw&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -129,3 +130,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+#CODED_KEY='U0cub1czZG90MS1UZWkyUUpodU1oeERHdy5LLTNTN0d0aFRESW1KNmNHNnBDQmEwbGMyc1lqUjRKUTBNcjNSNjk3cjFB'
+#coded_bytes = base64.urlsafe_b64decode(CODED_KEY.decode('utf-8'))
+#SENGRID_API_KEY= coded_bytes.decode('utf-8')
+#SENGRID_API_KEY = coded_bytes.decode('utf-8')
+WEATHER_API_KEY = 'f9fa5864acceeac1881e98d5f989a59a'
