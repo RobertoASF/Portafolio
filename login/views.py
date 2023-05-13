@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Product, User ,Admin
 from .forms import AdminForm, LoginForm, RegistrationForm
 
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -43,8 +44,10 @@ def admin_login(request):
 
 def home(request):
     user_id = request.session.get('user_id', None)
+    user = None
     if user_id:
         try:
+            # todos los datos del usuario
             user = User.objects.get(user_id=user_id)
             context = {'user': user}
         except User.DoesNotExist:
@@ -52,12 +55,36 @@ def home(request):
     else:
         context = {'message': '¿Aún no te registras?, prueba ahora TindPlace'}
 
-    products = Product.objects.all()
-    user = User.objects.all()
+    if user:
+        # Filtra productos que coinciden con los intereses del usuario
+        products_interest1 = Product.objects.filter(prod_affinitie1=user.user_inetrest1)
+        products_interest2 = Product.objects.filter(prod_affinitie2=user.user_interest2)
+
+        # Combina los dos QuerySets
+        products = products_interest1 | products_interest2
+    else:
+        products = Product.objects.all()
+
     context['products'] = products
-    context['user'] = user
     return render(request, 'home.html', context)
 
+
+def all_products(request):
+    user_id = request.session.get('user_id', None)
+    user = None
+    if user_id:
+        try:
+            # todos los datos del usuario
+            user = User.objects.get(user_id=user_id)
+            context = {'user': user}
+        except User.DoesNotExist:
+            context = {'message': 'No se pudo encontrar al usuario'}
+    else:
+        context = {'message': '¿Aún no te registras?, prueba ahora TindPlace'}
+
+    # Ordena los productos por la fecha de creación de manera descendente
+    products = Product.objects.all().order_by('-prod_date')
+    return render(request, 'all_products.html', {'products': products})
 
 
 def logout(request):
