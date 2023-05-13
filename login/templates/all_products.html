@@ -98,7 +98,8 @@
               </div>
               <div class="col d-flex justify-content-center align-items-center">
                 {% if request.session.user_id %}
-                <a class="btn btn-primary btn-sm " href="#" role="button"> Comprar </a>
+                <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#productModal"
+                  data-prod-id="{{ product.prod_id }}" role="button"> Comprar </a>
                 {% else %}
                 <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
                 {% endif %}
@@ -110,6 +111,24 @@
 
       </div>
       {% endfor %}
+
+      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">Detalles del producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="productModalBody">
+              <!-- Los detalles del producto se cargarán aquí -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
