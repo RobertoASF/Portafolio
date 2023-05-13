@@ -7,6 +7,13 @@ from .models import Product, User ,Admin
 from .forms import AdminForm, LoginForm, RegistrationForm
 
 
+#aca agregamos el product details
+def product_detail(request):
+    prod_id = request.GET.get('prod_id')
+    product = Product.objects.get(prod_id=prod_id)
+    return render(request, 'product_detail.html', {'product': product})
+
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

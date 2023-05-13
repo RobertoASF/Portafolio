@@ -246,3 +246,14 @@ CREATE TABLE
         with
             time zone NOT NULL
     );
+CREATE TABLE "comment"(
+    "id_comment"    VARCHAR(255)    NOT NULL,
+    "prod_id"       VARCHAR(255)    NOT NULL,
+    "user_id"       VARCHAR(255)    NOT NULL,
+    "text"          VARCHAR(255)    NOT NULL,
+);
+
+ALTER TABLE "comment" ADD PRIMARY KEY ("id_comment");
+
+ALTER TABLE "comment" ADD CONSTRAINT "comment_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
+ALTER TABLE "comment" ADD CONSTRAINT "comment_prod_id_foreign" FOREIGN KEY ("prod_id") REFERENCES "Product"("prod_id");
