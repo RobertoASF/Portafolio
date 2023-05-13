@@ -1,5 +1,0 @@
-DB_NAME=tindplace
-DB_USER=admin
-DB_PASSWORD=portafolio
-DB_HOST=postgres
-DB_PORT=5432
