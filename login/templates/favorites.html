@@ -1,0 +1,19 @@
+
+
+{% block content %}
+<h1>Tus productos favoritos</h1>
+
+{% if favorites %}
+    <ul>
+    {% for favorite in favorites %}
+        <li>
+            <h2>{{ favorite.product.prod_name }}</h2>
+            <p>{{ favorite.product.prod_description }}</p>
+            <!--<img src="{{ favorite.product.prod_photo1 }}" alt="{{ favorite.product.prod_name }}">-->
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tienes ningún producto favorito aún.</p>
+{% endif %}
+{% endblock %}

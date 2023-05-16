@@ -257,3 +257,13 @@ ALTER TABLE "comment" ADD PRIMARY KEY ("id_comment");
 
 ALTER TABLE "comment" ADD CONSTRAINT "comment_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
 ALTER TABLE "comment" ADD CONSTRAINT "comment_prod_id_foreign" FOREIGN KEY ("prod_id") REFERENCES "Product"("prod_id");
+
+-- Tabla productos Favoritos
+CREATE TABLE user_favorite_product (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id CHAR(255) NOT NULL,
+    prod_id CHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (prod_id) REFERENCES product(prod_id) ON DELETE CASCADE,
+    UNIQUE (user_id, prod_id)
+);

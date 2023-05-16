@@ -11,6 +11,7 @@ urlpatterns = [
     path('enviar_correo/', views.enviar_correo, name='enviar_correo'),
     path('weather/', views.weather, name='weather'),
     path('product_detail/', views.product_detail, name='product_detail'),
-    
+    path('like_product/<str:product_id>/', views.like_product, name='like_product'),
+    path('favorites/', views.favorites, name='favorites'),
 ]
 

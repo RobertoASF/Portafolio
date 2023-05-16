@@ -1,10 +1,11 @@
 from audioop import reverse
 import datetime
 import uuid
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib import messages
-from .models import Product, User ,Admin
+from .models import Product, User ,Admin, UserFavoriteProduct
 from .forms import AdminForm, LoginForm, RegistrationForm
+from django.http import JsonResponse
 
 
 #aca agregamos el product details
@@ -164,3 +165,25 @@ def weather(request):
 
 def error_404_view(request, exception):
     return render(request, '404.html', status=404)
+
+#me gusta 
+def like_product(request, product_id):
+    product = get_object_or_404(Product, prod_id=product_id)
+    user = get_object_or_404(User, user_id=request.session.get('user_id'))
+    
+    UserFavoriteProduct.objects.get_or_create(user=user, product=product)
+    
+    # Añade un mensaje a la cola de mensajes
+    messages.success(request, "Producto añadido a favoritos")
+
+    # Redirige al usuario a la página de inicio
+    return redirect('home')
+
+#ver megusta
+def favorites(request):
+    user = get_object_or_404(User, user_id=request.session.get('user_id'))
+    
+    favorites = UserFavoriteProduct.objects.filter(user=user)
+
+    context = {'favorites': favorites}
+    return render(request, 'favorites.html', context)

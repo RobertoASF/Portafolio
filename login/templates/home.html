@@ -25,7 +25,7 @@
 
 <body style="font-family: 'Open Sans', sans-serif">
   <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
+    <div class="container">
       <a class="navbar-brand" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fire"
           viewBox="0 0 16 16">
@@ -39,6 +39,7 @@
       {% if request.session.user_id %}
       <a href="{% url 'evaluation' %}">Evaluacion</a>
       <a href="{% url 'create_product' %}">Publicar</a>
+      <a href="{% url 'favorites' %}">Ver mis fav</a>
       <a href="{% url 'logout' %}">Cerrar sesión</a>
       {% endif %}
     </div>
@@ -104,6 +105,14 @@
                 <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
                 {% endif %}
               </div>
+              
+                {% if request.session.user_id %}
+                <div class="col d-flex justify-content-center align-items-center"></div>
+                <a class="btn btn-primary btn-sm like-button" data-bs-toggle="modal" 
+                  data-prod-id="{{ product.prod_id }}" role="button"> Me gusta </a>
+              </div>
+                {% endif %}
+              
             </div>
           </div>
         </div>
@@ -163,6 +172,20 @@
               .catch(error => console.error(error));
           });
         }
+
+        document.querySelectorAll(".like-button").forEach(function(button) {
+          button.addEventListener('click', function() {
+              var productId = this.dataset.productId;
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "/like_product/" + productId + "/", true);
+              xhr.onreadystatechange = function () {
+                  if (xhr.readyState == 4 && xhr.status == 200) {
+                      // Aquí puedes hacer algo con la respuesta, como actualizar la interfaz de usuario
+                  }
+              }
+              xhr.send();
+          });
+      });
         window.addEventListener('load', getWeatherByLocation);
       </script>
     </div>
