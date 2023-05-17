@@ -19,8 +19,8 @@
     href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
     rel="stylesheet" />
 
-    
-    
+
+
 </head>
 
 <body style="font-family: 'Open Sans', sans-serif">
@@ -105,14 +105,14 @@
                 <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
                 {% endif %}
               </div>
-              
-                {% if request.session.user_id %}
-                <div class="col d-flex justify-content-center align-items-center"></div>
-                <a class="btn btn-primary btn-sm like-button" data-bs-toggle="modal" 
+
+              {% if request.session.user_id %}
+              <div class="col d-flex justify-content-center align-items-center">
+                <a class="btn btn-primary btn-sm like-button" data-bs-toggle="modal"
                   data-prod-id="{{ product.prod_id }}" role="button"> Me gusta </a>
-              </div>
-                {% endif %}
-              
+              </div> 
+              {% endif %}
+
             </div>
           </div>
         </div>
@@ -173,19 +173,19 @@
           });
         }
 
-        document.querySelectorAll(".like-button").forEach(function(button) {
-          button.addEventListener('click', function() {
-              var productId = this.dataset.productId;
-              var xhr = new XMLHttpRequest();
-              xhr.open("GET", "/like_product/" + productId + "/", true);
-              xhr.onreadystatechange = function () {
-                  if (xhr.readyState == 4 && xhr.status == 200) {
-                      // Aquí puedes hacer algo con la respuesta, como actualizar la interfaz de usuario
-                  }
+        document.querySelectorAll(".like-button").forEach(function (button) {
+          button.addEventListener('click', function () {
+            var productId = this.dataset.productId;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/like_product/" + productId + "/", true);
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                // Aquí puedes hacer algo con la respuesta, como actualizar la interfaz de usuario
               }
-              xhr.send();
+            }
+            xhr.send();
           });
-      });
+        });
         window.addEventListener('load', getWeatherByLocation);
       </script>
     </div>
@@ -199,6 +199,7 @@
   </style>
 
   <script>
+    $(document).ready(function () {
     const loadMoreBtn = document.getElementById("load-more-btn");
     const productsContainer = document.getElementById("products-container");
     const productCards = productsContainer.getElementsByClassName("col-4");
@@ -221,10 +222,7 @@
         loadMoreBtn.style.display = "none";
       }
     });
-  </script>
 
-  <script>
-    $(document).ready(function () {
       $('.btn-primary').click(function () {
         var prodId = $(this).data('prod-id');
         $.get("{% url 'product_detail' %}?prod_id=" + prodId, function (data) {
