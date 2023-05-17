@@ -5,12 +5,46 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Product, User, Admin, Comment
 from .forms import AdminForm, LoginForm, RegistrationForm
+from django.http import JsonResponse
 
 def product_detail(request, prod_id):
     print('&&& PRODUCTO PRINT ::' + prod_id)
     product = Product.objects.get(prod_id=prod_id)
     comments = Comment.objects.filter(product=product)  # changed filter to use 'product'
     return render(request, 'product_detail.html', {'product': product, 'comments': comments})
+
+def add_comment(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        comment_text = request.POST.get('comment_text')
+
+        if request.user.is_authenticated:  # Comprueba si el usuario está autenticado
+            product = Product.objects.get(prod_id=product_id)
+            user = request.user
+
+            comment = Comment(product=product, user=user, text=comment_text)
+            comment.save()
+
+            response = {
+                'status': 'success',
+                'message': 'Comentario agregado exitosamente.'
+            }
+
+            return JsonResponse(response)
+        else:
+            response = {
+                'status': 'error',
+                'message': 'Debes iniciar sesión para agregar un comentario.'
+            }
+
+            return JsonResponse(response, status=401)  # 401 es el código de estado para "No autorizado"
+    else:
+        response = {
+            'status': 'error',
+            'message': 'Método no permitido.'
+        }
+
+        return JsonResponse(response, status=405)
 
 
 def login(request):

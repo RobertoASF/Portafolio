@@ -15,4 +15,31 @@
           <p>No hay comentarios para este producto aún.</p>
       {% endfor %}
   </div>
+
+  <script>
+    $(document).ready(function () {
+        $('#comment-form').submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+
+            $.post("{% url 'add_comment' %}", formData, function (response) {
+                if (response.status === 'success') {
+                    alert(response.message);
+                    location.reload();  // Recarga la página para mostrar el comentario recién agregado
+                } else {
+                    alert(response.message);
+                }
+            });
+        });
+    });
+</script>
   
+  <div class="add-comment">
+    <h3>Agregar comentario:</h3>
+    <form method="POST" id="comment-form">
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ product.prod_id }}">
+        <textarea name="comment_text" rows="4" cols="50" placeholder="Escribe tu comentario aquí..." required></textarea>
+        <button type="submit" class="btn btn-primary">Enviar comentario</button>
+    </form>
+</div>
