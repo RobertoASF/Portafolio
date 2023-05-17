@@ -4,16 +4,15 @@
     <p>Descripción : {{ product.prod_description }}</p>
     <p>Precio : {{ product.prod_price }}</p>
     <p>Vendedor : {{ product.prod_seller.user_name1 }} {{ product.prod_seller.user_surname1 }}</p>
-    
-    <h5>Comentarios:</h5>
-    {% if comments %}
-      {% for comment in comments %}
-        <p>{{ comment.text }}</p>
-      {% endfor %}
-    {% else %}
-      <p>No hay comentarios para este producto.</p>
-    {% endif %}
-    
-  
 
-   
+    <div class="comments">
+      <h3>Comentarios:</h3>
+      {% for comment in comments %}
+          <div class="comment">
+              <p>{{ comment.text }}</p>
+          </div>
+      {% empty %}
+          <p>No hay comentarios para este producto aún.</p>
+      {% endfor %}
+  </div>
+  

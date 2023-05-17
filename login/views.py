@@ -3,15 +3,20 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Product, User ,Admin
+from .models import Product, User, Admin, Comment
 from .forms import AdminForm, LoginForm, RegistrationForm
 
+# def product_detail(request):
+#     prod_id = request.GET.get('prod_id')
+#     product = Product.objects.get(prod_id=prod_id)
+#     comments = Comment.objects.filter(prod_id=prod_id)
+#     return render(request, 'product_detail.html', {'product': product, 'comments': comments})
 
-#aca agregamos el product details
-def product_detail(request):
-    prod_id = request.GET.get('prod_id')
+def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
-    return render(request, 'product_detail.html', {'product': product})
+    comments = Comment.objects.filter(prod_id=product)  # cambia a product, no prod_id
+    return render(request, 'product_detail.html', {'product': product, 'comments': comments})
+
 
 
 def login(request):

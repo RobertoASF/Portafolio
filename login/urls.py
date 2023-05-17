@@ -10,7 +10,8 @@ urlpatterns = [
     path('todos-productos/', views.all_products, name='all_products'),
     path('enviar_correo/', views.enviar_correo, name='enviar_correo'),
     path('weather/', views.weather, name='weather'),
-    path('product_detail/', views.product_detail, name='product_detail'),
+    #path('product_detail/', views.product_detail, name='product_detail'),
+    path('product_detail/<str:prod_id>/', views.product_detail, name='product_detail'),
     
 ]
 

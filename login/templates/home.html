@@ -200,16 +200,19 @@
     });
   </script>
 
+
   <script>
     $(document).ready(function () {
-      $('.btn-primary').click(function () {
-        var prodId = $(this).data('prod-id');
-        $.get("{% url 'product_detail' %}?prod_id=" + prodId, function (data) {
-          $('#productModalBody').html(data);
+        $('.btn-primary').click(function () {
+            var prodId = $(this).data('prod-id');
+            var url = "{% url 'product_detail' 'prod_id_placeholder' %}".replace('prod_id_placeholder', prodId);
+            $.get(url, function (data) {
+                $('#productModalBody').html(data);
+            });
         });
-      });
     });
-  </script>
+</script>
+
 
 
 
