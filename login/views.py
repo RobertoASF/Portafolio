@@ -4,47 +4,30 @@ import uuid
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Product, User, Admin, Comment
-from .forms import AdminForm, LoginForm, RegistrationForm
+from .forms import AdminForm, CommentForm, LoginForm, RegistrationForm
 from django.http import JsonResponse
 
 def product_detail(request, prod_id):
-    print('&&& PRODUCTO PRINT ::' + prod_id)
     product = Product.objects.get(prod_id=prod_id)
-    comments = Comment.objects.filter(product=product)  # changed filter to use 'product'
-    return render(request, 'product_detail.html', {'product': product, 'comments': comments})
+    comments = Comment.objects.filter(product=product) 
 
-def add_comment(request):
     if request.method == 'POST':
-        product_id = request.POST.get('product_id')
-        comment_text = request.POST.get('comment_text')
-
-        if request.user.is_authenticated:  # Comprueba si el usuario está autenticado
-            product = Product.objects.get(prod_id=product_id)
-            user = request.user
-
-            comment = Comment(product=product, user=user, text=comment_text)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.id_comment = str(uuid.uuid4())  # Genera un UUID único
+            comment.product_id = product.prod_id #
+            comment.user_id = request.session.get('user_id', None)
             comment.save()
-
-            response = {
-                'status': 'success',
-                'message': 'Comentario agregado exitosamente.'
-            }
-
-            return JsonResponse(response)
+            return redirect('product_detail', prod_id=prod_id)
         else:
-            response = {
-                'status': 'error',
-                'message': 'Debes iniciar sesión para agregar un comentario.'
-            }
-
-            return JsonResponse(response, status=401)  # 401 es el código de estado para "No autorizado"
+            print(form.errors)
     else:
-        response = {
-            'status': 'error',
-            'message': 'Método no permitido.'
-        }
+        form = CommentForm()
 
-        return JsonResponse(response, status=405)
+    return render(request, 'product_detail.html', {'product': product, 'comments': comments, 'form': form})
+
+
 
 
 def login(request):

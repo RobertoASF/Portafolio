@@ -246,13 +246,12 @@ CREATE TABLE
         with
             time zone NOT NULL
     );
-
 CREATE TABLE comment (
-    id_comment VARCHAR(255) PRIMARY KEY,
-    text VARCHAR(255) NOT NULL,
-    user_id VARCHAR(255) NOT NULL,
-    product_id VARCHAR(255) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES "user"(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES product(prod_id) ON DELETE CASCADE
+    id_comment SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES Product(id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
 );
 

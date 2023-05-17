@@ -492,7 +492,7 @@ VALUES
 -- ('comm005', 'prod003', '15678901-2', 'Compré esta TV para mi sala de estar y es perfecta.'),
 -- ('comm006', 'prod004', '34567890-1', 'Los zapatos son muy cómodos y se ven bien.'),
 -- ('comm007', 'prod005', '78901234-5', 'La cámara toma fotos de muy buena calidad, estoy muy contento con mi compra.');
-
+/*
 INSERT INTO public."comment" (id_comment, text, user_id, product_id) 
 VALUES 
 ('comm001', 'Excelente producto, totalmente recomendado!', '12345678-9', 'prod001'),
@@ -509,4 +509,4 @@ VALUES
 ('comm012', 'El producto llegó dañado', '34567890-k', 'prod012'),
 ('comm013', 'No estoy satisfecho con la compra, el producto no es como se describía', '12345678-9', 'prod013'),
 ('comm014', 'Entrega rápida y el producto llegó en perfecto estado', '98765432-1', 'prod001'),
-('comm015', 'Producto de excelente calidad, lo recomiendo', '19191919-1', 'prod002');
+('comm015', 'Producto de excelente calidad, lo recomiendo', '19191919-1', 'prod002');*/
