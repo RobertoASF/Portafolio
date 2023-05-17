@@ -13,6 +13,7 @@
   <!--Tipografía Google-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
     rel="stylesheet" />
@@ -135,7 +136,43 @@
     </div>
   </div>
     
+  <script>
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    const productsContainer = document.getElementById("products-container");
+    const productCards = productsContainer.getElementsByClassName("col-4");
 
+    let visibleProducts = 3;
+    if (productCards.length <= 3) {
+      loadMoreBtn.style.display = "none";
+    }
+
+
+    loadMoreBtn.addEventListener("click", () => {
+      let hiddenProducts = 0;
+      for (let i = visibleProducts; i < visibleProducts + 3 && i < productCards.length; i++) {
+        productCards[i].classList.remove("hidden");
+        hiddenProducts++;
+      }
+      visibleProducts += hiddenProducts;
+
+      if (visibleProducts >= productCards.length) {
+        loadMoreBtn.style.display = "none";
+      }
+    });
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
+        $('.btn-primary').click(function () {
+            var prodId = $(this).data('prod-id');
+            var url = "{% url 'product_detail' 'prod_id_placeholder' %}".replace('prod_id_placeholder', prodId);
+            $.get(url, function (data) {
+                $('#productModalBody').html(data);
+            });
+        });
+    });
+</script>
 
 
   <!--Boostrap JS-->

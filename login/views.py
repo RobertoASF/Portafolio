@@ -6,17 +6,11 @@ from django.contrib import messages
 from .models import Product, User, Admin, Comment
 from .forms import AdminForm, LoginForm, RegistrationForm
 
-# def product_detail(request):
-#     prod_id = request.GET.get('prod_id')
-#     product = Product.objects.get(prod_id=prod_id)
-#     comments = Comment.objects.filter(prod_id=prod_id)
-#     return render(request, 'product_detail.html', {'product': product, 'comments': comments})
-
 def product_detail(request, prod_id):
+    print('&&& PRODUCTO PRINT ::' + prod_id)
     product = Product.objects.get(prod_id=prod_id)
-    comments = Comment.objects.filter(prod_id=product)  # cambia a product, no prod_id
+    comments = Comment.objects.filter(product=product)  # changed filter to use 'product'
     return render(request, 'product_detail.html', {'product': product, 'comments': comments})
-
 
 
 def login(request):
