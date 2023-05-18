@@ -74,10 +74,10 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
-    id_comment = models.CharField(primary_key=True, max_length=255)
-    text = models.CharField(max_length=255)
-    user = models.ForeignKey('User', models.DO_NOTHING)
+    id_comment = models.AutoField(primary_key=True)
     product = models.ForeignKey('Product', models.DO_NOTHING)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    text = models.TextField()
 
     class Meta:
         managed = False
