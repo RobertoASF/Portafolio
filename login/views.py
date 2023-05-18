@@ -166,19 +166,6 @@ def weather(request):
 def error_404_view(request, exception):
     return render(request, '404.html', status=404)
 
-#me gusta 
-def like_product(request, product_id):
-    product = get_object_or_404(Product, prod_id=product_id)
-    user = get_object_or_404(User, user_id=request.session.get('user_id'))
-    
-    UserFavoriteProduct.objects.get_or_create(user=user, product=product)
-    
-    # Añade un mensaje a la cola de mensajes
-    messages.success(request, "Producto añadido a favoritos")
-
-    # Redirige al usuario a la página de inicio
-    return redirect('home')
-
 #ver megusta
 def favorites(request):
     user = get_object_or_404(User, user_id=request.session.get('user_id'))
@@ -187,3 +174,18 @@ def favorites(request):
 
     context = {'favorites': favorites}
     return render(request, 'favorites.html', context)
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def like_product(request, product_id):
+    if request.method == 'POST':
+        product = get_object_or_404(Product, prod_id=product_id)
+        user = get_object_or_404(User, user_id=request.session.get('user_id'))
+
+        UserFavoriteProduct.objects.get_or_create(user=user, product=product)
+
+        return JsonResponse({"message": "Producto añadido a favoritos"})
+    else:
+        return JsonResponse({"error": "Invalid method"})

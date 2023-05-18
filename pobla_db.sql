@@ -481,14 +481,3 @@ VALUES
 ('prod011', 'Silla de oficina ergonómica', true, false, 250000, '2023-05-11', null, '16789012-3', false, true, 'Silla de oficina con respaldo ajustable y soporte lumbar', 4, null, 'https://example.com/silla-oficina-1.jpg', 'https://example.com/silla-oficina-2.jpg', null, null, null, null),
 ('prod012', 'Maleta de viaje Samsonite', false, false, 300000, '2023-05-12', null, '34567890-k', true, true, 'Maleta rígida con cuatro ruedas giratorias y cerradura TSA', 5, 1, 'https://example.com/maleta-samsonite-1.jpg', 'https://example.com/maleta-samsonite-2.jpg', null, null, null, null),
 ('prod013', 'Mesa de comedor de madera', true, false, 400000, '2023-05-13', null, '78901234-5', false, true, 'Mesa de comedor con capacidad para seis personas', 2, null, 'https://example.com/mesa-comedor-1.jpg', 'https://example.com/mesa-comedor-2.jpg', null, null, null, null);
-
-INSERT INTO public."comment" 
-(id_comment, prod_id, user_id, text)
-VALUES
-('comm001', 'prod001', '12345678-9', 'Excelente producto, muy satisfecho con la compra.'),
-('comm002', 'prod001', '98765432-1', 'El smartphone es increíble, la pantalla OLED se ve genial.'),
-('comm003', 'prod002', '34567890-1', 'La mejor laptop que he tenido, el procesador M1 es muy rápido.'),
-('comm004', 'prod003', '78901234-5', 'La TV tiene muy buena imagen, y la compatibilidad con streaming es muy útil.'),
-('comm005', 'prod003', '15678901-2', 'Compré esta TV para mi sala de estar y es perfecta.'),
-('comm006', 'prod004', '34567890-1', 'Los zapatos son muy cómodos y se ven bien.'),
-('comm007', 'prod005', '78901234-5', 'La cámara toma fotos de muy buena calidad, estoy muy contento con mi compra.');

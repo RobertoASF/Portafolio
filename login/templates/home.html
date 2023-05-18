@@ -108,9 +108,9 @@
 
               {% if request.session.user_id %}
               <div class="col d-flex justify-content-center align-items-center">
-                <a class="btn btn-primary btn-sm like-button" data-bs-toggle="modal"
-                  data-prod-id="{{ product.prod_id }}" role="button"> Me gusta </a>
-              </div> 
+                <button class="btn btn-danger btn-sm like-btn" data-product-id="{{ product.prod_id }}">Me gusta</button>
+
+              </div>
               {% endif %}
 
             </div>
@@ -172,20 +172,6 @@
               .catch(error => console.error(error));
           });
         }
-
-        document.querySelectorAll(".like-button").forEach(function (button) {
-          button.addEventListener('click', function () {
-            var productId = this.dataset.productId;
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/like_product/" + productId + "/", true);
-            xhr.onreadystatechange = function () {
-              if (xhr.readyState == 4 && xhr.status == 200) {
-                // Aquí puedes hacer algo con la respuesta, como actualizar la interfaz de usuario
-              }
-            }
-            xhr.send();
-          });
-        });
         window.addEventListener('load', getWeatherByLocation);
       </script>
     </div>
@@ -200,28 +186,28 @@
 
   <script>
     $(document).ready(function () {
-    const loadMoreBtn = document.getElementById("load-more-btn");
-    const productsContainer = document.getElementById("products-container");
-    const productCards = productsContainer.getElementsByClassName("col-4");
+      const loadMoreBtn = document.getElementById("load-more-btn");
+      const productsContainer = document.getElementById("products-container");
+      const productCards = productsContainer.getElementsByClassName("col-4");
 
-    let visibleProducts = 3;
-    if (productCards.length <= 3) {
-      loadMoreBtn.style.display = "none";
-    }
-
-
-    loadMoreBtn.addEventListener("click", () => {
-      let hiddenProducts = 0;
-      for (let i = visibleProducts; i < visibleProducts + 3 && i < productCards.length; i++) {
-        productCards[i].classList.remove("hidden");
-        hiddenProducts++;
-      }
-      visibleProducts += hiddenProducts;
-
-      if (visibleProducts >= productCards.length) {
+      let visibleProducts = 3;
+      if (productCards.length <= 3) {
         loadMoreBtn.style.display = "none";
       }
-    });
+
+
+      loadMoreBtn.addEventListener("click", () => {
+        let hiddenProducts = 0;
+        for (let i = visibleProducts; i < visibleProducts + 3 && i < productCards.length; i++) {
+          productCards[i].classList.remove("hidden");
+          hiddenProducts++;
+        }
+        visibleProducts += hiddenProducts;
+
+        if (visibleProducts >= productCards.length) {
+          loadMoreBtn.style.display = "none";
+        }
+      });
 
       $('.btn-primary').click(function () {
         var prodId = $(this).data('prod-id');
@@ -231,6 +217,24 @@
       });
     });
   </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".like-btn").click(function () {
+        var product_id = $(this).data("product-id");
+        $.ajax({
+          url: '/like_product/' + product_id, // Asegúrate de que esta URL esté correcta
+          method: 'POST', // Debes usar el método POST para acciones que modifican los datos
+          success: function (response) {
+            alert(response.message);
+          }
+        });
+      });
+    });
+
+  </script>
+
 
 
 
