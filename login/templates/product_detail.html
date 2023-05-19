@@ -1,24 +1,67 @@
 <!-- Aquí es donde renderizas los detalles de cada producto -->
 <img class="card-img-top" src="https://placehold.co/300x300/png" alt="Card image cap">
-    <p>Nombre del producto: {{ product.prod_name }}</p>
-    <p>Descripción : {{ product.prod_description }}</p>
-    <p>Precio : {{ product.prod_price }}</p>
-    <p>Vendedor : {{ product.prod_seller.user_name1 }} {{ product.prod_seller.user_surname1 }}</p>
+<p>Nombre del producto: {{ product.prod_name }}</p>
+<p>Descripción : {{ product.prod_description }}</p>
+<p>Precio : {{ product.prod_price }}</p>
+<p>Vendedor : {{ product.prod_seller.user_name1 }} {{ product.prod_seller.user_surname1 }}</p>
 
-    <div class="comments">
-      <h3>Comentarios:</h3>
-      {% for comment in comments %}
-          <div class="comment">
-              <p>{{ comment.text }}</p>
-          </div>
-      {% empty %}
-          <p>No hay comentarios para este producto aún.</p>
-      {% endfor %}
-  </div>
-  <h2>Añade un comentario</h2>
-  <form method="post" action="{% url 'product_detail' product.prod_id %}">
+<div class="comments">
+    <h3>Comentarios:</h3>
+    <div id="comentarioActualizado" > </div>
+    {% for comment in comments %}
+    <div class="comment">
+        <p>{{ comment.text }}</p>
+    </div>
+    {% empty %}
+    <p>No hay comentarios para este producto aún.</p>
+    {% endfor %}
+</div>
+<h2>Añade un comentario</h2>
+<form method="post" id="formId" action="{% url 'product_detail' product.prod_id %}">
     {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Enviar comentario</button>
-  </form>
-  
+    {{ form.as_p }}
+    <button type="submit">Enviar comentario</button>
+</form>
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // ¿Este cookie string comienza con el nombre que queremos?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+let csrftoken = getCookie('csrftoken');
+
+document.getElementById('formId').addEventListener('submit', function (event) {
+    event.preventDefault();
+    let url = event.target.getAttribute('action');
+    let data = new FormData(event.target);
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': csrftoken
+        },
+        body: data
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Aquí actualizas el div de los comentarios
+            let commentDiv = document.getElementById('comentarioActualizado');
+            commentDiv.innerHTML = data.html;
+        }
+    });
+});
+
+</script>

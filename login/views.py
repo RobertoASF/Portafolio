@@ -7,7 +7,6 @@ from .models import Product, User, Admin, Comment
 from .forms import AdminForm, CommentForm, LoginForm, RegistrationForm
 from django.http import JsonResponse
 
-
 def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
     comments = Comment.objects.filter(product=product)
@@ -16,17 +15,23 @@ def product_detail(request, prod_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            # comment.id_comment = str(uuid.uuid4())  # Genera un UUID único
             comment.product_id = product.prod_id
             comment.user_id = request.session.get('user_id', None)
             comment.save()
-            return redirect('product_detail', prod_id=prod_id)
+
+            # Aquí asumimos que quieres devolver el texto del comentario
+            # También puedes devolver todo el HTML del comentario si lo prefieres
+            return JsonResponse({'success': True, 'html': comment.text})
+
         else:
-            print(form.errors)
+            # Aquí podrías devolver los errores de la forma si quisieras
+            return JsonResponse({'success': False})
+
     else:
         form = CommentForm()
 
     return render(request, 'product_detail.html', {'product': product, 'comments': comments, 'form': form})
+
 
 
 def login(request):
