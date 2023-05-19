@@ -7,7 +7,7 @@
 
 <div class="comments">
     <h3>Comentarios:</h3>
-    <div id="comentarioActualizado" > </div>
+    <div id="comentarioActualizado"> </div>
     {% for comment in comments %}
     <div class="comment">
         <p>{{ comment.text }}</p>
@@ -24,44 +24,51 @@
 </form>
 
 <script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            // ¿Este cookie string comienza con el nombre que queremos?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // ¿Este cookie string comienza con el nombre que queremos?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
 
-let csrftoken = getCookie('csrftoken');
+    let csrftoken = getCookie('csrftoken');
 
-document.getElementById('formId').addEventListener('submit', function (event) {
-    event.preventDefault();
-    let url = event.target.getAttribute('action');
-    let data = new FormData(event.target);
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': csrftoken
-        },
-        body: data
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Aquí actualizas el div de los comentarios
-            let commentDiv = document.getElementById('comentarioActualizado');
-            commentDiv.innerHTML = data.html;
-        }
+    document.getElementById('formId').addEventListener('submit', function (event) {
+        event.preventDefault();
+        let url = event.target.getAttribute('action');
+        let data = new FormData(event.target);
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrftoken
+            },
+            body: data
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Aquí actualizas el div de los comentarios
+                    let commentDiv = document.getElementById('comentarioActualizado');
+
+                    // Crear un nuevo div para el nuevo comentario
+                    let newCommentDiv = document.createElement('div');
+                    newCommentDiv.className = "comment";  // Agrega la clase 'comment' al nuevo div
+                    newCommentDiv.innerHTML = data.html;
+
+                    // Añadir el nuevo comentario al contenido existente
+                    commentDiv.appendChild(newCommentDiv);
+                }
+            });
     });
-});
 
 </script>
