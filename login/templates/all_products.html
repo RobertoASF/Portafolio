@@ -103,6 +103,12 @@
                 <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
                 {% endif %}
               </div>
+              {% if request.session.user_id %}
+              <div class="col d-flex justify-content-center align-items-center">
+                <button class="btn btn-danger btn-sm like-btn" data-product-id="{{ product.prod_id }}">Me gusta</button>
+
+              </div>
+              {% endif %}
             </div>
 
           </div>
@@ -115,6 +121,23 @@
 
     </div>
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".like-btn").click(function () {
+        var product_id = $(this).data("product-id");
+        $.ajax({
+          url: '/like_product/' + product_id, // Asegúrate de que esta URL esté correcta
+          method: 'POST', // Debes usar el método POST para acciones que modifican los datos
+          success: function (response) {
+            alert(response.message);
+          }
+        });
+      });
+    });
+
+  </script>
     
 
 
