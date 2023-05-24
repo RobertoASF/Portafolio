@@ -10,6 +10,7 @@ services:
       - POSTGRES_PASS=portafolio
       - POSTGRES_DB=tindplace
       - POSTGRES_HOST_AUTH_METHOD=trust
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
     ports:
       - "5432:5432"
     volumes:
