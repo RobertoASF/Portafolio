@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
@@ -37,7 +37,7 @@
       <a href="{% url 'login' %}">Iniciar sesión</a>
       <a href="{% url 'register' %}">Registrarse</a>
       {% if request.session.user_id %}
-      <a href="{% url 'evaluation' %}">Evaluacion</a>
+      
       <a href="{% url 'create_product' %}">Publicar</a>
       <a href="{% url 'favorites' %}">Ver mis fav</a>
       <a href="{% url 'logout' %}">Cerrar sesión</a>
@@ -150,11 +150,12 @@
       </div>
 
     </div>
+    <a href="{% url 'evaluation' %}" style="color: rgb(173, 15, 15);" class="mb-5"> ¡¡Nos gustaría saber tu opinion!! &hearts; &hearts; &hearts;</a>
+
   </div>
-
-
+  
   <footer
-    style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(186, 12, 134); color: rgb(245, 248, 251);">
+    style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(215, 52, 166); color: rgb(245, 248, 251);">
     <div class="container">
       <div id="weather-widget"></div>
       <script>
@@ -162,21 +163,35 @@
           navigator.geolocation.getCurrentPosition(function (position) {
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
-            var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=metric&appid=f9fa5864acceeac1881e98d5f989a59a';
+            var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=metric&appid=f9fa5864acceeac1881e98d5f989a59a&lang=es';
             fetch(url)
               .then(response => response.json())
               .then(data => {
                 var widget = document.getElementById('weather-widget');
-                widget.innerHTML = 'El clima en ' + data.name + ' es ' + data.weather[0].description + ' y la temperatura es ' + data.main.temp + '°C';
+                var description = data.weather[0].description;
+
+                // Mapeo de descripciones
+                var weatherMap = {
+                  'nubes': 'nublado',
+                  // Añade aquí otras descripciones según sea necesario
+                };
+
+                // Si la descripción obtenida está en el mapeo, usar la descripción mapeada.
+                if (description in weatherMap) {
+                  description = weatherMap[description];
+                }
+
+                widget.innerHTML = 'El clima en ' + data.name + ' es ' + description + ' y la temperatura es ' + data.main.temp + '°C';
               })
               .catch(error => console.error(error));
           });
         }
         window.addEventListener('load', getWeatherByLocation);
+
+
       </script>
     </div>
-        
-      
+    
   </footer>
   <style>
     .hidden {
