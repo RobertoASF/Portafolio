@@ -103,7 +103,8 @@ class Product(models.Model):
     prod_price = models.IntegerField()
     prod_date = models.DateField()
     prod_score = models.IntegerField(blank=True, null=True)
-    prod_seller = models.ForeignKey('User', models.DO_NOTHING, db_column='prod_seller')
+    prod_seller = models.ForeignKey(
+        'User', models.DO_NOTHING, db_column='prod_seller')
     prod_reported = models.BooleanField(null=True)
     prod_active = models.BooleanField()
     prod_description = models.CharField(max_length=255)
@@ -224,3 +225,13 @@ class Comment(models.Model):
     class Meta:
         managed = False
         db_table = 'comment'
+# Productos Favoritos
+
+
+class UserFavoriteProduct(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'product')
+        db_table = 'user_favorite_product'

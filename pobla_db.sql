@@ -481,32 +481,3 @@ VALUES
 ('prod011', 'Silla de oficina ergonómica', true, false, 250000, '2023-05-11', null, '16789012-3', false, true, 'Silla de oficina con respaldo ajustable y soporte lumbar', 4, null, 'https://example.com/silla-oficina-1.jpg', 'https://example.com/silla-oficina-2.jpg', null, null, null, null),
 ('prod012', 'Maleta de viaje Samsonite', false, false, 300000, '2023-05-12', null, '34567890-k', true, true, 'Maleta rígida con cuatro ruedas giratorias y cerradura TSA', 5, 1, 'https://example.com/maleta-samsonite-1.jpg', 'https://example.com/maleta-samsonite-2.jpg', null, null, null, null),
 ('prod013', 'Mesa de comedor de madera', true, false, 400000, '2023-05-13', null, '78901234-5', false, true, 'Mesa de comedor con capacidad para seis personas', 2, null, 'https://example.com/mesa-comedor-1.jpg', 'https://example.com/mesa-comedor-2.jpg', null, null, null, null);
-
--- INSERT INTO public."comment" 
--- (id_comment, prod_id, user_id, text)
--- VALUES
--- ('comm001', 'prod001', '12345678-9', 'Excelente producto, muy satisfecho con la compra.'),
--- ('comm002', 'prod001', '98765432-1', 'El smartphone es increíble, la pantalla OLED se ve genial.'),
--- ('comm003', 'prod002', '34567890-1', 'La mejor laptop que he tenido, el procesador M1 es muy rápido.'),
--- ('comm004', 'prod003', '78901234-5', 'La TV tiene muy buena imagen, y la compatibilidad con streaming es muy útil.'),
--- ('comm005', 'prod003', '15678901-2', 'Compré esta TV para mi sala de estar y es perfecta.'),
--- ('comm006', 'prod004', '34567890-1', 'Los zapatos son muy cómodos y se ven bien.'),
--- ('comm007', 'prod005', '78901234-5', 'La cámara toma fotos de muy buena calidad, estoy muy contento con mi compra.');
-/*
-INSERT INTO public."comment" (id_comment, text, user_id, product_id) 
-VALUES 
-('comm001', 'Excelente producto, totalmente recomendado!', '12345678-9', 'prod001'),
-('comm002', 'Buen precio para la calidad que ofrece', '98765432-1', 'prod002'),
-('comm003', 'Entrega rápida y producto en perfectas condiciones', '19191919-1', 'prod003'),
-('comm004', 'Muy satisfecho con mi compra', '34567890-1', 'prod004'),
-('comm005', 'El producto llegó con un pequeño defecto, pero el vendedor lo solucionó rápidamente', '15678901-2', 'prod005'),
-('comm006', 'Buena relación calidad-precio', '16789012-3', 'prod006'),
-('comm007', 'El producto no era lo que esperaba', '78901234-5', 'prod007'),
-('comm008', 'Excelente servicio al cliente del vendedor', '15012345-6', 'prod008'),
-('comm009', 'El producto llegó en el tiempo prometido', '90123456-7', 'prod009'),
-('comm010', 'Superó mis expectativas, muy buen producto', '1232567-9', 'prod010'),
-('comm011', 'Producto de buena calidad pero tardó mucho en llegar', '23456789-0', 'prod011'),
-('comm012', 'El producto llegó dañado', '34567890-k', 'prod012'),
-('comm013', 'No estoy satisfecho con la compra, el producto no es como se describía', '12345678-9', 'prod013'),
-('comm014', 'Entrega rápida y el producto llegó en perfecto estado', '98765432-1', 'prod001'),
-('comm015', 'Producto de excelente calidad, lo recomiendo', '19191919-1', 'prod002');*/

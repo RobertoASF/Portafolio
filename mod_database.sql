@@ -286,3 +286,11 @@ CREATE TABLE
         FOREIGN KEY (product_id) REFERENCES "product" (prod_id),
         FOREIGN KEY (user_id) REFERENCES "user" (user_id)
     );
+CREATE TABLE user_favorite_product (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    product_id VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES product (prod_id) ON DELETE CASCADE,
+    UNIQUE (user_id, product_id)
+);
