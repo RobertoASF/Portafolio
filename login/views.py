@@ -3,16 +3,35 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib import messages
-from .models import Product, User ,Admin, UserFavoriteProduct
-from .forms import AdminForm, LoginForm, RegistrationForm
+from .models import Product, User, Admin, Comment, UserFavoriteProduct
+from .forms import AdminForm, CommentForm, LoginForm, RegistrationForm
 from django.http import JsonResponse
 
-
-#aca agregamos el product details
-def product_detail(request):
-    prod_id = request.GET.get('prod_id')
+def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
-    return render(request, 'product_detail.html', {'product': product})
+    comments = Comment.objects.filter(product=product)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.product_id = product.prod_id
+            comment.user_id = request.session.get('user_id', None)
+            comment.save()
+
+            # Aquí asumimos que quieres devolver el texto del comentario
+            # También puedes devolver todo el HTML del comentario si lo prefieres
+            return JsonResponse({'success': True, 'html': comment.text})
+
+        else:
+            # Aquí podrías devolver los errores de la forma si quisieras
+            return JsonResponse({'success': False})
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'product_detail.html', {'product': product, 'comments': comments, 'form': form})
+
 
 
 def login(request):
@@ -22,16 +41,19 @@ def login(request):
             user_email = form.cleaned_data['user_email']
             user_password = form.cleaned_data['user_password']
             try:
-                user = User.objects.get(user_email=user_email, user_password=user_password)
+                user = User.objects.get(
+                    user_email=user_email, user_password=user_password)
                 if user:
                     request.session['user_id'] = user.user_id
                     messages.success(request, 'Inicio de sesión exitoso')
-                    return redirect('home')  # Redirige al usuario a la vista 'home' después del inicio de sesión
+                    # Redirige al usuario a la vista 'home' después del inicio de sesión
+                    return redirect('home')
             except User.DoesNotExist:
                 messages.error(request, 'Email o contraseña incorrecta')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
 
 def admin_login(request):
     if request.method == 'POST':
@@ -40,15 +62,18 @@ def admin_login(request):
             admin_email = form.cleaned_data['admin_email']
             admin_name1 = form.cleaned_data['admin_name1']
             try:
-                admin = Admin.objects.get(admin_email=admin_email, admin_name1=admin_name1)
+                admin = Admin.objects.get(
+                    admin_email=admin_email, admin_name1=admin_name1)
                 # Si el inicio de sesión es exitoso, redirige al usuario a la vista 'dashboard'
                 context = {'admin': admin}
                 return render(request, 'home.html', context)
             except Admin.DoesNotExist:
-                messages.error(request, 'Las credenciales ingresadas son incorrectas.')
+                messages.error(
+                    request, 'Las credenciales ingresadas son incorrectas.')
     else:
         form = AdminForm()
     return render(request, 'admin_login.html', {'form': form})
+
 
 def home(request):
     user_id = request.session.get('user_id', None)
@@ -65,8 +90,10 @@ def home(request):
 
     if user:
         # Filtra productos que coinciden con los intereses del usuario
-        products_interest1 = Product.objects.filter(prod_affinitie1=user.user_inetrest1)
-        products_interest2 = Product.objects.filter(prod_affinitie2=user.user_interest2)
+        products_interest1 = Product.objects.filter(
+            prod_affinitie1=user.user_inetrest1)
+        products_interest2 = Product.objects.filter(
+            prod_affinitie2=user.user_interest2)
 
         # Combina los dos QuerySets
         products = products_interest1 | products_interest2
@@ -100,22 +127,23 @@ def logout(request):
         del request.session['user_id']
     return redirect('home')
 
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             # Cree una instancia de User con los datos del formulario
             user = User(
-                user_id= form.cleaned_data['user_id'],
+                user_id=form.cleaned_data['user_id'],
                 user_name1=form.cleaned_data['user_name1'],
                 user_name2=form.cleaned_data['user_name2'],
                 user_surname1=form.cleaned_data['user_surname1'],
                 user_surname2=form.cleaned_data['user_surname2'],
                 user_email=form.cleaned_data['user_email'],
                 user_password=form.cleaned_data['user_password'],
-                user_last_loc_lat= 1,
+                user_last_loc_lat=1,
                 user_last_loc_long=1,
-                user_date_lastloc=  datetime.date.today(),
+                user_date_lastloc=datetime.date.today(),
                 date_registred=datetime.date.today(),
                 date_last_login=datetime.date.today(),
                 user_score=0,
@@ -128,8 +156,10 @@ def register(request):
                 user_is_premium=False,
             )
             user.save()  # Guarde el usuario en la base de datos
-            request.session['user_id'] = user.user_id  # Inicie la sesión del usuario
-            messages.success(request, 'Registro exitoso')  # Muestre un mensaje de éxito al usuario
+            # Inicie la sesión del usuario
+            request.session['user_id'] = user.user_id
+            # Muestre un mensaje de éxito al usuario
+            messages.success(request, 'Registro exitoso')
             return redirect('home')  # Redirigir al usuario a la vista 'home'
     else:
         form = RegistrationForm()
@@ -139,7 +169,7 @@ def register(request):
 def enviar_correo(request):
     if request.method == 'POST':
         subject = 'Asunto de Prueba'
-        mail_html_path = os.path.join('login','templates', 'mail.html')
+        mail_html_path = os.path.join('login', 'templates', 'mail.html')
         with open(mail_html_path, 'r') as f:
             mail_html_content = f.read()
         message = render_to_string('mail.html', {'content': mail_html_content})
@@ -148,7 +178,7 @@ def enviar_correo(request):
         mail_html_content = mail_html_content.replace("{{ mensaje }}", mensaje)
         sender_email = 'rob.sanchez@duocuc.cl'
         recipient_list = ['rob.sanchez@duocuc.cl', 'roberto.asf@gmail.com']
-        
+
         sg = sendgrid.SendGridAPIClient(api_key=settings.EMAIL_HOST_PASSWORD)
         mail = Mail(
             from_email=sender_email,
@@ -157,7 +187,8 @@ def enviar_correo(request):
             html_content=message)
         response = sg.send(mail)
         print(response.status_code)
-    return render(request, 'home.html') 
+    return render(request, 'home.html')
+
 
 def weather(request):
     return render(request, 'weather.html')

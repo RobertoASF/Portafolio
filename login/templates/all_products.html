@@ -13,6 +13,7 @@
   <!--Tipografía Google-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
     rel="stylesheet" />
@@ -98,7 +99,8 @@
               </div>
               <div class="col d-flex justify-content-center align-items-center">
                 {% if request.session.user_id %}
-                <a class="btn btn-primary btn-sm " href="#" role="button"> Comprar </a>
+                <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#productModal"
+                  data-prod-id="{{ product.prod_id }}" role="button"> Ver más detalles </a>
                 {% else %}
                 <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
                 {% endif %}
@@ -116,6 +118,24 @@
 
       </div>
       {% endfor %}
+
+      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">Detalles del producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="productModalBody">
+              <!-- Los detalles del producto se cargarán aquí -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -139,6 +159,44 @@
 
   </script>
     
+  <script>
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    const productsContainer = document.getElementById("products-container");
+    const productCards = productsContainer.getElementsByClassName("col-4");
+
+    let visibleProducts = 3;
+    if (productCards.length <= 3) {
+      loadMoreBtn.style.display = "none";
+    }
+
+
+    loadMoreBtn.addEventListener("click", () => {
+      let hiddenProducts = 0;
+      for (let i = visibleProducts; i < visibleProducts + 3 && i < productCards.length; i++) {
+        productCards[i].classList.remove("hidden");
+        hiddenProducts++;
+      }
+      visibleProducts += hiddenProducts;
+
+      if (visibleProducts >= productCards.length) {
+        loadMoreBtn.style.display = "none";
+      }
+    });
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
+        $('.btn-primary').click(function () {
+            var prodId = $(this).data('prod-id');
+            var url = "{% url 'product_detail' 'prod_id_placeholder' %}".replace('prod_id_placeholder', prodId);
+            $.get(url, function (data) {
+                $('#productModalBody').html(data);
+            });
+        });
+    });
+</script>
+
 
 
 

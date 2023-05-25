@@ -73,6 +73,17 @@ class Category(models.Model):
         db_table = 'category'
 
 
+class Comment(models.Model):
+    id_comment = models.AutoField(primary_key=True)
+    product = models.ForeignKey('Product', models.DO_NOTHING)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    text = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'comment'
+
+
 class Comuna(models.Model):
     comuna_id = models.IntegerField(primary_key=True)
     provincia = models.ForeignKey('Provincia', models.DO_NOTHING)
