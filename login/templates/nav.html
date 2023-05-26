@@ -1,0 +1,73 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}">
+<nav class="navbar navbar-expand-lg ">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand tind-nav-one-title" href="{% url 'home' %}">
+            Bienvenida/o a <b>TindPlace</b>
+        </a>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav ">
+                {% if request.session.user_id %}
+                <a class="tind-nav-btn nav-link ms-2" href="{% url 'evaluation' %}">Evaluacion</a>
+                <a class="tind-nav-btn nav-link ms-2" href="{% url 'create_product' %}">Publicar un producto</a>
+                <a class="tind-nav-btn nav-link ms-2" href="{% url 'favorites' %}">Ver mis fav</a>
+                <!-- <a class="tind-nav-btn" href="{% url 'logout' %}">Cerrar sesión</a> -->
+                <a class="tind-nav-btn nav-link ms-2 d-flex align-items-center d-flex align-items-center"
+                    href="{% url 'logout' %}">{{ user.user_name1 }} <svg width="20" height="20" viewBox="0 0 20 20"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 17.2C7.5 17.2 5.29 15.92 4 14C4.03 12 8 10.9 10 10.9C12 10.9 15.97 12 16 14C15.3389 14.9844 14.4459 15.7912 13.3996 16.3492C12.3533 16.9072 11.1858 17.1994 10 17.2ZM10 3C10.7956 3 11.5587 3.31607 12.1213 3.87868C12.6839 4.44129 13 5.20435 13 6C13 6.79565 12.6839 7.55871 12.1213 8.12132C11.5587 8.68393 10.7956 9 10 9C9.20435 9 8.44129 8.68393 7.87868 8.12132C7.31607 7.55871 7 6.79565 7 6C7 5.20435 7.31607 4.44129 7.87868 3.87868C8.44129 3.31607 9.20435 3 10 3ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 4.47 15.5 0 10 0Z"
+                            fill="#8f3b76" />
+                    </svg>
+                </a>
+                {% else %}
+                <a class="tind-nav-btn nav-link ms-2" href="{% url 'login' %}">Iniciar sesión</a>
+                <a class="tind-nav-btn nav-link ms-2" href="{% url 'register' %}">Registrarse</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</nav>
+
+{% if request.session.user_id %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-4">
+            <a href="{% url 'all_products' %}"
+                class="tind-second-bar-btn{% if request.path == '/todos-productos/' %}-Active{% endif %}">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 14V8.4H0V0H6.66667L5.33333 4.9H8L2 14Z"
+                        fill="{% if request.path == '/todos-productos/' %}white{% else %}#8f3b76{% endif %}" />
+                </svg>
+                Todos los productos agregados
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="{% url 'home' %}" class="tind-second-bar-btn{% if request.path == '/' %}-Active{% endif %}">
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.45455 0.5C8.21364 0.5 7.12045 1.14167 6.5 2.15C5.87955 1.14167 4.78636 0.5 3.54545 0.5C1.59545 0.5 0 2.15 0 4.16667C0 7.80278 6.5 11.5 6.5 11.5C6.5 11.5 13 7.83333 13 4.16667C13 2.15 11.4045 0.5 9.45455 0.5Z"
+                        fill="{% if request.path == '/' %}white{% else %}#8f3b76{% endif %}" />
+                </svg>
+
+                Ver sugeridos
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="" class="tind-second-bar-btn">
+                Los más fav
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.6495 10.25C13.0309 10.25 13.3524 10.38 13.6141 10.64C13.8757 10.9 14.0043 11.2033 13.9999 11.55L8.6583 13.5L4.00187 12.2V6.35H5.29902L10.1351 8.0985C10.481 8.23283 10.6539 8.4755 10.6539 8.8265C10.6539 9.03017 10.5785 9.20783 10.4277 9.3595C10.277 9.51117 10.0863 9.59133 9.85567 9.6H7.99309L6.82899 9.1645L6.60947 9.7755L7.99309 10.25H12.6495ZM9.98871 1.2995C10.4588 0.7665 11.0575 0.5 11.7848 0.5C12.3879 0.5 12.8979 0.716667 13.3147 1.15C13.7316 1.58333 13.9533 2.08167 13.9799 2.645C13.9799 3.09133 13.7582 3.62433 13.3147 4.244C12.8713 4.86367 12.4344 5.3815 12.0043 5.7975C11.5741 6.2135 10.9023 6.831 9.98871 7.65C9.06629 6.831 8.38778 6.2135 7.95318 5.7975C7.51858 5.3815 7.08176 4.86367 6.64273 4.244C6.20369 3.62433 5.98861 3.09133 5.99748 2.645C5.99748 2.05567 6.21256 1.55733 6.64273 1.15C7.07289 0.742667 7.59175 0.526 8.19931 0.5C8.90886 0.5 9.50532 0.7665 9.98871 1.2995ZM0 6.35H2.67146V13.5H0V6.35Z"
+                        fill="#8f3b76" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+{% else %}
+{% endif %}

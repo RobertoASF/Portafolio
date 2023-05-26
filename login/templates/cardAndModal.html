@@ -1,0 +1,138 @@
+{% load static %}
+{% load humanize %}
+<link rel="stylesheet" type="text/css" href="{% static 'cardAndModal.css' %}">
+
+<div class="container my-4">
+    <div class="row" id="products-container">
+        {% for product in products %}
+        <div class="col-4 my-2">
+            <div class="card">
+                <img class="tind-card-img" src="https://placehold.co/200x200/png" alt="Card image cap">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="card-title tind-title ">{{ product.prod_name }}</h3>
+                            <p class="tind-price">$ {{ product.prod_price | intcomma }}</p>
+                        </div>
+
+                        {% if request.session.user_id %}
+                        <div class="col-3 d-flex justify-content-center align-items-center ">
+                            <a class="like-btn " data-product-id="{{ product.prod_id }}">
+                                <svg class="" width="44" height="37" viewBox="0 0 44 37" fill=""
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M32 0.5C27.8 0.5 24.1 2.6 22 5.9C19.9 2.6 16.2 0.5 12 0.5C5.4 0.5 0 5.9 0 12.5C0 24.4 22 36.5 22 36.5C22 36.5 44 24.5 44 12.5C44 5.9 38.6 0.5 32 0.5Z"
+                                        fill="#F5487F" />
+                                </svg>
+                            </a>
+
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row pb-3 justify-content-around">
+                        <div class="col-5 tind-desc text-center d-flex align-items-center">
+                            <p class="p-0 m-0">Publicado hace: <br> {{ product.prod_date|timesince }}</p>
+                        </div>
+                        <div class="col-5 tind-btn-preferences">
+                            {% include 'categories.html' %}
+                        </div>
+                    </div>
+
+                    <p class="tind-desc">Descripción: {{ product.prod_description }}</p>
+
+                    {% if product.prod_new %}
+                    <p>Condición: <span class="badge text-bg-primary">Nuevo</span></p>
+                    {% else %}
+                    <p>Condición: <span class="badge text-bg-warning">Usado</span></p>
+                    {% endif %}
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <svg class="col-4 px-0" height="38" viewBox="0 0 38 38" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="19" cy="19" r="19" fill="#D9D9D9" />
+                                </svg>
+                                <div class="col px-0 d-flex flex-column">
+                                    <span class="tind-seller-title">
+                                        {{ product.prod_seller.user_name1 }}
+                                        {{product.prod_seller.user_surname1 }}
+                                    </span>
+                                    <span class="tind-seller-p">
+                                        se unio : {{product.prod_seller.date_registred}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col d-flex justify-content-center align-items-center">
+                            {% if request.session.user_id %}
+                            <a class="tind-btn-buy " data-bs-toggle="modal" data-bs-target="#productModal"
+                                data-prod-id="{{ product.prod_id }}" role="button"> Comprar </a>
+                            {% else %}
+                            <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
+                            {% endif %}
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+        <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Detalles del producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="productModalBody">
+                        <!-- Los detalles del producto se cargarán aquí -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if request.path == '/' %}
+        <div class="container text-center">
+            <div class="row">
+                <div class="col align-self-center mt-5">
+                    <div class="btn-group " role="group" aria-label="Default button group">
+                        <button id="load-more-btn" class="btn btn-primary">Cargar más productos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.like-btn').click(function () {
+            $(this).addClass('animate__animated animate__tada');
+        });
+        // Ocultar todas las tarjetas de productos
+        $('.card').hide();
+
+        // Iterar sobre cada tarjeta de producto y mostrarla con un retraso
+        $('.card').each(function (index) {
+            var productCard = $(this);
+            setTimeout(function () {
+                productCard.addClass('animate__animated animate__fadeInUp');
+                productCard.show();
+            }, 200 * index);
+        });
+    });
+</script>
