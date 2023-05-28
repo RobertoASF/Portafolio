@@ -125,6 +125,7 @@
         });
         // Ocultar todas las tarjetas de productos
         $('.card').hide();
+        $('#footer').hide();
 
         // Iterar sobre cada tarjeta de producto y mostrarla con un retraso
         $('.card').each(function (index) {
@@ -134,5 +135,6 @@
                 productCard.show();
             }, 200 * index);
         });
+        $('#footer').show();
     });
 </script>

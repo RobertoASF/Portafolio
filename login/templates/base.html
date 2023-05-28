@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Tindplace</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--Boostrap-->
@@ -30,14 +30,13 @@
     {% block content %}
     {% endblock %}
 
-    {% include 'footer.html' %}
 
     <style>
         .hidden {
             display: none;
         }
     </style>
-    <!-- Modal -->
+    <!-- Modal Favorite-->
     <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -46,6 +45,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a name="" id="" class="btn btn-danger" href="{% url 'favorites' %}" role="button">Ver mis fav</a>
+
+
                 </div>
             </div>
         </div>
