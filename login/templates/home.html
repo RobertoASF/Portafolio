@@ -56,12 +56,7 @@
       }
     });
 
-    $('.tind-btn-buy').click(function () {
-      var prodId = $(this).data('prod-id');
-      $.get("{% url 'product_detail' %}?prod_id=" + prodId, function (data) {
-        $('#productModalBody').html(data);
-      });
-    });
+
   });
 </script>
 
