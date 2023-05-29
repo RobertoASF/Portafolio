@@ -4,17 +4,9 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Product, User, Admin, UserFavoriteProduct
-from .forms import AdminForm, LoginForm, RegistrationForm
+from .models import Product, User, Admin, UserFavoriteProduct, Comment
+from .forms import AdminForm, LoginForm, RegistrationForm, CommentForm
 from django.http import JsonResponse
-
-
-# aca agregamos el product details
-def product_detail(request):
-    prod_id = request.GET.get('prod_id')
-    product = Product.objects.get(prod_id=prod_id)
-    return render(request, 'product_detail.html', {'product': product})
-
 
 def login(request):
     if request.method == 'POST':
@@ -84,6 +76,31 @@ def home(request):
     context['products'] = products
     return render(request, 'home.html', context)
 
+# traer el cometario y guarlo en la base de datos
+def product_detail(request, prod_id):
+    product = Product.objects.get(prod_id=prod_id)
+    comments = Comment.objects.filter(product=product)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.product_id = product.prod_id
+            comment.user_id = request.session.get('user_id', None)
+            comment.save()
+
+            # Aquí asumimos que quieres devolver el texto del comentario
+            # También puedes devolver todo el HTML del comentario si lo prefieres
+            return JsonResponse({'success': True, 'html': comment.text})
+
+        else:
+            # Aquí podrías devolver los errores de la forma si quisieras
+            return JsonResponse({'success': False})
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'product_detail.html', {'product': product, 'comments': comments, 'form': form})
 
 def all_products(request):
     user_id = request.session.get('user_id', None)
@@ -100,7 +117,8 @@ def all_products(request):
 
     # Ordena los productos por la fecha de creación de manera descendente
     products = Product.objects.all().order_by('-prod_date')
-    return render(request, 'all_products.html', {'products': products})
+
+    return render(request, 'all_products.html', {'products': products, 'context' : context})
 
 
 def logout(request):

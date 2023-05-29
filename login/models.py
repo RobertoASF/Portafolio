@@ -103,8 +103,7 @@ class Product(models.Model):
     prod_price = models.IntegerField()
     prod_date = models.DateField()
     prod_score = models.IntegerField(blank=True, null=True)
-    prod_seller = models.ForeignKey(
-        'User', models.DO_NOTHING, db_column='prod_seller')
+    prod_seller = models.ForeignKey('User', models.DO_NOTHING, db_column='prod_seller')
     prod_reported = models.BooleanField(null=True)
     prod_active = models.BooleanField()
     prod_description = models.CharField(max_length=255)
@@ -195,8 +194,7 @@ class User(models.Model):
 
 class UserScore(models.Model):
     score_id = models.IntegerField(primary_key=True)
-    user_reviwer = models.ForeignKey(
-        User, models.DO_NOTHING, db_column='user_reviwer', blank=True, null=True)
+    user_reviwer = models.ForeignKey(User, models.DO_NOTHING, db_column='user_reviwer', blank=True, null=True)
     user_reviwed = models.CharField(max_length=255)
     score_date = models.DateField()
     score_value = models.IntegerField()
@@ -215,3 +213,14 @@ class UserFavoriteProduct(models.Model):
     class Meta:
         unique_together = ('user', 'product')
         db_table = 'user_favorite_product'
+
+#tabla comentario
+class Comment(models.Model):
+    id_comment = models.AutoField(primary_key=True)
+    product = models.ForeignKey('Product', models.DO_NOTHING)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    text = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table ='comment'

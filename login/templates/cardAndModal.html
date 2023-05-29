@@ -136,12 +136,13 @@
             }, 200 * index);
         });
         $('#footer').show();
-
         $('.tind-btn-buy').click(function () {
             var prodId = $(this).data('prod-id');
-            $.get("{% url 'product_detail' %}?prod_id=" + prodId, function (data) {
+            var url = "{% url 'product_detail' 'prod_id_placeholder' %}".replace('prod_id_placeholder', prodId);
+            $.get(url, function (data) {
                 $('#productModalBody').html(data);
             });
         });
+
     });
 </script>
