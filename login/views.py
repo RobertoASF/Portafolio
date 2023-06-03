@@ -1,10 +1,11 @@
+from django.db.models import Max
 from django.views.decorators.csrf import csrf_exempt
 from audioop import reverse
 import datetime
 import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Product, User, Admin, UserFavoriteProduct, Comment
+from .models import Historical, Product, User, Admin, UserFavoriteProduct, Comment
 from .forms import AdminForm, LoginForm, RegistrationForm, CommentForm
 from django.http import JsonResponse
 
@@ -64,22 +65,22 @@ def home(request):
         context = {'message': '¿Aún no te registras?, prueba ahora TindPlace'}
 
     if user:
-        # Filtra productos que coinciden con los intereses del usuario
+        # Filtra productos que coinciden con los intereses del usuario y están activos
         products_interest1 = Product.objects.filter(
-            prod_affinitie1=user.user_inetrest1)
+            prod_affinitie1=user.user_inetrest1, prod_active=True)
         products_interest2 = Product.objects.filter(
-            prod_affinitie2=user.user_interest2)
+            prod_affinitie2=user.user_interest2, prod_active=True)
         # Combina los dos QuerySets
         products = products_interest1 | products_interest2
     else:
-        products = Product.objects.all()
+        # Filtra productos que están activos
+        products = Product.objects.filter(prod_active=True)
 
     context['products'] = products
     return render(request, 'home.html', context)
 
+
 # traer el cometario y guarlo en la base de datos
-
-
 def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
     comments = Comment.objects.filter(product=product)
@@ -223,20 +224,29 @@ def like_product(request, product_id):
     else:
         return JsonResponse({"error": "Invalid method"})
 
+
 def comprar_producto(request, prod_id):
     producto = get_object_or_404(Product, prod_id=prod_id)
-    
+
     producto.prod_active = False
     producto.save()
 
+    # Get the maximum hist_id currently in the model
+    max_id = Historical.objects.all().aggregate(
+        max_id=Max('hist_id'))['max_id']
+
+    # If no instances exist yet, start from 1, otherwise increment the maximum by 1
+    hist_id = 1 if max_id is None else max_id + 1
+
     historical_entry = Historical(
-        date= datetime.date.today(),
-        buyer_id= request.session.get('user_id', None),
-        prod= producto
+        hist_id=hist_id,
+        date=datetime.date.today(),
+        buyer_id=request.session.get('user_id', None),
+        prod=producto
     )
     historical_entry.save()
 
-    return redirect('pagina_de_confirmacion')  
+    return redirect('pagina_de_confirmacion')
 
 
 def pagina_de_confirmacion(request):
