@@ -69,7 +69,7 @@
   cursor: pointer;
 }
 .modal{
-    --bs-modal-width: 60%;
+    --bs-modal-width: 80%;
 
     overflow-y: auto;
     outline: 0;

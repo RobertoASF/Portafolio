@@ -54,7 +54,7 @@
         <form method="post" id="formId" action="{% url 'product_detail' product.prod_id %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Enviar comentario</button>
+            <button class="btn btn-secondary" type="submit">Enviar comentario</button>
         </form>
 
         <div class="row">
