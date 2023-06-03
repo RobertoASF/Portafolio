@@ -7,50 +7,45 @@
 <div class="container">
     <div class="row">
         {% for favorite in favorites %}
+        <div class="col-12 mb-4">
+            <div class="p-3 border">
+                <div class="d-flex align-items-center">
+                    <div class="col-lg-2 col-md-3 col-sm-4">
+                        <img src="https://placehold.co/200x100" class="w-100" />
+                    </div>
+                    <div class="col-2">
+                        <a href="" class="text-reset">
+                            <h5 class="mb-3">{{ favorite.product.prod_name }}</h5>
+                            <h6>Precio: $ {{ favorite.product.prod_price}}</h6>
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <p class="p-0 m-0">Publicado hace: {{ favorite.product.prod_date|timesince }}</p>
+                    </div>
+                    <div class="col-3">
+                        <a href="" class="text-reset">
+                            <p>{{ favorite.product.prod_description }}</p>
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <p>Vendido por: {{ favorite.product.prod_seller.user_name1 }} {{favorite.product.prod_seller.user_surname1 }}</p>
+                    </div>
+                    <div class="col-1">
+                        {% if favorite.product.prod_new %}
+                        <p><span class="badge bg-primary">Nuevo</span></p>
+                        {% else %}
+                        <p><span class="badge bg-warning">Usado</span></p>
+                        {% endif %}
+                        <button type="button" class="btn btn-primary">Comprar</button>
 
-
-        <div class="col-lg-4 col-md-4 mb-4">
-            <div class="card">
-                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-                    data-mdb-ripple-color="light">
-                    <img src="https://placehold.co/200x100" class="w-100" />
-                    <a href="#!">
-                        <div class="mask">
-                            <div class="d-flex justify-content-start align-items-end h-100">
-                                {% if favorite.product.prod_new %}
-                                <p><span class="badge text-bg-primary">Nuevo</span></p>
-                                {% else %}
-                                <p><span class="badge text-bg-warning">Usado</span></p>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="hover-overlay">
-                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                        </div>
-                    </a>
+                    </div>
                 </div>
-
-                <div class="card-body">
-                    <a href="" class="text-reset">
-                        <h5 class="card-title mb-3">{{ favorite.product.prod_name }}</h5>
-                    </a>
-                    <a href="" class="text-reset">
-                        <p>{{ favorite.product.prod_description }}</p>
-                    </a>
-                    <h6 class="mb-3">Precio: $ {{ favorite.product.prod_price}}</h6>
-                    <button type="button" class="btn btn-primary">Comprar</button>
-                </div>
-
             </div>
-
-
         </div>
         {% endfor %}
-        {% else %}
-        <p>No tienes ningún producto favorito aún.</p>
-        {% endif %}
-
     </div>
+    {% else %}
+    <p>No tienes ningún producto favorito aún.</p>
+    {% endif %}
 </div>
-
 {% endblock %}
