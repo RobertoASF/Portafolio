@@ -17,15 +17,7 @@
 
                         {% if request.session.user_id %}
                         <div class="col-3 d-flex justify-content-center align-items-center ">
-                            <a class="like-btn " data-product-id="{{ product.prod_id }}">
-                                <svg class="" width="44" height="37" viewBox="0 0 44 37" fill=""
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M32 0.5C27.8 0.5 24.1 2.6 22 5.9C19.9 2.6 16.2 0.5 12 0.5C5.4 0.5 0 5.9 0 12.5C0 24.4 22 36.5 22 36.5C22 36.5 44 24.5 44 12.5C44 5.9 38.6 0.5 32 0.5Z"
-                                        fill="#F5487F" />
-                                </svg>
-                            </a>
-
+                            {% include 'btn-like.html' %}
                         </div>
                         {% endif %}
                     </div>

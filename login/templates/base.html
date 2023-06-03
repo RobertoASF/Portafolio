@@ -37,17 +37,23 @@
         }
     </style>
     <!-- Modal Favorite-->
-    <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal cuando se hace click para agregar a fatoritos: -->
+    <div class="modal fade " id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-white">
             <div class="modal-content">
-                <div class="modal-body" id="customModalBody">
-                    Contenido del modal
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <a name="" id="" class="btn btn-danger" href="{% url 'favorites' %}" role="button">Ver mis fav</a>
-
-
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <div class="modal-body" id="customModalBody">
+                        Contenido del modal
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'favorites' %}" role="button">Ver mis
+                            fav <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.45455 0.5C8.21364 0.5 7.12045 1.14167 6.5 2.15C5.87955 1.14167 4.78636 0.5 3.54545 0.5C1.59545 0.5 0 2.15 0 4.16667C0 7.80278 6.5 11.5 6.5 11.5C6.5 11.5 13 7.83333 13 4.16667C13 2.15 11.4045 0.5 9.45455 0.5Z"
+                                    fill="{% if request.path == '/' %}white{% else %}#8f3b76{% endif %}" />
+                            </svg></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,23 +63,7 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $(".like-btn").click(function () {
-                var product_id = $(this).data("product-id");
-                $.ajax({
-                    url: '/like_product/' + product_id, // Asegúrate de que esta URL esté correcta
-                    method: 'POST', // Debes usar el método POST para acciones que modifican los datos
-                    success: function (response) {
-                        // Mostrar el modal con el mensaje de respuesta
-                        $('#customModalBody').html(response.message);
-                        $('#customModal').modal('show');
-                    }
-                });
-            });
-        });
 
-    </script>
 
 
 

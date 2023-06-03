@@ -8,6 +8,7 @@ from .models import Product, User, Admin, UserFavoriteProduct, Comment
 from .forms import AdminForm, LoginForm, RegistrationForm, CommentForm
 from django.http import JsonResponse
 
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -77,6 +78,8 @@ def home(request):
     return render(request, 'home.html', context)
 
 # traer el cometario y guarlo en la base de datos
+
+
 def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
     comments = Comment.objects.filter(product=product)
@@ -89,18 +92,18 @@ def product_detail(request, prod_id):
             comment.user_id = request.session.get('user_id', None)
             comment.save()
 
-            # Aquí asumimos que quieres devolver el texto del comentario
-            # También puedes devolver todo el HTML del comentario si lo prefieres
+            # Devolver la respuesta en formato JSON con el HTML del nuevo comentario
             return JsonResponse({'success': True, 'html': comment.text})
 
         else:
-            # Aquí podrías devolver los errores de la forma si quisieras
+            # Devolver una respuesta de error en formato JSON
             return JsonResponse({'success': False})
 
     else:
         form = CommentForm()
 
     return render(request, 'product_detail.html', {'product': product, 'comments': comments, 'form': form})
+
 
 def all_products(request):
     user_id = request.session.get('user_id', None)
@@ -118,7 +121,7 @@ def all_products(request):
     # Ordena los productos por la fecha de creación de manera descendente
     products = Product.objects.all().order_by('-prod_date')
 
-    return render(request, 'all_products.html', {'products': products, 'context' : context})
+    return render(request, 'all_products.html', {'products': products, 'context': context})
 
 
 def logout(request):
