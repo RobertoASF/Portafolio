@@ -59,7 +59,8 @@
 
         <div class="row">
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button class="btn btn-primary" >Comprar</a>
                 <button type="button" class="btn btn-primary">Comprar</button>
             </div>
         </div>

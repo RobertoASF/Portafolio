@@ -104,7 +104,7 @@ ALTER TABLE "user_score" ADD PRIMARY KEY ("score_id");
 
 CREATE TABLE
     "historical" (
-        "hist_id" INTEGER NOT NULL,
+        "hist_id" SERIAL NOT NULL,
         "date" DATE NOT NULL,
         "buyer_id" VARCHAR(255) NOT NULL,
         "prod_id" VARCHAR(255) NOT NULL

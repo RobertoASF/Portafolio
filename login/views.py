@@ -222,3 +222,22 @@ def like_product(request, product_id):
         return JsonResponse({"message": "Producto añadido a favoritos"})
     else:
         return JsonResponse({"error": "Invalid method"})
+
+def comprar_producto(request, prod_id):
+    producto = get_object_or_404(Product, prod_id=prod_id)
+    
+    producto.prod_active = False
+    producto.save()
+
+    historical_entry = Historical(
+        date= datetime.date.today(),
+        buyer_id= request.session.get('user_id', None),
+        prod= producto
+    )
+    historical_entry.save()
+
+    return redirect('pagina_de_confirmacion')  
+
+
+def pagina_de_confirmacion(request):
+    return render(request, 'confirmacion.html')

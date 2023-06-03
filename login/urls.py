@@ -13,4 +13,6 @@ urlpatterns = [
     path('product_detail/<str:prod_id>/', views.product_detail, name='product_detail'),
     path('favorites/', views.favorites, name='favorites'),
     path('like_product/<str:product_id>', views.like_product, name='like_product'),
+    path('comprar/<str:prod_id>/', views.comprar_producto, name='comprar_producto'),
+    path('confirmacion/', views.pagina_de_confirmacion, name='pagina_de_confirmacion'), 
 ]
