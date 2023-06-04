@@ -21,12 +21,16 @@
 }
 
 .tind-image-1 {
-  background-image: url("https://img.freepik.com/premium-photo/young-handsome-asian-man-getting-new-car-he-driving-car-showing-thumbs-up-very-happy-buy-rent-car-concept_208349-455.jpg");
+  background-image: url("imagen-banner-1.png");
 }
 
 .tind-image-2 {
-  background-image: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80");
+  background-image: url("imagen-banner-2.png");
 }
 .tind-image-3 {
-  background-image: url("https://images.unsplash.com/photo-1556741533-e228ee50f8b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80");
+  background-image: url("imagen-banner-3.png");
+}
+
+.tind-btn-bg-primary {
+background-color: #F5487F;
 }

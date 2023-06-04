@@ -115,7 +115,7 @@
                             <a class="tind-btn-buy " data-bs-toggle="modal" data-bs-target="#productModal"
                                 data-prod-id="{{ product.prod_id }}" role="button"> Lo quiero </a>
                             {% else %}
-                            <a class="btn btn-primary btn-sm " href="#" role="button"> Registrate para comprar </a>
+                            <a class="btn btn-primary btn-sm " href="{% url 'register' %}" role="button"> Registrate para adquirir</a>
                             {% endif %}
                         </div>
 
