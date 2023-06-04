@@ -21,7 +21,6 @@ def login(request):
                     user_email=user_email, user_password=user_password)
                 if user:
                     request.session['user_id'] = user.user_id
-                    messages.success(request, 'Inicio de sesión exitoso')
                     # Redirige al usuario a la vista 'home' después del inicio de sesión
                     return redirect('home')
             except User.DoesNotExist:

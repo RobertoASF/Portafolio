@@ -2,13 +2,7 @@
 
 {% block content %}
 
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-{{ message.tags }}">
-    {{ message }}
-</div>
-{% endfor %}
-{% endif %}
+
 
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
@@ -32,6 +26,15 @@
                 <button type="submit" class="btn btn-primary mb-3">Iniciar sesión</button>
 
             </form>
+            <i>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </i>
                             <div class="div">
                                 <a class="btn btn-link" href="{% url 'admin_login' %}">Ingresar como administrador</a>
                             </div>
