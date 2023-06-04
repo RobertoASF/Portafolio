@@ -1,6 +1,6 @@
 <!-- Aquí es donde renderizas los detalles de cada producto -->
 <div class="row">
-    <div class="col-8 d-flex align-items-center">
+    <div class="col-12 col-md-8 d-flex align-items-center">
         <div id="carouselExample" class="carousel slide w-100 tind-modal-r-content">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -23,7 +23,7 @@
             </button>
         </div>
     </div>
-    <div class="col-4 bg-white tind-modal-r-content p-4">
+    <div class="col-12 col-md-4 bg-white tind-modal-r-content p-4">
         <div class="row">
             <div class="col">
                 <p class="tind-modal-title">Nombre del producto: {{ product.prod_name }}</p>
@@ -40,7 +40,7 @@
             <p>Vendedor : {{ product.prod_seller.user_name1 }} {{ product.prod_seller.user_surname1 }}</p>
         </div>
         <div class="comments">
-            <h3>Preguntas:</h3>
+            <h5>Preguntas:</h5>
             <div id="comentarioActualizado"> </div>
             {% for comment in comments %}
             <div class="comment">
@@ -50,17 +50,22 @@
             <p>No hay comentarios para este producto aún.</p>
             {% endfor %}
         </div>
-        <h2>Añade un comentario</h2>
+        <h5>Añade un comentario</h5>
         <form method="post" id="formId" action="{% url 'product_detail' product.prod_id %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-secondary" type="submit">Enviar comentario</button>
+            <div class="form-group">
+                <label for="id_text">Comentario:</label>
+                <textarea id="id_text" name="text" class="form-control"
+                    required>{{ form.text.value|default:'' }}</textarea>
+                {{ form.text.errors }}
+            </div>
+            <button class="btn btn-light w-100" type="submit">Enviar comentario</button>
         </form>
 
-        <div class="row">
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
-                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button class="btn btn-primary" >Lo quiero</a>
+
+        <div class="row mt-5">
+            <div class="">
+                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button class="btn btn-primary col-12">Lo quiero</a>
             </div>
         </div>
     </div>
