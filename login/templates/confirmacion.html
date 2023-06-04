@@ -1,6 +1,24 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<h1>¡Compra exitosa!</h1>
-<p>Gracias por tu compra. El producto ha sido adquirido exitosamente.</p>
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-4 ">
+            <img src="https://media.istockphoto.com/id/1365310330/photo/excited-young-indian-man-winner-using-smartphone-isolated-on-yellow-background.jpg?s=612x612&w=0&k=20&c=mbCnh1Bd715P9JSdqrllYYmshIyfDkgafYPK53_S-m0=" class="w-100 rounded-5 "
+                alt="">
+
+        </div>
+        <div class="col-4 align-self-center">
+            <h1>¡Ya iniciaste tu paso a adquirir tu producto!</h1>
+            <p>Gracias por usar TIndPlance. El vendedor recibirá una alerta en su correo con tus datos para iniciar la compra o intercambio.</p>
+            <a class="btn btn-outline-dark" href="{% url 'home' %}">Volver al inicio</a>
+            <script>
+            setTimeout(function () {
+              window.location.href = '/';
+            }, 15000); // 5000 ms = 5 segundos
+          </script>
+        </div>
+    </div>
+</div>
 {% endblock %}
