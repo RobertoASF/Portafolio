@@ -1,11 +1,96 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Create Product</h1>
-<form method="post" enctype="multipart/form-data">
+<h1 class="pt-3 text-center display-5">Crear Producto</h1>
+<form method="post" class="row d-flex justify-content-center" enctype="multipart/form-data">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+  <div class="col-8 card p-5 shadow-sm">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label for="prod_name">Nombre del Producto:</label>
+          <input type="text" id="prod_name" name="prod_name" class="form-control" required
+            value="{{ form.prod_name.value|default:'' }}">
+          {{ form.prod_name.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="prod_new">Producto Nuevo:</label>
+                    <br><i>Si tu producto no está marcado como nuevo, se mostrará como usado.</i>
+          <input type="checkbox" id="prod_new" name="prod_new" class="form-check"
+            value="{{ form.prod_new.value|default:'' }}">
+          {{ form.prod_new.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="permuta">Intercambio:</label>
+          <br><i>Si tu producto no está marcado como intercambio, se mostrará como venta.</i>
+          <input type="checkbox" id="permuta" name="permuta" class="form-check"
+            value="{{ form.permuta.value|default:'' }}">
+          {{ form.permuta.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="prod_price">Precio del Producto:</label>
+          <input type="number" id="prod_price" name="prod_price" class="form-control" required
+            value="{{ form.prod_price.value|default:'' }}">
+          {{ form.prod_price.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="prod_description">Descripción del Producto:</label>
+          <textarea id="prod_description" name="prod_description" class="form-control"
+            required>{{ form.prod_description.value|default:'' }}</textarea>
+          {{ form.prod_description.errors }}
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="prod_affinitie1">Afinidad del Producto 1:</label>
+          <input type="number" id="prod_affinitie1" name="prod_affinitie1" class="form-control" required
+            value="{{ form.prod_affinitie1.value|default:'' }}">
+          {{ form.prod_affinitie1.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="prod_affinitie2">Afinidad del Producto 2:</label>
+          <input type="number" id="prod_affinitie2" name="prod_affinitie2" class="form-control"
+            value="{{ form.prod_affinitie2.value|default:'' }}">
+          {{ form.prod_affinitie2.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="prod_photo1">Foto del Producto 1:</label>
+          <input type="file" id="prod_photo1" name="prod_photo1"  class="form-control" required>
+          {{ form.prod_photo1.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="prod_photo1">Foto del Producto 2:</label>
+          <input type="file" id="prod_photo2" name="prod_photo2" class="form-control" required>
+          {{ form.prod_photo2.errors }}
+        </div>
+
+  
+      <div class="form-group">
+        <label for="prod_photo3">Product Photo 3:</label>
+        <input type="file" id="prod_photo3" name="prod_photo3"  class="form-control" required>
+        {{ form.prod_photo3.errors }}
+      </div>
+    </div>
+
+  <button type="submit" class="btn btn-primary mt-5">Crear producto</button>
+  </form>
+  
+  </div>
+  </div>
+
+
+
+  
+
+  <!-- repeat for the other photo fields -->
+
+
 
 
 {% if messages %}
