@@ -9,7 +9,6 @@ from .models import Historical, Product, User, Admin, UserFavoriteProduct, Comme
 from .forms import AdminForm, LoginForm, RegistrationForm, CommentForm
 from django.http import JsonResponse
 
-
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -27,27 +26,26 @@ def login(request):
                 messages.error(request, 'Email o contraseña incorrecta')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    # Añade la variable 'hide_footer' a tu contexto
+    context = {'form': form, 'hide_footer': True}
+    return render(request, 'login.html', context)
 
 
 def admin_login(request):
-    if request.method == 'POST':
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            admin_email = form.cleaned_data['admin_email']
-            admin_name1 = form.cleaned_data['admin_name1']
-            try:
-                admin = Admin.objects.get(
-                    admin_email=admin_email, admin_name1=admin_name1)
-                # Si el inicio de sesión es exitoso, redirige al usuario a la vista 'dashboard'
-                context = {'admin': admin}
-                return render(request, 'home.html', context)
-            except Admin.DoesNotExist:
-                messages.error(
-                    request, 'Las credenciales ingresadas son incorrectas.')
-    else:
-        form = AdminForm()
-    return render(request, 'admin_login.html', {'form': form})
+    form = AdminForm(request.POST or None)
+    if form.is_valid():
+        admin_email = form.cleaned_data['admin_email']
+        admin_name1 = form.cleaned_data['admin_name1']
+        try:
+            admin = Admin.objects.get(
+                admin_email=admin_email, admin_name1=admin_name1)
+            context = {'admin': admin, 'hide_footer': True}
+            return render(request, 'home.html', context)
+        except Admin.DoesNotExist:
+            messages.error(
+                request, 'Las credenciales ingresadas son incorrectas.')
+    context = {'form': form, 'hide_footer': True}
+    return render(request, 'admin_login.html', context)
 
 
 def home(request):
@@ -129,43 +127,38 @@ def logout(request):
         del request.session['user_id']
     return redirect('home')
 
-
 def register(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            # Cree una instancia de User con los datos del formulario
-            user = User(
-                user_id=form.cleaned_data['user_id'],
-                user_name1=form.cleaned_data['user_name1'],
-                user_name2=form.cleaned_data['user_name2'],
-                user_surname1=form.cleaned_data['user_surname1'],
-                user_surname2=form.cleaned_data['user_surname2'],
-                user_email=form.cleaned_data['user_email'],
-                user_password=form.cleaned_data['user_password'],
-                user_last_loc_lat=1,
-                user_last_loc_long=1,
-                user_date_lastloc=datetime.date.today(),
-                date_registred=datetime.date.today(),
-                date_last_login=datetime.date.today(),
-                user_score=0,
-                user_phone=form.cleaned_data['user_phone'],
-                user_active=True,
-                user_inetrest1=form.cleaned_data['user_inetrest1'],
-                user_interest2=form.cleaned_data['user_interest2'],
-                user_photo=form.cleaned_data['user_photo'],
-                user_sells=0,
-                user_is_premium=False,
-            )
-            user.save()  # Guarde el usuario en la base de datos
-            # Inicie la sesión del usuario
-            request.session['user_id'] = user.user_id
-            # Muestre un mensaje de éxito al usuario
-            messages.success(request, 'Registro exitoso')
-            return redirect('home')  # Redirigir al usuario a la vista 'home'
-    else:
-        form = RegistrationForm()
-    return render(request, 'register.html', {'form': form})
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        user = User(
+            user_id=form.cleaned_data['user_id'],
+            user_name1=form.cleaned_data['user_name1'],
+            user_name2=form.cleaned_data['user_name2'],
+            user_surname1=form.cleaned_data['user_surname1'],
+            user_surname2=form.cleaned_data['user_surname2'],
+            user_email=form.cleaned_data['user_email'],
+            user_password=form.cleaned_data['user_password'],
+            user_last_loc_lat=1,
+            user_last_loc_long=1,
+            user_date_lastloc=datetime.date.today(),
+            date_registred=datetime.date.today(),
+            date_last_login=datetime.date.today(),
+            user_score=0,
+            user_phone=form.cleaned_data['user_phone'],
+            user_active=True,
+            user_inetrest1=form.cleaned_data['user_inetrest1'],
+            user_interest2=form.cleaned_data['user_interest2'],
+            user_photo=form.cleaned_data['user_photo'],
+            user_sells=0,
+            user_is_premium=False,
+        )
+        user.save()  
+        request.session['user_id'] = user.user_id
+        messages.success(request, 'Registro exitoso')
+        return redirect('home')
+    context = {'form': form, 'hide_footer': True}
+    return render(request, 'register.html', context)
+
 
 
 def enviar_correo(request):
@@ -189,11 +182,11 @@ def enviar_correo(request):
             html_content=message)
         response = sg.send(mail)
         print(response.status_code)
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'hide_footer': True})
 
 
 def weather(request):
-    return render(request, 'weather.html')
+    return render(request, 'weather.html', {'hide_footer': True})
 
 
 def error_404_view(request, exception):
@@ -248,5 +241,6 @@ def comprar_producto(request, prod_id):
     return redirect('pagina_de_confirmacion')
 
 
+
 def pagina_de_confirmacion(request):
-    return render(request, 'confirmacion.html')
+    return render(request, 'confirmacion.html', {'hide_footer': True})
