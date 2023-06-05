@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .no-underline {
+        text-decoration: none !important;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .normal {
+        font-weight: normal;
+    }
+</style>
 <h1>Tus productos favoritos</h1>
 
 {% if favorites %}
@@ -8,27 +21,30 @@
     <div class="row">
         {% for favorite in favorites %}
         <div class="col-12 mb-4">
-            <div class="p-3 border">
+            <div class="p-3 border rounded" style="background-color: lightgray;">
                 <div class="d-flex align-items-center">
                     <div class="col-lg-2 col-md-3 col-sm-4">
                         <img src="https://placehold.co/200x100" class="w-100" />
                     </div>
                     <div class="col-2">
-                        <a href="" class="text-reset">
-                            <h5 class="mb-3">{{ favorite.product.prod_name }}</h5>
-                            <h6>Precio: $ {{ favorite.product.prod_price}}</h6>
+                        <a href="" class="text-reset no-underline">
+                            <h5 class="mb-3 bold">{{ favorite.product.prod_name }}</h5>
+                            <h6 class="normal">Precio: $ {{ favorite.product.prod_price}}</h6>
                         </a>
                     </div>
                     <div class="col-2">
                         <p class="p-0 m-0">Publicado hace: {{ favorite.product.prod_date|timesince }}</p>
+                        <div class="col-5 tind-btn-preferences">
+                            <p>Categoria: {% include 'categories.html' with product=favorite.product %}</p>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <a href="" class="text-reset">
+                    <div class="col-2">
+                        <a href="" class="text-reset no-underline normal">
                             <p>{{ favorite.product.prod_description }}</p>
                         </a>
                     </div>
                     <div class="col-2">
-                        <p>Vendido por: {{ favorite.product.prod_seller.user_name1 }} {{favorite.product.prod_seller.user_surname1 }}</p>
+                        <p class="text-center">Vendido por: {{ favorite.product.prod_seller.user_name1 }} {{favorite.product.prod_seller.user_surname1 }}</p>
                     </div>
                     <div class="col-1">
                         {% if favorite.product.prod_new %}

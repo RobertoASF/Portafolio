@@ -27,6 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'es'
+
+TIME_ZONE = 'America/Santiago'  # ajustar a tu zona horaria específica si es necesario
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
 
 # Application definition
 
@@ -44,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
