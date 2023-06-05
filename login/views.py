@@ -5,8 +5,10 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Historical, Product, User, Admin, UserFavoriteProduct, Comment
+from .models import Historical, Product, User, Admin, UserFavoriteProduct, Comment, UserScore
 from .forms import AdminForm, LoginForm, RegistrationForm, CommentForm
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 def login(request):
@@ -18,10 +20,12 @@ def login(request):
             try:
                 user = User.objects.get(
                     user_email=user_email, user_password=user_password)
-                if user:
+                if user.user_active:   # Comprobar si el usuario está activo
                     request.session['user_id'] = user.user_id
                     # Redirige al usuario a la vista 'home' después del inicio de sesión
                     return redirect('home')
+                else:  # Si el usuario no está activo
+                    return redirect('inactive')   # Redirigir a la página de usuario inactivo
             except User.DoesNotExist:
                 messages.error(request, 'Email o contraseña incorrecta')
     else:
@@ -31,21 +35,39 @@ def login(request):
     return render(request, 'login.html', context)
 
 
+
 def admin_login(request):
     form = AdminForm(request.POST or None)
     if form.is_valid():
         admin_email = form.cleaned_data['admin_email']
         admin_name1 = form.cleaned_data['admin_name1']
         try:
-            admin = Admin.objects.get(
-                admin_email=admin_email, admin_name1=admin_name1)
-            context = {'admin': admin, 'hide_footer': True}
-            return render(request, 'home.html', context)
+            admin = Admin.objects.get(admin_email=admin_email, admin_name1=admin_name1)
+
+            # Get historical data
+            historical_data = Historical.objects.all()
+            # Get product data
+            product_data = Product.objects.all()
+            # Get user data
+            user_data = User.objects.all()
+
+            # Get user score data
+            user_score_data = UserScore.objects.all()
+
+            context = {
+                'admin': admin, 
+                'hide_footer': True, 
+                'historical_data': historical_data, 
+                'product_data': product_data, 
+                'user_data': user_data,
+                'user_score_data': user_score_data
+            }
+            return render(request, 'home-admin.html', context)
         except Admin.DoesNotExist:
-            messages.error(
-                request, 'Las credenciales ingresadas son incorrectas.')
+            messages.error(request, 'Las credenciales ingresadas son incorrectas.')
     context = {'form': form, 'hide_footer': True}
     return render(request, 'admin_login.html', context)
+
 
 
 def home(request):
@@ -244,3 +266,20 @@ def comprar_producto(request, prod_id):
 
 def pagina_de_confirmacion(request):
     return render(request, 'confirmacion.html', {'hide_footer': True})
+
+@csrf_exempt
+def toggle_user_active(request):
+    if request.method == "POST":
+        user_id = request.POST.get('user_id')
+        try:
+            user = User.objects.get(user_id=user_id)
+            user.user_active = not user.user_active
+            user.save()
+            return JsonResponse({"success": True})
+        except User.DoesNotExist:
+            return JsonResponse({"success": False, "error": "User does not exist"})
+    else:
+        return JsonResponse({"success": False, "error": "Invalid request"})
+    
+def inactive(request):
+    return render(request, 'inactive.html')

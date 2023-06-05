@@ -27,6 +27,9 @@
                             fill="#8f3b76" />
                     </svg>
                 </a>
+                {% elif request.path == '/admin-login/' %}
+                <!-- Si es así, mostramos solo el botón de logout -->
+                <a class="tind-nav-btn nav-link ms-2 d-flex align-items-center d-flex align-items-center" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'login' %}">Iniciar sesión</a>
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'register' %}">Registrarse</a>

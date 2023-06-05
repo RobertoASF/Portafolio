@@ -77,9 +77,13 @@
 
 
     {% if not hide_footer %}
-    <footer class="position-fixed m-5 p-2" style="left: 0;bottom: 0;">
-        <a class="tind-nav-btn nav-link ms-2" href="{% url 'evaluation' %}"> Nos Gustaria saber tu opinion <i
-                class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i></a>
+    <footer class="position-fixed my-2" style="left: 0;bottom: 0;">
+        <a class="tind-nav-btn nav-link ms-2 bg-light-subtle d-flex align-items-center p-3 shadow-sm" href="{% url 'evaluation' %}"> 
+            Nos Gustaria saber tu opinion 
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+        </a>
     </footer>
     {% endif %}
 
