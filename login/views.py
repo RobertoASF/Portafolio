@@ -138,10 +138,11 @@ def all_products(request):
     else:
         context = {'message': '¿Aún no te registras?, prueba ahora TindPlace'}
 
-    # Ordena los productos por la fecha de creación de manera descendente
-    products = Product.objects.all().order_by('-prod_date')
+    # Ordena los productos activos por la fecha de creación de manera descendente
+    products = Product.objects.filter(prod_active=True).order_by('-prod_date')
 
     return render(request, 'all_products.html', {'products': products, 'context': context})
+
 
 
 def logout(request):
