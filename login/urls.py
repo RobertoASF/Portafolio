@@ -17,5 +17,7 @@ urlpatterns = [
     path('confirmacion/', views.pagina_de_confirmacion, name='pagina_de_confirmacion'), 
     path('toggle_user_active/', views.toggle_user_active, name='toggle_user_active'),
     path('inactive/', views.inactive, name='inactive'),
+    path('toggle_product_active/', views.toggle_product_active, name='toggle_product_active'),
+
 
 ]

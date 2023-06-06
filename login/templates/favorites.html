@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
 <style>
     .no-underline {
         text-decoration: none !important;
@@ -13,7 +13,117 @@
     .normal {
         font-weight: normal;
     }
+
+    .card {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 30px;
+  overflow: hidden;
+}
+.tind-card-img {
+  height: 238px;
+}
+.tind-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+}
+.tind-price {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+}
+.tind-desc {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+}
+.tind-btn-buy {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 103px;
+  height: 43.67px;
+
+  background: #8f3b76;
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 13px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+}
+.tind-seller-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 13px;
+}
+.tind-seller-p {
+  font-style: normal;
+  font-size: 13px;
+  line-height: 13px;
+}
+.tind-btn-preferences {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: #eeeeee;
+  border-radius: 12px;
+}
+.like-btn {
+  cursor: pointer;
+}
+.modal{
+    --bs-modal-width: 80%;
+
+    overflow-y: auto;
+    outline: 0;
+}
+
+.modal-content{
+  background-color: transparent;
+}
+.tind-modal-r-content {
+  border-radius: 30px;
+}
+.tind-modal-r-content {
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.tind-modal-title{
+  font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 29px;
+}
+.tind-modal-price {
+  font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 39px;
+}
+.tind-modal-body{
+  font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+}
 </style>
+
+
+
 <div style="color:#8f3b76">
     </br>
     <h1 class="text-center"><i class="fas fa-heart"></i> Tus productos favoritos <i class="fas fa-heart"></i></h1>
@@ -56,6 +166,8 @@
                         <p><span class="badge bg-warning">Usado</span></p>
                         {% endif %}
                         <button type="button" class="btn btn-primary">Lo quiero</button>
+                        <a class="tind-btn-buy " data-bs-toggle="modal" data-bs-target="#productModal"
+                            data-prod-id="{{ favorite.product.prod_id }}" role="button"> Lo quiero </a>
 
                     </div>
                 </div>
@@ -67,4 +179,22 @@
     <p>No tienes ningún producto favorito aún.</p>
     {% endif %}
 </div>
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <div class="modal-body" id="productModalBody">
+                    <!-- Los detalles del producto se cargarán aquí -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 {% endblock %}

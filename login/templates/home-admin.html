@@ -19,98 +19,105 @@
         </li>
     </ul>
 
-        <div class="tab-content" id="adminTabsContent">
-            <div class="tab-pane fade show active" id="historical" role="tabpanel">
-                <!-- Contenido de la tabla Historial Productos Vendidos aquí -->
-                            <h1 class="display-5 text-center my-4">Historial Productos Vendidos </h1>
-                            <div class="row">
-                                <div class="col-12 justify-content-center ">
-                                    <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
-                                        <thead class="">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Fecha</th>
-                                                <th>ID de comprador</th>
-                                                <th>Producto</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="">
-                                            {% for historical in historical_data %}
-                                            <tr class="">
-                                                <td>{{ historical.hist_id }}</td>
-                                                <td>{{ historical.date }}</td>
-                                                <td>{{ historical.buyer_id }}</td>
-                                                <td>{{ historical.prod.prod_name }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-            </div>
-        
-            <div class="tab-pane fade" id="products" role="tabpanel">
-                <!-- Contenido de la tabla Historial Productos aquí -->
-                            <h1 class="display-5 text-center my-4">Historial Productos</h1>
-                            
-                            <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
-                            
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Fecha</th>
-                                        <th>Precio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for product in product_data %}
-                                    <tr>
-                                        <td>{{ product.prod_id }}</td>
-                                        <td>{{ product.prod_name }}</td>
-                                        <td>{{ product.prod_date }}</td>
-                                        <td>{{ product.prod_price }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-            </div>
-        
-            <div class="tab-pane fade" id="users" role="tabpanel">
-                <!-- Contenido de la tabla Usuario registrados aquí -->
-                            <h1 class="display-5 text-center my-4">Usuario registrados</h1>
-                            
-                            <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
-                                <!-- Your User Data -->
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Score</th>
-                                        <th>Active</th>
-                                        <!-- Add more columns as per your requirements -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for user in user_data %}
-                                    <tr>
-                                        <td>{{ user.user_id }}</td>
-                                        <td>{{ user.user_name1 }} {{ user.user_surname1 }}</td>
-                                        <td>{{ user.user_email }}</td>
-                                        <td>{{ user.user_score }}</td>
-                                        <td>
-                                            <button class="toggle-active btn btn-primary" data-user-id="{{ user.user_id }}">
-                                                {{ user.user_active|yesno:"Desactivar,Activar" }}
-                                            </button>
-                                        </td>
-                                        <!-- Add more data points as per your requirements -->
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+    <div class="tab-content" id="adminTabsContent">
+        <div class="tab-pane fade show active" id="historical" role="tabpanel">
+            <!-- Contenido de la tabla Historial Productos Vendidos aquí -->
+            <h1 class="display-5 text-center my-4">Historial Productos Vendidos </h1>
+            <div class="row">
+                <div class="col-12 justify-content-center ">
+                    <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
+                        <thead class="">
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>ID de comprador</th>
+                                <th>Producto</th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            {% for historical in historical_data %}
+                            <tr class="">
+                                <td>{{ historical.hist_id }}</td>
+                                <td>{{ historical.date }}</td>
+                                <td>{{ historical.buyer_id }}</td>
+                                <td>{{ historical.prod.prod_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
+        <div class="tab-pane fade" id="products" role="tabpanel">
+            <!-- Contenido de la tabla Historial Productos aquí -->
+            <h1 class="display-5 text-center my-4">Historial Productos</h1>
+
+            <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in product_data %}
+                    <tr>
+                        <td>{{ product.prod_id }}</td>
+                        <td>{{ product.prod_name }}</td>
+                        <td>{{ product.prod_date }}</td>
+                        <td>{{ product.prod_price }}</td>
+                        <td>{{ product.prod_active }}</td>
+                        <td>
+                            <button class="toggle-active btn btn-primary" data-id="{{ product.prod_id }}">
+                                {{ product.prod_active|yesno:"Desactivar,Activar" }}
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="users" role="tabpanel">
+            <!-- Contenido de la tabla Usuario registrados aquí -->
+            <h1 class="display-5 text-center my-4">Usuario registrados</h1>
+
+            <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
+                <!-- Your User Data -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Score</th>
+                        <th>Active</th>
+                        <!-- Add more columns as per your requirements -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in user_data %}
+                    <tr>
+                        <td>{{ user.user_id }}</td>
+                        <td>{{ user.user_name1 }} {{ user.user_surname1 }}</td>
+                        <td>{{ user.user_email }}</td>
+                        <td>{{ user.user_score }}</td>
+                        <td>
+                            <button class="toggle-active btn btn-primary" data-user-id="{{ user.user_id }}">
+                                {{ user.user_active|yesno:"Desactivar,Activar" }}
+                            </button>
+                        </td>
+                        <!-- Add more data points as per your requirements -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 </div>
@@ -127,6 +134,23 @@
                     button.text(newState);
                 }
             });
+        });
+    });
+
+    $(".toggle-active").click(function () {
+        var prodId = $(this).data("id");
+
+        $.ajax({
+            url: '/toggle_product_active/',
+            data: {
+                'prod_id': prodId
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    location.reload();
+                }
+            }
         });
     });
 </script>

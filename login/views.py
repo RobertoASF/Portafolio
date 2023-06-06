@@ -283,3 +283,16 @@ def toggle_user_active(request):
     
 def inactive(request):
     return render(request, 'inactive.html')
+
+@csrf_exempt
+def toggle_product_active(request):
+    prod_id = request.GET.get('prod_id', None)
+
+    if prod_id is not None:
+        product = Product.objects.get(prod_id=prod_id)
+        product.prod_active = not product.prod_active
+        product.save()
+
+        return JsonResponse({"success": True})
+
+    return JsonResponse({"success": False})
