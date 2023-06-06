@@ -14,8 +14,10 @@
         font-weight: normal;
     }
 </style>
-<h1>Tus productos favoritos</h1>
-
+<div style="color:#8f3b76">
+    </br>
+    <h1 class="text-center"><i class="fas fa-heart"></i> Tus productos favoritos <i class="fas fa-heart"></i></h1>
+</div>
 {% if favorites %}
 <div class="container">
     <div class="row">
@@ -44,7 +46,8 @@
                         </a>
                     </div>
                     <div class="col-2">
-                        <p class="text-center">Vendido por: {{ favorite.product.prod_seller.user_name1 }} {{favorite.product.prod_seller.user_surname1 }}</p>
+                        <p class="text-center">Vendido por: {{ favorite.product.prod_seller.user_name1 }}
+                            {{favorite.product.prod_seller.user_surname1 }}</p>
                     </div>
                     <div class="col-1">
                         {% if favorite.product.prod_new %}
