@@ -1,5 +1,6 @@
 from django import forms
-from .models import User, Comment
+from .models import Comment, User
+
 
 class LoginForm(forms.Form):
     user_email = forms.EmailField(label='Email')

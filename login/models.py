@@ -203,6 +203,26 @@ class UserScore(models.Model):
         managed = False
         db_table = 'user_score'
 
+# class Comment(models.Model):
+#     id_comment = models.CharField(primary_key=True, max_length=255)
+#     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+#     text = models.CharField(max_length=255)
+
+#     class Meta:
+#         managed = False
+#         db_table = 'comment'
+
+
+class Comment(models.Model):
+    id_comment = models.AutoField(primary_key=True)
+    product = models.ForeignKey('Product', models.DO_NOTHING)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    text = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'comment'
 # Productos Favoritos
 
 

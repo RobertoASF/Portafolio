@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -33,6 +34,7 @@ def login(request):
     # Añade la variable 'hide_footer' a tu contexto
     context = {'form': form, 'hide_footer': True}
     return render(request, 'login.html', context)
+
 
 
 
@@ -67,7 +69,6 @@ def admin_login(request):
             messages.error(request, 'Las credenciales ingresadas son incorrectas.')
     context = {'form': form, 'hide_footer': True}
     return render(request, 'admin_login.html', context)
-
 
 
 def home(request):
@@ -150,6 +151,7 @@ def logout(request):
         del request.session['user_id']
     return redirect('home')
 
+
 def register(request):
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
@@ -181,7 +183,6 @@ def register(request):
         return redirect('home')
     context = {'form': form, 'hide_footer': True}
     return render(request, 'register.html', context)
-
 
 
 def enviar_correo(request):
@@ -238,7 +239,6 @@ def like_product(request, product_id):
         return JsonResponse({"message": "Producto añadido a favoritos"})
     else:
         return JsonResponse({"error": "Invalid method"})
-
 
 def comprar_producto(request, prod_id):
     producto = get_object_or_404(Product, prod_id=prod_id)

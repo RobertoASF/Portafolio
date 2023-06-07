@@ -23,20 +23,23 @@ CREATE TABLE
         "score_value" INTEGER NOT NULL
     );
 
-ALTER TABLE "product_score" ADD PRIMARY KEY ("score_id");
+ALTER TABLE "product_score"
+ADD PRIMARY KEY ("score_id");
 
-CREATE TABLE "app_score"(
-	"app_score_id" 	VARCHAR(255) 	NOT NULL,
-	"user_id"		VARCHAR(255)	NOT NULL,
-	"as_date"		DATE			NOT NULL,
-	"as_q1" 		INTEGER 		NOT NULL,
-	"as_q2" 		INTEGER 		NOT NULL,
-	"as_q3" 		INTEGER 		NOT NULL,
-	"as_q4" 		INTEGER 		NOT NULL,
-	"as_q5"			INTEGER 		NOT NULL
-);
+CREATE TABLE
+    "app_score" (
+        "app_score_id" VARCHAR(255) NOT NULL,
+        "user_id" VARCHAR(255) NOT NULL,
+        "as_date" DATE NOT NULL,
+        "as_q1" INTEGER NOT NULL,
+        "as_q2" INTEGER NOT NULL,
+        "as_q3" INTEGER NOT NULL,
+        "as_q4" INTEGER NOT NULL,
+        "as_q5" INTEGER NOT NULL
+    );
 
-ALTER TABLE "app_score" ADD PRIMARY KEY("app_score_id");
+ALTER TABLE "app_score"
+ADD PRIMARY KEY ("app_score_id");
 
 CREATE TABLE
     "user" (
@@ -64,7 +67,8 @@ CREATE TABLE
         "user_premium_ends" DATE NULL
     );
 
-ALTER TABLE "user" ADD PRIMARY KEY ("user_id");
+ALTER TABLE "user"
+ADD PRIMARY KEY ("user_id");
 
 CREATE TABLE
     "affinity" (
@@ -72,7 +76,8 @@ CREATE TABLE
         "af_name" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "affinity" ADD PRIMARY KEY ("af_id");
+ALTER TABLE "affinity"
+ADD PRIMARY KEY ("af_id");
 
 CREATE TABLE
     "region" (
@@ -80,7 +85,8 @@ CREATE TABLE
         "region_name" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "region" ADD PRIMARY KEY ("region_id");
+ALTER TABLE "region"
+ADD PRIMARY KEY ("region_id");
 
 CREATE TABLE
     "comuna" (
@@ -89,7 +95,8 @@ CREATE TABLE
         "comuna_name" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "comuna" ADD PRIMARY KEY ("comuna_id");
+ALTER TABLE "comuna"
+ADD PRIMARY KEY ("comuna_id");
 
 CREATE TABLE
     "user_score" (
@@ -100,7 +107,8 @@ CREATE TABLE
         "score_value" INTEGER NOT NULL
     );
 
-ALTER TABLE "user_score" ADD PRIMARY KEY ("score_id");
+ALTER TABLE "user_score"
+ADD PRIMARY KEY ("score_id");
 
 CREATE TABLE
     "historical" (
@@ -110,7 +118,8 @@ CREATE TABLE
         "prod_id" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "historical" ADD PRIMARY KEY ("hist_id");
+ALTER TABLE "historical"
+ADD PRIMARY KEY ("hist_id");
 
 CREATE TABLE
     "match" (
@@ -119,7 +128,8 @@ CREATE TABLE
         "user_liked" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "match" ADD PRIMARY KEY ("user_id");
+ALTER TABLE "match"
+ADD PRIMARY KEY ("user_id");
 
 CREATE TABLE
     "provincia" (
@@ -128,7 +138,8 @@ CREATE TABLE
         "provincia_name" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "provincia" ADD PRIMARY KEY ("provincia_id");
+ALTER TABLE "provincia"
+ADD PRIMARY KEY ("provincia_id");
 
 CREATE TABLE
     "admin" (
@@ -143,7 +154,8 @@ CREATE TABLE
         "is_super_admin" BOOLEAN NOT NULL
     );
 
-ALTER TABLE "admin" ADD PRIMARY KEY ("admin_id");
+ALTER TABLE "admin"
+ADD PRIMARY KEY ("admin_id");
 
 CREATE TABLE
     "product" (
@@ -168,7 +180,8 @@ CREATE TABLE
         "id_prod_indct" INTEGER NULL
     );
 
-ALTER TABLE "product" ADD PRIMARY KEY ("prod_id");
+ALTER TABLE "product"
+ADD PRIMARY KEY ("prod_id");
 
 CREATE TABLE
     "indictment" (
@@ -180,7 +193,8 @@ CREATE TABLE
         "report_action" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "indictment" ADD PRIMARY KEY ("id_prod_indct");
+ALTER TABLE "indictment"
+ADD PRIMARY KEY ("id_prod_indct");
 
 CREATE TABLE
     "category" (
@@ -188,7 +202,8 @@ CREATE TABLE
         "cat_name" VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE "category" ADD PRIMARY KEY ("cat_id");
+ALTER TABLE "category"
+ADD PRIMARY KEY ("cat_id");
 
 CREATE TABLE
     "address" (
@@ -201,38 +216,53 @@ CREATE TABLE
         "comentario" VARCHAR(255) NULL
     );
 
-ALTER TABLE "address" ADD PRIMARY KEY ("user_id");
+ALTER TABLE "address"
+ADD PRIMARY KEY ("user_id");
 
 CREATE TABLE
     "product_category" (
         "product" VARCHAR(255) NOT NULL,
         "category" VARCHAR(255) NOT NULL
     );
-ALTER TABLE "app_score" ADD CONSTRAINT "app_score_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
 
-ALTER TABLE "product_score" ADD CONSTRAINT "product_score_product_reviewed_foreign" FOREIGN KEY ("product_reviewed") REFERENCES "product"("prod_id");
+ALTER TABLE "app_score"
+ADD CONSTRAINT "app_score_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");
 
-ALTER TABLE "historical" ADD CONSTRAINT "historical_prod_id_foreign" FOREIGN KEY ("prod_id") REFERENCES "product"("prod_id");
+ALTER TABLE "product_score"
+ADD CONSTRAINT "product_score_product_reviewed_foreign" FOREIGN KEY ("product_reviewed") REFERENCES "product" ("prod_id");
 
-ALTER TABLE "address" ADD CONSTRAINT "address_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
+ALTER TABLE "historical"
+ADD CONSTRAINT "historical_prod_id_foreign" FOREIGN KEY ("prod_id") REFERENCES "product" ("prod_id");
 
-ALTER TABLE "product" ADD CONSTRAINT "product_prod_id_foreign" FOREIGN KEY ("id_prod_indct") REFERENCES "indictment"("id_prod_indct");
+ALTER TABLE "address"
+ADD CONSTRAINT "address_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");
 
-ALTER TABLE "comuna" ADD CONSTRAINT "comuna_provincia_id_foreign" FOREIGN KEY ("provincia_id") REFERENCES "provincia"("provincia_id");
+ALTER TABLE "product"
+ADD CONSTRAINT "product_prod_id_foreign" FOREIGN KEY ("id_prod_indct") REFERENCES "indictment" ("id_prod_indct");
 
-ALTER TABLE "provincia" ADD CONSTRAINT "provincia_region_id_foreign" FOREIGN KEY ("region_id") REFERENCES "region"("region_id");
+ALTER TABLE "comuna"
+ADD CONSTRAINT "comuna_provincia_id_foreign" FOREIGN KEY ("provincia_id") REFERENCES "provincia" ("provincia_id");
 
-ALTER TABLE "product_category" ADD CONSTRAINT "product_category_product_foreign" FOREIGN KEY ("product") REFERENCES "product"("prod_id");
+ALTER TABLE "provincia"
+ADD CONSTRAINT "provincia_region_id_foreign" FOREIGN KEY ("region_id") REFERENCES "region" ("region_id");
 
-ALTER TABLE "product_category" ADD CONSTRAINT "product_cat_category_foreign" FOREIGN KEY ("category") REFERENCES "category"("cat_id");
+ALTER TABLE "product_category"
+ADD CONSTRAINT "product_category_product_foreign" FOREIGN KEY ("product") REFERENCES "product" ("prod_id");
 
-ALTER TABLE "address" ADD CONSTRAINT "address_comuna_id_foreign" FOREIGN KEY ("comuna_id") REFERENCES "comuna"("comuna_id");
+ALTER TABLE "product_category"
+ADD CONSTRAINT "product_cat_category_foreign" FOREIGN KEY ("category") REFERENCES "category" ("cat_id");
 
-ALTER TABLE "user_score" ADD CONSTRAINT "user_score_user_reviwer_foreign" FOREIGN KEY ("user_reviwer") REFERENCES "user"("user_id");
+ALTER TABLE "address"
+ADD CONSTRAINT "address_comuna_id_foreign" FOREIGN KEY ("comuna_id") REFERENCES "comuna" ("comuna_id");
 
-ALTER TABLE "match" ADD CONSTRAINT "match_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user"("user_id");
+ALTER TABLE "user_score"
+ADD CONSTRAINT "user_score_user_reviwer_foreign" FOREIGN KEY ("user_reviwer") REFERENCES "user" ("user_id");
 
-ALTER TABLE "product" ADD CONSTRAINT "product_prod_seller_foreign" FOREIGN KEY ("prod_seller") REFERENCES "user"("user_id");
+ALTER TABLE "match"
+ADD CONSTRAINT "match_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");
+
+ALTER TABLE "product"
+ADD CONSTRAINT "product_prod_seller_foreign" FOREIGN KEY ("prod_seller") REFERENCES "user" ("user_id");
 
 -- Eliminamos 
 DROP TABLE IF EXISTS django_session;
@@ -247,6 +277,15 @@ CREATE TABLE
             time zone NOT NULL
     );
 
+CREATE TABLE
+    comment (
+        id_comment SERIAL PRIMARY KEY,
+        product_id VARCHAR(255) NOT NULL,
+        user_id VARCHAR(255) NOT NULL,
+        text TEXT NOT NULL,
+        FOREIGN KEY (product_id) REFERENCES "product" (prod_id),
+        FOREIGN KEY (user_id) REFERENCES "user" (user_id)
+    );
 CREATE TABLE user_favorite_product (
     id SERIAL PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
