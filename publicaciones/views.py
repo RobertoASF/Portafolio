@@ -12,17 +12,15 @@ def create_product(request):
         return redirect('login')  
     user = User.objects.get(user_id=user_id)
     print(user)
-    form = ProductForm(request.POST or None)
+    form = ProductForm(request.POST, request.FILES or None)
     if form.is_valid():
         product = form.save(commit=False)
         product.prod_id = uuid.uuid4().hex
         product.prod_seller = user
         product.prod_date = datetime.date.today().isoformat()
         product.prod_active = True
+        
         product.save()
         return redirect('home')
     context = {'form': form, 'hide_footer': True}
     return render(request, 'create_product.html', context)
-
-
-

@@ -109,11 +109,11 @@ class Product(models.Model):
     prod_description = models.CharField(max_length=255)
     prod_affinitie1 = models.IntegerField()
     prod_affinitie2 = models.IntegerField(blank=True, null=True)
-    prod_photo1 = models.CharField(max_length=255)
-    prod_photo2 = models.CharField(max_length=255)
-    prod_photo3 = models.CharField(max_length=255, blank=True, null=True)
-    prod_photo4 = models.CharField(max_length=255, blank=True, null=True)
-    prod_photo5 = models.CharField(max_length=255, blank=True, null=True)
+    prod_photo1 = models.ImageField(upload_to='photos/', null=True, blank=True)
+    prod_photo2 = models.ImageField(upload_to='photos/', null=True, blank=True)
+    prod_photo3 = models.ImageField(upload_to='photos/', null=False, blank=True)
+    prod_photo4 = models.ImageField(upload_to='photos/', null=False, blank=True)
+    prod_photo5 = models.ImageField(upload_to='photos/', null=False, blank=True)
 
     class Meta:
         managed = False
