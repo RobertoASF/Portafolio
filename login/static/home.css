@@ -1,0 +1,37 @@
+.tind-carrousel-custom {
+  border-radius: 40px;
+  overflow: hidden;
+  height: 350px;
+}
+
+.image-x {
+  background: rgb(9, 9, 121);
+  background: linear-gradient(
+    263deg,
+    rgba(9, 9, 121, 0) 30%,
+    rgba(245, 72, 127, 1) 50%
+  );
+}
+
+.tind-image {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.tind-image-1 {
+  background-image: url("imagen-banner-1.png");
+}
+
+.tind-image-2 {
+  background-image: url("imagen-banner-2.png");
+}
+.tind-image-3 {
+  background-image: url("imagen-banner-3.png");
+}
+
+.tind-btn-bg-primary {
+background-color: #F5487F;
+border: #F5487F;
+}

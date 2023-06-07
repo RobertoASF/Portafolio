@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +27,16 @@ SECRET_KEY = "django-insecure-(^5ycufja7wu^3@eyvl5h8cuo$=#&!s#c$kjf00yzojuw4jnw&
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'es'
+
+TIME_ZONE = 'America/Santiago'  # ajustar a tu zona horaria específica si es necesario
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
 
 
 # Application definition
@@ -37,12 +48,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
     "evaluacion",
     "login",
     "publicaciones"
 ]
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -54,22 +67,26 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "tindplace.urls"
 
-TEMPLATES = [    {        'BACKEND': 'django.template.backends.django.DjangoTemplates',        
-                  'DIRS': [BASE_DIR / 'templates'], # Agrega la ruta a la carpeta "templates"
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.static',                
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
+TEMPLATES = [{'BACKEND': 'django.template.backends.django.DjangoTemplates',
+              # Agrega la ruta a la carpeta "templates"
+              'DIRS': [BASE_DIR / 'login' / 'templates'],
+              'APP_DIRS': True,
+              'OPTIONS': {
+                  'context_processors': [
+                      'django.template.context_processors.static',
+                      'django.template.context_processors.debug',
+                      'django.template.context_processors.request',
+                      'django.contrib.auth.context_processors.auth',
+                      'django.contrib.messages.context_processors.messages',
+                  ],
+              },
+              },
+             ]
+# STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "login" / "static",
+                    ]
+
 
 WSGI_APPLICATION = "tindplace.wsgi.application"
 
@@ -129,3 +146,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_ROOT = os.path.join(str(BASE_DIR), 'media')
+MEDIA_URL = '/media/'

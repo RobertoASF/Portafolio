@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación completada</title>
-</head>
-<body>
-    <h1>¡Gracias por evaluar nuestra app!</h1>
-    <p>Tu opinión es importante para nosotros. Apreciamos tu tiempo y esfuerzo para compartir tus comentarios.</p>
-    <a href="{% url 'home' %}">Volver al inicio</a>
-    <script>
-        setTimeout(function() {
-          window.location.href = '/';
-        }, 5000); // 5000 ms = 5 segundos
-      </script>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-4 ">
+                <img src="https://images.pexels.com/photos/5908491/pexels-photo-5908491.jpeg" class="w-100 rounded-5 " alt="">
+
+    </div>
+    <div class="col-4 align-self-center">
+          <h1>¡Gracias por evaluar nuestra app!</h1>
+          <p>Tu opinión es importante para nosotros. Apreciamos tu tiempo y esfuerzo para compartir tus comentarios.</p>
+          <a class="btn btn-outline-dark" href="{% url 'home' %}">Volver al inicio</a>
+          <!-- <script>
+            setTimeout(function () {
+              window.location.href = '/';
+            }, 5000); // 5000 ms = 5 segundos
+          </script> -->
+    </div>
+  </div>
+</div>
+{% endblock %}

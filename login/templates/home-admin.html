@@ -1,43 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+{% extends 'base.html' %}
 
-</head>
-<body>
-    <h1 class="display-4">Admin Home</h1>
+{% block content %}
 
-<div class="row">
-    <div class="col-6">
-        <table class="table table-hover">
-            <h3>Todos los productos</h3>
+<h1 class="display-4 text-center">Admin Home</h1>
+
+.<div class="container">
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="historical-tab" data-bs-toggle="tab" href="#historical" role="tab">Historial
+                Productos Vendidos</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="products-tab" data-bs-toggle="tab" href="#products" role="tab">Historial
+                Productos</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="users-tab" data-bs-toggle="tab" href="#users" role="tab">Usuario registrados</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="adminTabsContent">
+        <div class="tab-pane fade show active" id="historical" role="tabpanel">
+            <!-- Contenido de la tabla Historial Productos Vendidos aquí -->
+            <h1 class="display-5 text-center my-4">Historial Productos Vendidos </h1>
+            <div class="row">
+                <div class="col-12 justify-content-center ">
+                    <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
+                        <thead class="">
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>ID de comprador</th>
+                                <th>Producto</th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            {% for historical in historical_data %}
+                            <tr class="">
+                                <td>{{ historical.hist_id }}</td>
+                                <td>{{ historical.date }}</td>
+                                <td>{{ historical.buyer_id }}</td>
+                                <td>{{ historical.prod.prod_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="products" role="tabpanel">
+            <!-- Contenido de la tabla Historial Productos aquí -->
+            <h1 class="display-5 text-center my-4">Historial Productos</h1>
+
+            <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
+                <thead>
                     <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Date</th>
-                <!-- Agrega aquí las columnas que desees -->
-            </tr>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.prod_id }}</td>
-                <td>{{ product.prod_name }}</td>
-                <td>{{ product.prod_price }}</td>
-                <td>{{ product.prod_date }}</td>
-                <!-- Agrega aquí las columnas que desees -->
-            </tr>
-            {% endfor %}
-        </table>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in product_data %}
+                    <tr>
+                        <td>{{ product.prod_id }}</td>
+                        <td>{{ product.prod_name }}</td>
+                        <td>{{ product.prod_date }}</td>
+                        <td>{{ product.prod_price }}</td>
+                        <td>{{ product.prod_active }}</td>
+                        <td>
+                            <button class="toggle-active btn btn-primary" data-id="{{ product.prod_id }}">
+                                {{ product.prod_active|yesno:"Desactivar,Activar" }}
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="users" role="tabpanel">
+            <!-- Contenido de la tabla Usuario registrados aquí -->
+            <h1 class="display-5 text-center my-4">Usuario registrados</h1>
+
+            <table class="table border border-4 rounded" style="border: 1px solid rgb(192, 192, 192); ">
+                <!-- Your User Data -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Score</th>
+                        <th>Active</th>
+                        <!-- Add more columns as per your requirements -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in user_data %}
+                    <tr>
+                        <td>{{ user.user_id }}</td>
+                        <td>{{ user.user_name1 }} {{ user.user_surname1 }}</td>
+                        <td>{{ user.user_email }}</td>
+                        <td>{{ user.user_score }}</td>
+                        <td>
+                            <button class="toggle-active btn btn-primary" data-user-id="{{ user.user_id }}">
+                                {{ user.user_active|yesno:"Desactivar,Activar" }}
+                            </button>
+                        </td>
+                        <!-- Add more data points as per your requirements -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-</body>
-</html>
+<script>
+    $(document).ready(function () {
+        $(".toggle-active").click(function () {
+            var button = $(this);
+            var userId = button.data('user-id');
+            $.post("/toggle_user_active/", { user_id: userId }, function (data) {
+                if (data.success) {
+                    var currentState = button.text();
+                    var newState = (currentState === "Deactivate") ? "Activate" : "Deactivate";
+                    button.text(newState);
+                }
+            });
+        });
+    });
 
+    $(".toggle-active").click(function () {
+        var prodId = $(this).data("id");
+
+        $.ajax({
+            url: '/toggle_product_active/',
+            data: {
+                'prod_id': prodId
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    location.reload();
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,16 +1,33 @@
+{% extends 'base.html' %}
 {% block content %}
-    <h1>Bienvenido al login de admin</h1>
-    <p>Por favor, ingresa tus credenciales:</p>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Iniciar sesión</button>
-    </form>
+<h1 class="py-5 text-center display-4">Bienvenido al login de admin</h1>
+
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-4  card p-5 shadow-sm">
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <label for="id_admin_email">Email de administrador:</label>
+                    <input class="mb-3 form-control" type="text" name="admin_email" id="id_admin_email" maxlength="255">
+                </div>
+                <div>
+                    <label for="id_admin_name1">Contraseña de administrador:</label>
+                    <input class="mb-3 form-control" type="password" name="admin_name1" id="id_admin_name1" maxlength="255">
+                </div>
+                <button  class="btn btn-primary mb-3" type="submit">Iniciar sesión</button>
+            </form>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

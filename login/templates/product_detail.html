@@ -1,27 +1,75 @@
 <!-- Aquí es donde renderizas los detalles de cada producto -->
-<img class="card-img-top" src="https://placehold.co/300x300/png" alt="Card image cap">
-<p>Nombre del producto: {{ product.prod_name }}</p>
-<p>Descripción : {{ product.prod_description }}</p>
-<p>Precio : {{ product.prod_price }}</p>
-<p>Vendedor : {{ product.prod_seller.user_name1 }} {{ product.prod_seller.user_surname1 }}</p>
-
-<div class="comments">
-    <h3>Comentarios:</h3>
-    <div id="comentarioActualizado"> </div>
-    {% for comment in comments %}
-    <div class="comment">
-        <p>{{ comment.text }}</p>
+<div class="row">
+    <div class="col-12 col-md-8 d-flex align-items-center">
+        <div id="carouselExample" class="carousel slide w-100 tind-modal-r-content">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://placehold.co/300x300/png" class="d-block w-100 card-img-top" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://placehold.co/300x300/png" class="d-block w-100 card-img-top" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://placehold.co/300x300/png" class="d-block w-100 card-img-top" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-    {% empty %}
-    <p>No hay comentarios para este producto aún.</p>
-    {% endfor %}
+    <div class="col-12 col-md-4 bg-white tind-modal-r-content p-4">
+        <div class="row">
+            <div class="col">
+                <p class="tind-modal-title">Nombre del producto: {{ product.prod_name }}</p>
+                <p class="tind-modal-price">Precio : {{ product.prod_price }}</p>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-center ">
+                {% include 'btn-like.html' %}
+            </div>
+
+        </div>
+        <div>
+
+            <p>Descripción : {{ product.prod_description }}</p>
+            <p>Vendedor : {{ product.prod_seller.user_name1 }} {{ product.prod_seller.user_surname1 }}</p>
+        </div>
+        <div class="comments">
+            <h5>Preguntas:</h5>
+            <div id="comentarioActualizado"> </div>
+            {% for comment in comments %}
+            <div class="comment">
+                <p>{{ comment.text }}</p>
+            </div>
+            {% empty %}
+            <p>No hay comentarios para este producto aún.</p>
+            {% endfor %}
+        </div>
+        <h5>Añade un comentario</h5>
+        <form method="post" id="formId" action="{% url 'product_detail' product.prod_id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_text">Comentario:</label>
+                <textarea id="id_text" name="text" class="form-control"
+                    required>{{ form.text.value|default:'' }}</textarea>
+                {{ form.text.errors }}
+            </div>
+            <button class="btn btn-light w-100" type="submit">Enviar comentario</button>
+        </form>
+
+
+        <div class="row mt-5">
+            <div class="">
+                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button class="btn btn-primary col-12">Lo quiero</a>
+            </div>
+        </div>
+    </div>
 </div>
-<h2>Añade un comentario</h2>
-<form method="post" id="formId" action="{% url 'product_detail' product.prod_id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar comentario</button>
-</form>
 
 <script>
     function getCookie(name) {

@@ -1,6 +1,7 @@
 from django import forms
 from .models import Comment, User
 
+
 class LoginForm(forms.Form):
     user_email = forms.EmailField(label='Email')
     user_password = forms.CharField(widget=forms.PasswordInput, label='Contraseña')
@@ -21,7 +22,6 @@ class RegistrationForm(forms.Form):
 class AdminForm(forms.Form):
     admin_email = forms.CharField(max_length=255)
     admin_name1 = forms.CharField(max_length=255)
-    
 
 class CommentForm(forms.ModelForm):
     class Meta:

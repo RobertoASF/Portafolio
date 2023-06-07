@@ -1,57 +1,63 @@
+{% extends 'base.html' %}
 {% block content %}
-    <h1>Evalúa nuestra app</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div>
-            <legend>A.- ¿Cómo calificarías nuestra app?</legend>
-            <label for="calificacion">Selecciona una opcion:</label>
-            <select name="calificacion" id="calificacion">
-                <option value="1">Muy buena</option>
-                <option value="2">Buena</option>
-                <option value="3">Regular</option>
-                <option value="4">no me convence</option>
-                <option value="5">No me gustó</option>
-            </select>
-        </div>
-        <br>
-        <div>
-            <legend>B.- ¿Qué tan probable es que nos recomiendes?</legend>
-            <label for="recomendacion">Selecciona una opcion:</label>
-            <select name="recomendacion" id="recomendacion">
-                <option value="1">Muy probable</option>
-                <option value="2">Probablemente</option>
-                <option value="3">Aun no lo tengo claro</option>
-                <option value="4">poco probable</option>
-                <option value="5">No la recomendare</option>
-            </select>
-        </div>
-        <br>
-        <div>
-            <legend>C.- ¿Qué tan fácil te resultó usar nuestra aplicación?</legend>
-            <label for="facilidad">Selecciona una opcion:</label>
-            <select name="facilidad" id="facilidad">
-                <option value="1">Muy fácil de usar</option>
-                <option value="2">Medianamente fácil de usar</option>
-                <option value="3">Regular</option>
-                <option value="4">Se me complico un poco</option>
-                <option value="5">Me fue difícil usarla</option>
-            </select>
-        </div>
-        <br>
-        <div>
-            <legend>D.- ¿Has hecho alguna publicación?</legend>
-            <label for="publicacion">Has hecho alguna publicación:</label>
-            <input type="radio" name="publicacion" value="1"> Sí
-            <input type="radio" name="publicacion" value="2"> No
-        </div>
-        <br>
-        <div>
-            <legend>E.- ¿Encontraste lo que buscabas?</legend>
-            <label for="encontraste">Encontraste lo que buscabas:</label>
-            <input type="radio" name="encontraste" value="1"> Sí
-            <input type="radio" name="encontraste" value="2"> No
-        </div>
-        <br>
-        <input type="submit" value="Enviar evaluación">
-    </form>
+<h1 class="py-5 text-center display-4">Evalúa nuestra app</h1>
+<div class="container">
+    <div class="row">
+        <form method="post" class="card p-5 shadow-sm">
+            {% csrf_token %}
+            <div>
+                <legend>A.- ¿Cómo calificarías nuestra app?</legend>
+                <label for="calificacion">Selecciona una opcion:</label>
+                <select name="calificacion" id="calificacion">
+                    <option value="1">Muy buena</option>
+                    <option value="2">Buena</option>
+                    <option value="3">Regular</option>
+                    <option value="4">no me convence</option>
+                    <option value="5">No me gustó</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <legend>B.- ¿Qué tan probable es que nos recomiendes?</legend>
+                <label for="recomendacion">Selecciona una opcion:</label>
+                <select name="recomendacion" id="recomendacion">
+                    <option value="1">Muy probable</option>
+                    <option value="2">Probablemente</option>
+                    <option value="3">Aun no lo tengo claro</option>
+                    <option value="4">poco probable</option>
+                    <option value="5">No la recomendare</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <legend>C.- ¿Qué tan fácil te resultó usar nuestra aplicación?</legend>
+                <label for="facilidad">Selecciona una opcion:</label>
+                <select name="facilidad" id="facilidad">
+                    <option value="1">Muy fácil de usar</option>
+                    <option value="2">Medianamente fácil de usar</option>
+                    <option value="3">Regular</option>
+                    <option value="4">Se me complico un poco</option>
+                    <option value="5">Me fue difícil usarla</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <legend>D.- ¿Has hecho alguna publicación?</legend>
+                <label for="publicacion">Has hecho alguna publicación:</label>
+                <input type="radio" name="publicacion" value="1"> Sí
+                <input type="radio" name="publicacion" value="2"> No
+            </div>
+            <br>
+            <div>
+                <legend>E.- ¿Encontraste lo que buscabas?</legend>
+                <label for="encontraste">Encontraste lo que buscabas:</label>
+                <input type="radio" name="encontraste" value="1"> Sí
+                <input type="radio" name="encontraste" value="2"> No
+            </div>
+            <br>
+            <input class="btn btn-outline-primary" type="submit" value="Enviar evaluación">
+        </form>
+    </div>
+</div>
+
 {% endblock %}

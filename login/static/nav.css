@@ -1,0 +1,48 @@
+.tind-nav-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 15px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 28px;
+  text-decoration: none;
+  color: #8f3b76;
+}
+.tind-nav-one-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 28px;
+}
+.tind-second-bar-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  gap: 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #8f3b76;
+  border: #8f3b76 solid 1px;
+}
+
+.tind-second-bar-btn-Active {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  gap: 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  background-color: #8f3b76;
+}
