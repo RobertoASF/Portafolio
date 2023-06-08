@@ -3,16 +3,62 @@
     <div class="col-12 col-md-8 d-flex align-items-center">
         <div id="carouselExample" class="carousel slide w-100 tind-modal-r-content">
             <div class="carousel-inner">
+                {% if product.prod_photo1 %}
                 <div class="carousel-item active">
-                    <img src="https://placehold.co/300x300/png" class="d-block w-100 card-img-top" alt="...">
+                    <img src="{{ product.prod_photo1.url }}" class="d-block w-100 card-img-top"
+                        alt="{{ product.prod_name }}">
                 </div>
+                {% else %}
+                    <div class="carousel-item w-100 position-relative d-flex align-items-center p-3 bg-light justify-content-center"
+                        style="height: 238px;">
+                        <svg height="60" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-3">
+                            <path
+                                d="M28 1.414L26.586 0L0 26.586L1.414 28L3.414 26H24C24.5302 25.9992 25.0384 25.7882 25.4133 25.4133C25.7882 25.0384 25.9992 24.5302 26 24V3.414L28 1.414ZM24 24H5.414L13.207 16.207L15.586 18.586C15.9611 18.9609 16.4697 19.1716 17 19.1716C17.5303 19.1716 18.0389 18.9609 18.414 18.586L20 17L24 20.997V24ZM24 18.168L21.414 15.582C21.0389 15.2071 20.5303 14.9964 20 14.9964C19.4697 14.9964 18.9611 15.2071 18.586 15.582L17 17.168L14.623 14.791L24 5.414V18.168ZM4 20V17L9 12.003L10.373 13.377L11.789 11.961L10.414 10.586C10.0389 10.2111 9.53033 10.0004 9 10.0004C8.46967 10.0004 7.96106 10.2111 7.586 10.586L4 14.172V4H20V2H4C3.46973 2.00053 2.96133 2.21141 2.58637 2.58637C2.21141 2.96133 2.00053 3.46973 2 4V20H4Z"
+                                fill="black" />
+                        </svg>
+                        <p class="m-0">
+                            <b>¡Ups!</b> al parecer este producto<br> <i>no tiene imagen</i>
+                        </p>
+                    </div>
+                {% endif %}
+                {% if product.prod_photo2 %}
                 <div class="carousel-item">
-                    <img src="https://placehold.co/300x300/png" class="d-block w-100 card-img-top" alt="...">
+                    <img src="{{ product.prod_photo2.url }}" class="d-block w-100 card-img-top"
+                        alt="{{ product.prod_name }}">
                 </div>
+                {% else %}
+                    <div class="carousel-item w-100 position-relative d-flex align-items-center p-3 bg-light justify-content-center"
+                        style="height: 238px;">
+                        <svg height="60" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-3">
+                            <path
+                                d="M28 1.414L26.586 0L0 26.586L1.414 28L3.414 26H24C24.5302 25.9992 25.0384 25.7882 25.4133 25.4133C25.7882 25.0384 25.9992 24.5302 26 24V3.414L28 1.414ZM24 24H5.414L13.207 16.207L15.586 18.586C15.9611 18.9609 16.4697 19.1716 17 19.1716C17.5303 19.1716 18.0389 18.9609 18.414 18.586L20 17L24 20.997V24ZM24 18.168L21.414 15.582C21.0389 15.2071 20.5303 14.9964 20 14.9964C19.4697 14.9964 18.9611 15.2071 18.586 15.582L17 17.168L14.623 14.791L24 5.414V18.168ZM4 20V17L9 12.003L10.373 13.377L11.789 11.961L10.414 10.586C10.0389 10.2111 9.53033 10.0004 9 10.0004C8.46967 10.0004 7.96106 10.2111 7.586 10.586L4 14.172V4H20V2H4C3.46973 2.00053 2.96133 2.21141 2.58637 2.58637C2.21141 2.96133 2.00053 3.46973 2 4V20H4Z"
+                                fill="black" />
+                        </svg>
+                        <p class="m-0">
+                            <b>¡Ups!</b> al parecer este producto<br> <i>no tiene imagen</i>
+                        </p>
+                    </div>
+                {% endif %}
+                {% if product.prod_photo3 %}
                 <div class="carousel-item">
-                    <img src="https://placehold.co/300x300/png" class="d-block w-100 card-img-top" alt="...">
+                    <img src="{{ product.prod_photo3.url }}" class="d-block w-100 card-img-top"
+                        alt="{{ product.prod_name }}">
                 </div>
+                {% else %}
+                    <div class="carousel-item w-100 position-relative d-flex align-items-center p-3 bg-light justify-content-center" style="height: 238px;">
+                        <svg height="60" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-3">
+                            <path
+                                d="M28 1.414L26.586 0L0 26.586L1.414 28L3.414 26H24C24.5302 25.9992 25.0384 25.7882 25.4133 25.4133C25.7882 25.0384 25.9992 24.5302 26 24V3.414L28 1.414ZM24 24H5.414L13.207 16.207L15.586 18.586C15.9611 18.9609 16.4697 19.1716 17 19.1716C17.5303 19.1716 18.0389 18.9609 18.414 18.586L20 17L24 20.997V24ZM24 18.168L21.414 15.582C21.0389 15.2071 20.5303 14.9964 20 14.9964C19.4697 14.9964 18.9611 15.2071 18.586 15.582L17 17.168L14.623 14.791L24 5.414V18.168ZM4 20V17L9 12.003L10.373 13.377L11.789 11.961L10.414 10.586C10.0389 10.2111 9.53033 10.0004 9 10.0004C8.46967 10.0004 7.96106 10.2111 7.586 10.586L4 14.172V4H20V2H4C3.46973 2.00053 2.96133 2.21141 2.58637 2.58637C2.21141 2.96133 2.00053 3.46973 2 4V20H4Z"
+                                fill="black" />
+                        </svg>
+                        <p class="m-0">
+                            <b>¡Ups!</b> al parecer este producto<br> <i>no tiene imagen</i>
+                        </p>
+                    </div>
+                {% endif %}
+                <!-- Continuar para las restantes imágenes (prod_photo3, prod_photo4, etc.) -->
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -65,7 +111,8 @@
 
         <div class="row mt-5">
             <div class="">
-                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button class="btn btn-primary col-12">Lo quiero</a>
+                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button
+                    class="btn btn-primary col-12">Lo quiero</a>
             </div>
         </div>
     </div>
