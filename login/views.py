@@ -103,7 +103,10 @@ def home(request):
 
 def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
-    comments = Comment.objects.filter(product=product)
+    #comments = Comment.objects.filter(product=product)
+    comments = Comment.objects.filter(product=product).select_related('user')
+
+    
 
     if request.method == 'POST':
         form = CommentForm(request.POST)

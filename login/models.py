@@ -223,9 +223,8 @@ class Comment(models.Model):
     class Meta:
         managed = False
         db_table = 'comment'
+
 # Productos Favoritos
-
-
 class UserFavoriteProduct(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -234,13 +233,3 @@ class UserFavoriteProduct(models.Model):
         unique_together = ('user', 'product')
         db_table = 'user_favorite_product'
 
-#tabla comentario
-class Comment(models.Model):
-    id_comment = models.AutoField(primary_key=True)
-    product = models.ForeignKey('Product', models.DO_NOTHING)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    text = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table ='comment'
