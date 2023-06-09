@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.db.models import Max
 from django.views.decorators.csrf import csrf_exempt
 from audioop import reverse
@@ -100,7 +101,6 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-# traer el cometario y guarlo en la base de datos
 def product_detail(request, prod_id):
     product = Product.objects.get(prod_id=prod_id)
     comments = Comment.objects.filter(product=product)
@@ -113,17 +113,18 @@ def product_detail(request, prod_id):
             comment.user_id = request.session.get('user_id', None)
             comment.save()
 
-            # Devolver la respuesta en formato JSON con el HTML del nuevo comentario
-            return JsonResponse({'success': True, 'html': comment.text})
+            # Devolver la respuesta en formato HTML con el nuevo comentario
+            return HttpResponse('Success')
 
         else:
             # Devolver una respuesta de error en formato JSON
-            return JsonResponse({'success': False})
+            return HttpResponse('Failure')
 
     else:
         form = CommentForm()
 
     return render(request, 'product_detail.html', {'product': product, 'comments': comments, 'form': form})
+
 
 
 def all_products(request):
