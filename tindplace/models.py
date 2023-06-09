@@ -105,7 +105,7 @@ class DjangoSession(models.Model):
 
 
 class Historical(models.Model):
-    hist_id = models.IntegerField(primary_key=True)
+    hist_id = models.AutoField(primary_key=True)
     date = models.DateField()
     buyer_id = models.CharField(max_length=255)
     prod = models.ForeignKey('Product', models.DO_NOTHING)
