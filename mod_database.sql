@@ -98,17 +98,15 @@ CREATE TABLE
 ALTER TABLE "comuna"
 ADD PRIMARY KEY ("comuna_id");
 
-CREATE TABLE
-    "user_score" (
-        "score_id" INTEGER NOT NULL,
-        "user_reviwer" VARCHAR(255) NULL,
-        "user_reviwed" VARCHAR(255) NOT NULL,
-        "score_date" DATE NOT NULL,
-        "score_value" INTEGER NOT NULL
-    );
-
-ALTER TABLE "user_score"
-ADD PRIMARY KEY ("score_id");
+CREATE TABLE "user_score" (
+    score_id SERIAL PRIMARY KEY,
+    user_reviwer INTEGER NOT NULL,
+    user_reviwed INTEGER NOT NULL,
+    score_date DATE NOT NULL,
+    score_value INTEGER NOT NULL,
+    FOREIGN KEY (user_reviwer) REFERENCES auth_user(id),
+    FOREIGN KEY (user_reviwed) REFERENCES auth_user(id)
+);
 
 CREATE TABLE
     "historical" (
@@ -255,8 +253,8 @@ ADD CONSTRAINT "product_cat_category_foreign" FOREIGN KEY ("category") REFERENCE
 ALTER TABLE "address"
 ADD CONSTRAINT "address_comuna_id_foreign" FOREIGN KEY ("comuna_id") REFERENCES "comuna" ("comuna_id");
 
-ALTER TABLE "user_score"
-ADD CONSTRAINT "user_score_user_reviwer_foreign" FOREIGN KEY ("user_reviwer") REFERENCES "user" ("user_id");
+-- ALTER TABLE "user_score"
+-- ADD CONSTRAINT "user_score_user_reviwer_foreign" FOREIGN KEY ("user_reviwer") REFERENCES "user" ("user_id");
 
 ALTER TABLE "match"
 ADD CONSTRAINT "match_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id");

@@ -194,7 +194,8 @@ class User(models.Model):
 
 class UserScore(models.Model):
     score_id = models.IntegerField(primary_key=True)
-    user_reviwer = models.ForeignKey(User, models.DO_NOTHING, db_column='user_reviwer', blank=True, null=True)
+    user_reviwer = models.ForeignKey(
+        User, models.DO_NOTHING, db_column='user_reviwer', blank=True, null=True)
     user_reviwed = models.CharField(max_length=255)
     score_date = models.DateField()
     score_value = models.IntegerField()
@@ -202,16 +203,6 @@ class UserScore(models.Model):
     class Meta:
         managed = False
         db_table = 'user_score'
-
-# class Comment(models.Model):
-#     id_comment = models.CharField(primary_key=True, max_length=255)
-#     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-#     text = models.CharField(max_length=255)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'comment'
 
 
 class Comment(models.Model):

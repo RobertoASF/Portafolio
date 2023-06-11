@@ -1,3 +1,5 @@
+from django.db.models import Q
+from .forms import UserScoreForm  # Import your form at the top of the file
 from django.http import HttpResponse
 from django.db.models import Max
 from django.views.decorators.csrf import csrf_exempt
@@ -301,3 +303,60 @@ def toggle_product_active(request):
         return JsonResponse({"success": True})
 
     return JsonResponse({"success": False})
+
+
+def sold_products(request):
+    user_id = request.session.get('user_id', None)
+    if user_id is not None:
+        # Obtenemos los productos vendidos por el usuario
+        historical_records = Historical.objects.filter(buyer_id=user_id)
+        # Filtramos los productos que fueron vendidos
+        sold_products = [
+            record.prod for record in historical_records if not record.prod.prod_active]
+        user_reviwer = User.objects.get(user_id=request.session.get('user_id'))
+
+        # Para cada producto vendido, verifica si el usuario ya lo ha calificado
+        sold_products_rated = []
+        for product in sold_products:
+            user_reviwed = product.prod_seller
+            previous_score = UserScore.objects.filter(
+                user_reviwer=user_reviwer, user_reviwed=user_reviwed).first()
+            # Agrega al producto la información de si ha sido calificado o no
+            product.rated = previous_score is not None
+            sold_products_rated.append(product)
+
+        context = {'sold_products': sold_products_rated}
+        return render(request, 'sold_products.html', context)
+    else:
+        return redirect('login')
+
+
+
+@csrf_exempt
+def rate_seller(request, seller_id):
+    if request.method == "POST":
+        score_value = request.POST.get('rating')
+        user_reviwer = User.objects.get(user_id=request.session.get('user_id'))
+        user_reviwed = str(seller_id)
+
+        # Comprueba si el usuario ya ha calificado este producto
+        previous_score = UserScore.objects.filter(
+            user_reviwer=user_reviwer, user_reviwed=user_reviwed).first()
+
+        # Si ya existe un voto, redirige al usuario y muestra un mensaje de error
+        if previous_score is not None:
+            messages.error(request, 'Ya has calificado este producto.')
+            return redirect('sold_products')
+
+        # Si no existe un voto, procede a crear uno
+        last_score = UserScore.objects.all().order_by('-score_id').first()
+        new_score_id = 1 if last_score is None else last_score.score_id + 1
+
+        score = UserScore(score_id=new_score_id, user_reviwer=user_reviwer, user_reviwed=user_reviwed, score_date=datetime.date.today(), score_value=score_value)
+        score.save()
+
+        messages.success(
+            request, f'Muchas gracias por calificar a {score.user_reviwed}!')
+        return redirect('sold_products')
+    else:
+        return JsonResponse({"success": False, "error": "Invalid request"})

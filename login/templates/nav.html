@@ -16,6 +16,8 @@
 
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'create_product' %}">Publicar un producto</a>
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'favorites' %}">Ver mis fav</a>
+                <a class="tind-nav-btn nav-link ms-2" href="{% url 'sold_products' %}">Mis Adquiridos</a>
+
                 <a class="tind-nav-btn nav-link ms-2 d-flex align-items-center d-flex align-items-center"
                     href="{% url 'logout' %}">
                     {% with user.user_name1 as username %}
@@ -29,7 +31,8 @@
                 </a>
                 {% elif request.path == '/admin-login/' %}
                 <!-- Si es así, mostramos solo el botón de logout -->
-                <a class="tind-nav-btn nav-link ms-2 d-flex align-items-center d-flex align-items-center" href="{% url 'logout' %}">Logout</a>
+                <a class="tind-nav-btn nav-link ms-2 d-flex align-items-center d-flex align-items-center"
+                    href="{% url 'logout' %}">Logout</a>
                 {% else %}
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'login' %}">Iniciar sesión</a>
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'register' %}">Registrarse</a>

@@ -1,3 +1,4 @@
+from .models import UserScore
 from django import forms
 from .models import Comment, User
 
@@ -27,3 +28,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['text']
+
+
+class UserScoreForm(forms.ModelForm):
+    class Meta:
+        model = UserScore
+        fields = ['user_reviwed', 'score_value']

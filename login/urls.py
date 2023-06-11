@@ -18,6 +18,7 @@ urlpatterns = [
     path('toggle_user_active/', views.toggle_user_active, name='toggle_user_active'),
     path('inactive/', views.inactive, name='inactive'),
     path('toggle_product_active/', views.toggle_product_active, name='toggle_product_active'),
-
+    path('sold_products/', views.sold_products, name='sold_products'),
+    path('rate_seller/<str:seller_id>', views.rate_seller, name='rate_seller'),
 
 ]
