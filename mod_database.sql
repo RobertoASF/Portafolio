@@ -292,14 +292,3 @@ CREATE TABLE user_favorite_product (
     FOREIGN KEY (product_id) REFERENCES product (prod_id) ON DELETE CASCADE,
     UNIQUE (user_id, product_id)
 );
-
---Se crea tabla de comments
-
-CREATE TABLE comment (
-        id_comment SERIAL PRIMARY KEY,
-        product_id VARCHAR(255) NOT NULL,
-        user_id VARCHAR(255) NOT NULL,
-        text TEXT NOT NULL,
-        FOREIGN KEY (product_id) REFERENCES "product" (prod_id),
-        FOREIGN KEY (user_id) REFERENCES "user" (user_id)
-    );
