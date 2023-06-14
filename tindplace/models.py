@@ -241,15 +241,3 @@ class UserFavoriteProduct(models.Model):
         managed = False
         db_table = 'user_favorite_product'
         unique_together = (('user', 'product'),)
-
-
-class UserScore(models.Model):
-    score_id = models.IntegerField(primary_key=True)
-    user_reviwer = models.ForeignKey(User, models.DO_NOTHING, db_column='user_reviwer', blank=True, null=True)
-    user_reviwed = models.CharField(max_length=255)
-    score_date = models.DateField()
-    score_value = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'user_score'
