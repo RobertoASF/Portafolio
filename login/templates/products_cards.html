@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style>
+  .like-btn {
+    cursor: pointer;
+  }
+  .modal{
+      --bs-modal-width: 80%;
+  
+      overflow-y: auto;
+      outline: 0;
+  }
+  
+  .modal-content{
+    background-color: transparent;
+  }
+  .tind-modal-r-content {
+    border-radius: 30px;
+  }
+  .tind-modal-r-content {
+    border-radius: 30px;
+    overflow: hidden;
+  }
+  
+  .tind-modal-title{
+    font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  }
+  .tind-modal-price {
+    font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+  }
+  .tind-modal-body{
+    font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  }
+</style>
+<div class="container">
+  <h4 class="display-3 my-3">Los productos mas deseados</h4>
+  <div class="row">
+    {% for product in products %}
+    <div class="col-sm-12 pb-3">
+      <div class="card  shadow">
+        <div class="card-body p-0 overflow-hidden">
+          <div class="row">
+            <div class="col-2 d-flex justify-content-center align-items-center flex-column">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F5487F" class="bi bi-heart-fill"
+                viewBox="0 0 16 16">
+                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+              </svg>
+              <p class="card-text ml-2">Likes: {{ product.likes }}</p>
+            </div>
+            {% if product.prod_photo.url %}
+            <div class="carousel-item active">
+              <img src="{{ product.prod_photo.url }}" class="card-img-top col-3" alt="imagen {{ product.prod_name }}">
+
+            </div>
+            {% else %}
+            <div class="col d-flex align-items-center p-3 bg-light justify-content-center">
+              <svg height="60" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-3">
+                <path
+                  d="M28 1.414L26.586 0L0 26.586L1.414 28L3.414 26H24C24.5302 25.9992 25.0384 25.7882 25.4133 25.4133C25.7882 25.0384 25.9992 24.5302 26 24V3.414L28 1.414ZM24 24H5.414L13.207 16.207L15.586 18.586C15.9611 18.9609 16.4697 19.1716 17 19.1716C17.5303 19.1716 18.0389 18.9609 18.414 18.586L20 17L24 20.997V24ZM24 18.168L21.414 15.582C21.0389 15.2071 20.5303 14.9964 20 14.9964C19.4697 14.9964 18.9611 15.2071 18.586 15.582L17 17.168L14.623 14.791L24 5.414V18.168ZM4 20V17L9 12.003L10.373 13.377L11.789 11.961L10.414 10.586C10.0389 10.2111 9.53033 10.0004 9 10.0004C8.46967 10.0004 7.96106 10.2111 7.586 10.586L4 14.172V4H20V2H4C3.46973 2.00053 2.96133 2.21141 2.58637 2.58637C2.21141 2.96133 2.00053 3.46973 2 4V20H4Z"
+                  fill="black" />
+              </svg>
+              <p class="m-0">
+                <b>¡Ups!</b> al parecer este producto<br> <i>no tiene imagen</i>
+              </p>
+            </div>
+            {% endif %}
+            <div class="col d-flex justify-content-center align-self-center align-items-center flex-column">
+              <h5 class="card-title p-0 m-0">{{ product.prod_name }}</h5>
+              <p class="card-text p-0 m-0">{{ product.prod_description }}</p>
+            </div>
+            <div class="col d-flex justify-content-center align-self-center align-items-center">
+              <p class="card-text ">Vendedor: {{ product.seller.user_name1 }} {{ product.seller.user_surname1 }}</p>
+            </div>
+            <div class="col d-flex justify-content-center align-self-center align-items-center">
+              <a class="tind-btn-buy btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#productModal"
+                data-prod-id="{{ product.prod_id }}" role="button"> Lo quiero </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="row">
+        <div class="modal-body" id="productModalBody">
+          <!-- Los detalles del producto se cargarán aquí -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  // Definir imgError fuera del bloque $(document).ready
+  function imgError(image) {
+    image.onerror = "";
+    image.src = "";
+    let svg = '<svg  height="60" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-3"><path d="M28 1.414L26.586 0L0 26.586L1.414 28L3.414 26H24C24.5302 25.9992 25.0384 25.7882 25.4133 25.4133C25.7882 25.0384 25.9992 24.5302 26 24V3.414L28 1.414ZM24 24H5.414L13.207 16.207L15.586 18.586C15.9611 18.9609 16.4697 19.1716 17 19.1716C17.5303 19.1716 18.0389 18.9609 18.414 18.586L20 17L24 20.997V24ZM24 18.168L21.414 15.582C21.0389 15.2071 20.5303 14.9964 20 14.9964C19.4697 14.9964 18.9611 15.2071 18.586 15.582L17 17.168L14.623 14.791L24 5.414V18.168ZM4 20V17L9 12.003L10.373 13.377L11.789 11.961L10.414 10.586C10.0389 10.2111 9.53033 10.0004 9 10.0004C8.46967 10.0004 7.96106 10.2111 7.586 10.586L4 14.172V4H20V2H4C3.46973 2.00053 2.96133 2.21141 2.58637 2.58637C2.21141 2.96133 2.00053 3.46973 2 4V20H4Z" fill="black" /></svg>';
+    image.outerHTML = '<div class="w-100 position-relative d-flex align-items-center p-3 bg-light justify-content-center" style="height: 238px;">' + svg + '<p class="m-0"><b>¡Ups!</b> al parecer este producto<br> <i>no tiene imagen</i></p></div>';
+    return true;
+  }
+
+
+  $(document).ready(function () {
+    $('.like-btn').click(function () {
+      $(this).addClass('animate__animated animate__tada');
+    });
+    // Ocultar todas las tarjetas de productos
+    $('.card').hide();
+    $('#footer').hide();
+
+    // Iterar sobre cada tarjeta de producto y mostrarla con un retraso
+    $('.card').each(function (index) {
+      var productCard = $(this);
+      setTimeout(function () {
+        productCard.addClass('animate__animated animate__fadeInUp');
+        productCard.show();
+      }, 200 * index);
+    });
+    $('#footer').show();
+    $('.tind-btn-buy').click(function () {
+      var prodId = $(this).data('prod-id');
+      var url = "{% url 'product_detail' 'prod_id_placeholder' %}".replace('prod_id_placeholder', prodId);
+      $.get(url, function (data) {
+        console.log(data);
+        $('#productModalBody').html(data);
+      });
+    });
+
+  });
+</script>
+{% endblock %}

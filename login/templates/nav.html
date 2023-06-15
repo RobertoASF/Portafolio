@@ -17,6 +17,7 @@
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'create_product' %}">Publicar un producto</a>
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'favorites' %}">Ver mis fav</a>
                 <a class="tind-nav-btn nav-link ms-2" href="{% url 'sold_products' %}">Mis Adquiridos</a>
+                
 
                 <a class="tind-nav-btn nav-link ms-2 d-flex align-items-center d-flex align-items-center"
                     href="{% url 'logout' %}">
@@ -67,7 +68,7 @@
             </a>
         </div>
         <div class="col-2">
-            <a href="" class="tind-second-bar-btn">
+            <a href="{% url 'products-cards' %}" class="tind-second-bar-btn">
                 Los más fav
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
