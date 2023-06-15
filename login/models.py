@@ -181,7 +181,7 @@ class User(models.Model):
     user_active = models.BooleanField()
     user_inetrest1 = models.IntegerField()
     user_interest2 = models.IntegerField()
-    user_photo = models.CharField(max_length=255)
+    user_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
     user_sells = models.IntegerField()
     user_is_premium = models.BooleanField()
     user_premium_start = models.DateField(blank=True, null=True)

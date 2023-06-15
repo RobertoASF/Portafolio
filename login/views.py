@@ -156,7 +156,7 @@ def logout(request):
 
 
 def register(request):
-    form = RegistrationForm(request.POST or None)
+    form = RegistrationForm(request.POST, request.FILES or None)
     if form.is_valid():
         user = User(
             user_id=form.cleaned_data['user_id'],

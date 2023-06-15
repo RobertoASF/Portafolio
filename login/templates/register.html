@@ -6,7 +6,7 @@
           
     <div class="col-5 p-4 card shadow-sm">
 
-      <form method="post" class="">
+      <form method="post" class="" enctype="multipart/form-data">
         {% csrf_token %}
       
         <div class="form-group">
@@ -81,8 +81,7 @@
       
         <div class="form-group">
           <label for="user_photo">Foto:</label>
-          <input type="text" id="user_photo" name="user_photo" class="form-control"
-            value="{{ form.user_photo.value|default:'' }}">
+          <input type="file" id="user_photo" name="user_photo" class="form-control">
           {{ form.user_photo.errors }}
         </div>
       

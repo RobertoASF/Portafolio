@@ -18,7 +18,7 @@ class RegistrationForm(forms.Form):
     user_phone = forms.IntegerField(label='Teléfono')
     user_inetrest1 = forms.IntegerField(label='Interés 1')
     user_interest2 = forms.IntegerField(label='Interés 2')
-    user_photo = forms.CharField(label='Foto', max_length=255)
+    user_photo = forms.ImageField(label='Foto', required=False)
 
 class AdminForm(forms.Form):
     admin_email = forms.CharField(max_length=255)
