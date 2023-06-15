@@ -1,4 +1,6 @@
 <!-- Aquí es donde renderizas los detalles de cada producto -->
+{% load humanize %}
+
 <div class="row">
     <div class="col-12 col-md-6 d-flex align-items-center">
         <div id="carouselExample" class="carousel slide w-100 tind-modal-r-content">
@@ -74,7 +76,7 @@
         <div class="row">
             <div class="col">
                 <p class="tind-modal-title">Nombre del producto: {{ product.prod_name }}</p>
-                <p class="tind-modal-price">Precio : {{ product.prod_price }}</p>
+                <p class="tind-modal-price">Precio : {{ product.prod_price| intcomma }}</p>
             </div>
             <div class="col-2 d-flex justify-content-center align-items-center ">
                 {% include 'btn-like.html' %}
@@ -95,15 +97,15 @@
                 <div class="mb-3 shadow p-3 rounded">
                     <div class="card-body">
                         <div class="d-flex flex-start align-items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor" class="bi bi-person-circle shadow-1-strong me-3"
-                                    viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                    <path fill-rule="evenodd"
-                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor"
+                                class="bi bi-person-circle shadow-1-strong me-3" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                            </svg>
                             <div class="w-100">
                                 <div class="d-flex justify-content-between align-items-center ">
-                                    <h6 class="fw-bold mb-0 text-body-tertiary" >
+                                    <h6 class="fw-bold mb-0 text-body-tertiary">
                                         {{ comment.user.user_name1 }} {{ comment.user.user_surname1}}
                                         <span style="color:#F5487F;">{{ comment.text }}</span>
                                     </h6>
@@ -112,7 +114,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="small mb-0" style="color: #aaa;">
                                         <a href="#!" class="link-grey text-black-50 text-decoration-none">Remove</a> •
-                                        <a href="#!" class="link-grey text-black-50  text-decoration-none">Reply</a> 
+                                        <a href="#!" class="link-grey text-black-50  text-decoration-none">Reply</a>
                                     </p>
                                     <div class="d-flex flex-row">
                                         <i class="fas fa-star text-warning me-2"></i>
@@ -146,9 +148,10 @@
 
 
         <div class="row mt-5">
-            <div class="">
-                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button
-                    class="btn btn-primary col-12">Lo quiero</a>
+            <div class="d-flex justify-content-around">
+                <a href="{% url 'comprar_producto' prod_id=product.prod_id  %} " button class="btn btn-primary col-5"> <b>¡Ahora si!</b> Lo
+                    quiero</a>
+                <button type="button" class="btn btn-outline-secondary col-5" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
