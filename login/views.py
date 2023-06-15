@@ -361,8 +361,6 @@ def rate_seller(request, seller_id):
     else:
         return JsonResponse({"success": False, "error": "Invalid request"})
 
-
-
 def products_cards_view(request):
     # Obtén todos los productos, anota con el número de 'likes' y ordénalos en orden descendente
     products = Product.objects.annotate(likes=Count('userfavoriteproduct')).order_by('-likes')
