@@ -33,3 +33,5 @@ node_modules/
 .vscode/
 *.sqlite3
 tindplace/.env
+/profile_photos/*.png
+/profile_photos/*.jpg
