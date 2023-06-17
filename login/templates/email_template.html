@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Confirmación de Compra</h1>
+    <p>Hola {{ buyer.user_name1 }},</p>
+    <p>Gracias por tu compra del producto {{ producto.prod_name }} del vendedor {{ seller.user_name1 }}.</p>
+    <p>Los detalles de contacto del vendedor son los siguientes:</p>
+    <p>Correo electrónico: {{ seller.user_email }}</p>
+    {% if seller.user_phone %}
+    <p>Número de teléfono: {{ seller.user_phone }}</p>
+    {% endif %}
+    <p>Esperamos que disfrutes de tu compra.</p>
+    <p>Saludos,</p>
+    <p>Tu Equipo de Tindplace <img class="ms-3" style="width: 20px;" src="{% static 'tind-icon.svg' %}"
+        alt=""></p>
+</body>
+</html>

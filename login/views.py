@@ -244,6 +244,10 @@ def like_product(request, product_id):
         return JsonResponse({"error": "Invalid method"})
 
 
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+
 def comprar_producto(request, prod_id):
     producto = get_object_or_404(Product, prod_id=prod_id)
 
@@ -265,8 +269,27 @@ def comprar_producto(request, prod_id):
     )
     historical_entry.save()
 
-    return redirect('pagina_de_confirmacion')
+    # Fetch buyer and seller users
+    buyer = User.objects.get(user_id=request.session.get('user_id'))
+    seller = producto.prod_seller
 
+    # Prepare email
+    message = render_to_string('email_template.html', {
+        'buyer': buyer,
+        'seller': seller,
+        'producto': producto
+    })
+
+    send_mail(
+        'Confirmación de compra',  # Subject
+        '',  # Message (left empty)
+        settings.EMAIL_HOST_USER,  # From Email
+        [buyer.user_email],  # To Email
+        html_message=message,  # HTML Message
+        fail_silently=False,
+    )
+
+    return redirect('pagina_de_confirmacion')
 
 def pagina_de_confirmacion(request):
     return render(request, 'confirmacion.html', {'hide_footer': True})
@@ -370,3 +393,22 @@ def products_cards_view(request):
         product.seller = product.prod_seller
 
     return render(request, 'products_cards.html', {'products': products})
+
+from django.core.mail import send_mail
+from django.http import JsonResponse
+
+def send_contact_info(request, buyer_id, seller_id):
+    buyer = User.objects.get(user_id=buyer_id)
+    seller = User.objects.get(user_id=seller_id)
+    
+    subject = "Gracias por confiar en TindPlace"
+    message = f"Gracias por confiar en TindPlace. A continuación te facilitamos el contacto de tu vendedor:\nNombre: {seller.user_name1} {seller.user_surname1}\nEmail: {seller.user_email}\nTeléfono: {seller.user_phone}\nPor favor, recuerda mantener la cortesía y el respeto en tus comunicaciones."
+    from_email = 'your-email@example.com'  # Replace with your email
+    to_list = [buyer.user_email]
+    
+    try:
+        send_mail(subject, message, from_email, to_list, fail_silently=False)
+        return JsonResponse({"success": True, "message": "Correo enviado exitosamente."})
+    except Exception as e:
+        return JsonResponse({"success": False, "message": str(e)})
+
