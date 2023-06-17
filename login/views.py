@@ -247,8 +247,21 @@ def like_product(request, product_id):
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.http import HttpResponse
+
+def check_email_variables():
+    # List of all required environment variables for email
+    required_env_vars = ["EMAIL_BACKEND", "EMAIL_HOST", "EMAIL_PORT", "EMAIL_USE_TLS", "EMAIL_HOST_USER", "EMAIL_HOST_PASSWORD"]
+
+    for var in required_env_vars:
+        if not getattr(settings, var, None):
+            return False
+    return True
 
 def comprar_producto(request, prod_id):
+    if not check_email_variables():
+        return HttpResponse('Variables de entorno para correo no encontradas.')
+
     producto = get_object_or_404(Product, prod_id=prod_id)
 
     producto.prod_active = False
