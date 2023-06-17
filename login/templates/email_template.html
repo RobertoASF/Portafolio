@@ -1,19 +1,71 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html>
-<body>
-    <h1>Confirmación de Compra</h1>
-    <p>Hola {{ buyer.user_name1 }},</p>
-    <p>Gracias por tu compra del producto {{ producto.prod_name }} del vendedor {{ seller.user_name1 }}.</p>
-    <p>Los detalles de contacto del vendedor son los siguientes:</p>
-    <p>Correo electrónico: {{ seller.user_email }}</p>
-    {% if seller.user_phone %}
-    <p>Número de teléfono: {{ seller.user_phone }}</p>
-    {% endif %}
-    <p>Esperamos que disfrutes de tu compra.</p>
-    <p>Saludos,</p>
-    <p>Tu Equipo de Tindplace <img class="ms-3" style="width: 20px;" src="{% static 'tind-icon.svg' %}"
-        alt=""></p>
+<head>
+    <title>Email Template</title>
+</head>
+<body style="margin: 0; padding: 0;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+            <td align="center" bgcolor="#F5487F" style="padding: 40px 0 30px 0;">
+                <h1 class="display-3 my-3" style="color: white;">Confirmación de Adquisición <img src="https://drive.google.com/file/d/1V8oOxlk7O4Jaag46gtzEVXdlDtHtlwTu/view?usp=sharing" style="width: 20px;" alt=""></h1>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td style="border-radius:50%; width:50%;">
+                            <div class="
+                            " style="
+                            background-image: url(https://img.freepik.com/free-photo/concept-shopping-holidays-lifestyle-cheerful-young-man-celebrating-holding-paper-bag-making-fist-pump-like-winner-standing-blue-background_1258-66601.jpg?w=2000&t=st=1687026598~exp=1687027198~hmac=e0b502e…);
+                            background-repeat: no-repeat;
+                            background-position-y: -200px;
+                            background-size: cover;
+                            height: 300px;
+                            border-radius: 40px;
+                            ">
+                            </div>                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 25px 0 0 0;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td width="260" valign="top">
+                                        <div style="width: 50%; margin-right: 10px;">
+                                            <div>
+                                                <b>Hola {{ buyer.user_name1 }} !,</b>
+                                                <p>Gracias por tu Adquisición del producto {{ producto.prod_name }} del vendedor {{ seller.user_name1 }} {{ seller.user_surname1 }}.</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
+                                    <td width="260" valign="top">
+                                        <div style="width: 50%; margin-left: 10px;">
+                                            <b>Los detalles de contacto del vendedor son los siguientes:</b>
+                                            <p>Correo electrónico: {{ seller.user_email }}</p>
+                                            {% if seller.user_phone %}
+                                            <p>Número de teléfono: {{ seller.user_phone }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="width: 100%;">
+                                <div class="col text-center">
+                                    <p>Esperamos que disfrutes de tu producto.</p>
+                                    <p>Saludos,</p>
+                                    <b>Tu Equipo de Tindplace <img src="https://drive.google.com/file/d/1V8oOxlk7O4Jaag46gtzEVXdlDtHtlwTu/view?usp=sharing" style="width: 20px;" alt=""></b>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -22,8 +22,7 @@ def login(request):
             user_email = form.cleaned_data['user_email']
             user_password = form.cleaned_data['user_password']
             try:
-                user = User.objects.get(
-                    user_email=user_email, user_password=user_password)
+                user = User.objects.filter(user_email=request.POST['user_email']).first()
                 if user.user_active:   # Comprobar si el usuario está activo
                     request.session['user_id'] = user.user_id
                     # Redirige al usuario a la vista 'home' después del inicio de sesión
