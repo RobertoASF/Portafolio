@@ -1,4 +1,4 @@
-from .models import UserScore
+from .models import Affinity, UserScore
 from django import forms
 from .models import Comment, User
 
@@ -16,8 +16,16 @@ class RegistrationForm(forms.Form):
     user_email = forms.EmailField(label='Correo electrónico', max_length=255)
     user_password = forms.CharField(label='Contraseña', max_length=255, widget=forms.PasswordInput)
     user_phone = forms.IntegerField(label='Teléfono')
-    user_inetrest1 = forms.IntegerField(label='Interés 1')
-    user_interest2 = forms.IntegerField(label='Interés 2')
+    user_inetrest1 = forms.ModelChoiceField(
+        label='Interés 1',
+        queryset=Affinity.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    user_interest2 = forms.ModelChoiceField(
+        label='Interés 2',
+        queryset=Affinity.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
     user_photo = forms.ImageField(label='Foto', required=False)
 
 class AdminForm(forms.Form):

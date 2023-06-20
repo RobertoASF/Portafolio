@@ -67,17 +67,15 @@
       
         <div class="form-group">
           <label for="user_inetrest1">Interés 1:</label>
-          <input type="text" id="user_inetrest1" name="user_inetrest1" class="form-control" required
-            value="{{ form.user_inetrest1.value|default:'' }}">
+          {{ form.user_inetrest1 }}
           {{ form.user_inetrest1.errors }}
-        </div>
+      </div>
       
-        <div class="form-group">
+      <div class="form-group">
           <label for="user_interest2">Interés 2:</label>
-          <input type="text" id="user_interest2" name="user_interest2" class="form-control"
-            value="{{ form.user_interest2.value|default:'' }}">
+          {{ form.user_interest2 }}
           {{ form.user_interest2.errors }}
-        </div>
+      </div>
       
         <div class="form-group">
           <label for="user_photo">Foto:</label>

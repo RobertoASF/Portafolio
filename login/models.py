@@ -40,6 +40,9 @@ class Affinity(models.Model):
         managed = False
         db_table = 'affinity'
 
+    def __str__(self):
+        return self.af_name
+
 
 class Category(models.Model):
     cat_id = models.IntegerField(primary_key=True)
