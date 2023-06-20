@@ -32,9 +32,7 @@
                         <div class="col-5 tind-desc text-center d-flex align-items-center">
                             <p class="p-0 m-0">Publicado hace: <br> {{ product.prod_date|timesince }}</p>
                         </div>
-                        <div class="col-5 tind-btn-preferences">
-                            {% include 'categories.html' %}
-                        </div>
+                        {% include 'categories.html' %}
                     </div>
 
                     <p class="tind-desc">Descripción: {{ product.prod_description }}</p>
@@ -160,7 +158,7 @@
 
 <script>
 
-        // Definir imgError fuera del bloque $(document).ready
+    // Definir imgError fuera del bloque $(document).ready
     function imgError(image) {
         image.onerror = "";
         image.src = "";

@@ -9,6 +9,7 @@ import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import (
+    Affinity,
     Historical,
     Product,
     User,
@@ -103,7 +104,7 @@ def home(request):
         except User.DoesNotExist:
             context = {"message": "No se pudo encontrar al usuario"}
     else:
-        context = {"message": "¿Aún no te registras?, prueba ahora TindPlace"}
+        context = {"message": "¿Aún no te registras? Prueba ahora TindPlace"}
 
     if user:
         # Filtra productos que coinciden con los intereses del usuario y están activos
@@ -119,7 +120,11 @@ def home(request):
         # Filtra productos que están activos
         products = Product.objects.filter(prod_active=True)
 
+    # Obtener todas las afinidades
+    affinities = Affinity.objects.all()
+
     context["products"] = products
+    context["affinities"] = affinities
     return render(request, "home.html", context)
 
 
@@ -145,7 +150,7 @@ def product_detail(request, prod_id):
 
     else:
         form = CommentForm()
-
+    
     return render(
         request,
         "product_detail.html",
@@ -168,9 +173,11 @@ def all_products(request):
 
     # Ordena los productos activos por la fecha de creación de manera descendente
     products = Product.objects.filter(prod_active=True).order_by("-prod_date")
+    affinities = Affinity.objects.all()
+
 
     return render(
-        request, "all_products.html", {"products": products, "context": context}
+        request, "all_products.html", {"products": products, "context": context,"affinities":affinities}
     )
 
 

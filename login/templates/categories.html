@@ -1,13 +1,9 @@
-{% if product.prod_affinitie1 == 1 %}
-Computación
-{% elif product.prod_affinitie1 == 2 %}
-Eletronica
-{% elif product.prod_affinitie1 == 3 %}
-Vestuario
-{% elif product.prod_affinitie1 == 4 %}
-Fotografía
-{% elif product.prod_affinitie1 == 5 %}
-Ocio
-{% else %}
-otro categoria
-{% endif %}
+<div class="col-5 tind-btn-preferences">
+    {% for affinity in affinities %}
+    {% if product.prod_affinitie1 == affinity.af_id %}
+    {{ affinity.af_name }}
+    {% endif %}
+    {% empty %}
+    Otro categoría
+    {% endfor %}
+</div>
